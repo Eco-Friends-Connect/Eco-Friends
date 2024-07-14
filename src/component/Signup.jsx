@@ -1,4 +1,4 @@
-import styles from "./Signup.module.css"
+import styles from "./Signup.module.scss"
 
 export default function SignupForm(){
     return(
