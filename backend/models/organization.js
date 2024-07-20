@@ -1,18 +1,15 @@
 import mongoose from "mongoose";
 
 const organizationSchema = new mongoose.Schema({
-    org_name: String,
-    org_description: String,
-    org_location: {
+    name: String,
+    description: String,
+    location: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'OrgLocation'
-    },
-    org_events: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'OrgEvent'
-    }]  
+        ref: 'location',
+        index: true
+    }
 });
 
-const Organizations = mongoose.model('Organization', organizationSchema);
+const Organization = mongoose.model('organization', organizationSchema);
 
-export default Organizations;
+export default Organization;
