@@ -3,15 +3,21 @@ import mongoose from "mongoose";
 const eventSchema = new mongoose.Schema({
     title: String,
     description: String,
-    date: Date,
+    deadline: Date,
     loc_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'location'
+        ref: 'location',
+        index: true
     },
     badge: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'badge'
+        ref: 'badge',
+        index: true
     },
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const event = mongoose.model('event', eventSchema);

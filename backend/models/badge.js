@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const badgeSchema = new mongoose.Schema({
-    event_id: {type: mongoose.Schema.Types.ObjectId,ref: 'event'},
+    event_id: {type: mongoose.Schema.Types.ObjectId,ref: 'event', index: true},
     title: {type: String,required: true},
     description: {type: String},
     image: {type: String},

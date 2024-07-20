@@ -5,12 +5,9 @@ const organizationSchema = new mongoose.Schema({
     description: String,
     location: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'location'
-    },
-    events: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'event'
-    }]  
+        ref: 'location',
+        index: true
+    }
 });
 
 const Organization = mongoose.model('organization', organizationSchema);
