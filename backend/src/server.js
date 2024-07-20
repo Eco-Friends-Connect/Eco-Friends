@@ -3,9 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config.js';
 import process from 'process';
-// routers
-import userRouter from './api/user_api.js';
-// import orgRouter from './api/org_api.js';
+// router
+import post_api from './api/post_api.js';
 
 const app = express();
 
@@ -22,8 +21,8 @@ app.get('/', (req, res) => {
     res.send('The Backend is running');
 });
 
-app.use('/api/user', userRouter);
-app.use('/api/org', userRouter);
+app.use('/api/post', post_api);
+
 // environment variables
 dotenv.config();
 const PORT = process.env.PORT || 5000;
