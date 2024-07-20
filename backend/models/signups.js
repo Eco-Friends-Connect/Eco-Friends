@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const signupSchema = new mongoose.Schema({
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    account_id: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     event_id: { type: mongoose.Schema.Types.ObjectId, ref: 'event' },
     date: Date,
-    status: String,
+    status: String, // 'pending', 'approved', 'rejected'
 });
 
 const signup = mongoose.model('signup', signupSchema);
