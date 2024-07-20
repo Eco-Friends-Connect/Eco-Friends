@@ -7,6 +7,6 @@ const signupSchema = new mongoose.Schema({
     status: String, // 'pending', 'approved', 'rejected'
 });
 
-const signup = mongoose.model('signup', signupSchema);
+const Signup = mongoose.model('signup', signupSchema);
 
-export default signup;
+export default Signup;

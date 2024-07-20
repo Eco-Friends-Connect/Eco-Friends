@@ -9,6 +9,6 @@ const locationSchema = new mongoose.Schema({
     country: String,
 });
 
-const location = mongoose.model('location', locationSchema);
+const Location = mongoose.model('location', locationSchema);
 
-export default location;
+export default Location;
