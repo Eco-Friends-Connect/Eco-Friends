@@ -21,12 +21,8 @@ module.exports = {
     'camelcase': 'error',
     // Enforce PascalCase for user-defined JSX components
     'react/jsx-pascal-case': 'error',
-    // Enforce lowercase filenames
-    'filenames/match-regex': [2, '[a-z][a-zA-Z0-9]+$', true],
-    // Enforce 2-space indentation
-    'indent': ['error', 2],
-    // Enforce single quotes for strings
-    'quotes': ['error', 'single'],
+    // Enforce kebab-case for filenames
+    'filenames/match-regex': ['error', '^[a-z0-9-]+$', true],
     // Enforce semicolons at the end of statements
     'semi': ['error', 'always'],
   },
