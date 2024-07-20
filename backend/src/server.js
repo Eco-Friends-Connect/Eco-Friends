@@ -5,7 +5,7 @@ import connectDB from './config.js';
 import process from 'process';
 // routers
 import userRouter from './api/user_api.js';
-// import orgRouter from './api/org_api.js';
+import orgRouter from './api/org_api.js';
 
 const app = express();
 
@@ -23,7 +23,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRouter);
-app.use('/api/org', userRouter);
+app.use('/api/org', orgRouter);
+
 // environment variables
 dotenv.config();
 const PORT = process.env.PORT || 5000;

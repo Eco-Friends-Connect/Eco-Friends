@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
         user_email,
         user_password,
         user_birth_date,
-        user_is_org: false,
+        user_is_org: false
     });
 
     try {
