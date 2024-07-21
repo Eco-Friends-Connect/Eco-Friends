@@ -1,4 +1,4 @@
-name: Lint and Fix
+name: ESLint Test Workflow for Naming Conventions 
 
 on:
   pull_request:
