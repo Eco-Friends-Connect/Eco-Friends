@@ -5,11 +5,11 @@ import process from 'process';
 
 dotenv.config();
 
-const MONGO_URI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.REACT_APP_MONGO_URI}`;
+const MONGO_URL = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}/${process.env.MONGODB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(MONGO_URI);
+        await mongoose.connect(MONGO_URL);
         console.log('MongoDB connected');
     } catch (error) {
         console.error('MongoDB connection failed');
