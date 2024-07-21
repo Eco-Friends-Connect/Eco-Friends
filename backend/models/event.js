@@ -4,7 +4,7 @@ const eventSchema = new mongoose.Schema({
     title: String,
     description: String,
     deadline: Date,
-    loc_id: {
+    locId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'location',
         index: true
@@ -14,7 +14,7 @@ const eventSchema = new mongoose.Schema({
         ref: 'badge',
         index: true
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now
     }

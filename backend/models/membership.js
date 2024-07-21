@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 
 const membershipSchema = new mongoose.Schema({
-    account_id: {
+    accountId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         index: true
     },
-    org_id: {
+    orgId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'organization',
         index: true
     },
     role: String,
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now
     }

@@ -1,4 +1,4 @@
-import DateCalendarServerRequest from "../component/SmallCalendar"
+import DateCalendarServerRequest from "../component/SmallCalendar";
 
 export default function UserPage(){
     return(
@@ -10,5 +10,5 @@ export default function UserPage(){
         </>
 
 
-    )
+    );
 }

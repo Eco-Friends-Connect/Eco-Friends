@@ -1,4 +1,4 @@
-import styles from "./Signup.module.scss"
+import styles from "./Signup.module.scss";
 
 export default function SignupForm(){
     return(
@@ -38,5 +38,5 @@ export default function SignupForm(){
      <button  type="submit">Submit</button>
 </form>
 </>
-)
+);
 }

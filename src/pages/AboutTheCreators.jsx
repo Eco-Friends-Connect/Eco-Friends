@@ -5,5 +5,5 @@ export default function AboutTheCreators(){
         </h1>
 
 
-    )
+    );
 }

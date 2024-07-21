@@ -5,5 +5,5 @@ export default function LeaderBoard(){
         </h1>
 
 
-    )
+    );
 }
