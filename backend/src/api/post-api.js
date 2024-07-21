@@ -7,10 +7,10 @@ import Badge from '../../models/badge.js';
 import Event from '../../models/event.js';
 import Signup from '../../models/signups.js';
 import OrgEvent from '../../models/org_event.js';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const router = express.Router();
-
+// create a new user
 router.post('/create-user', async (req, res) => {
     const { firstName, lastName, email, password, birthDate } = req.body;
     const auth = req.auth;
@@ -35,6 +35,21 @@ router.post('/create-user', async (req, res) => {
         console.log(error);
     });
     
+}
+);
+
+// login a user
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const auth = req.auth;
+
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user;
+        console.log("login email:", user.email);
+        res.send(user);
+    }).catch((error) => {
+        console.log(error);
+    });
 }
 );
 
