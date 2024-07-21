@@ -31,6 +31,7 @@ function fakeFetch(date, { signal }) {
   });
 }
 
+
 const initialValue = dayjs();
 
 function ServerDay(props) {
