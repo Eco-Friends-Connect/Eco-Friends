@@ -4,7 +4,7 @@ import cors from 'cors';
 import connectDB from './config.js';
 import process from 'process';
 // router
-import post_api from './api/post_api.js';
+import postApi from './api/post-api.js';
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
     res.send('The Backend is running');
 });
 
-app.use('/api/post', post_api);
+app.use('/api/post', postApi);
 
 // environment variables
 dotenv.config();

@@ -9,18 +9,18 @@ import Signup from '../../models/signups.js';
 import OrgEvent from '../../models/org_event.js';
 
 const router = express.Router();
+const dummyAcountId = 'Ck1XsPLJQ3WB8YhZ7Dh2aKmfsJx1'; 
 
 router.post('/create-user', async (req, res) => {
-    const { first_name, last_name, email, birth_date } = req.body;
+    const { firstName, lastName, email, birthDate } = req.body;
     //TODO: replace with actual account id from firebase auth
-    const acountId = 'Ck1XsPLJQ3WB8YhZ7Dh2aKmfsJx1'; 
     console.log(req.body);
     const user = new User({
-        account_id: acountId,
-        first_name,
-        last_name,
+        accountId: dummyAcountId,
+        firstName,
+        lastName,
         email,
-        birth_date,
+        birthDate,
     });
 
     try {
@@ -33,19 +33,18 @@ router.post('/create-user', async (req, res) => {
 );
 
 router.post('/create-org', async (req, res) => {
-    const { org_name, org_description, org_address, org_city, org_state, org_zip, org_country } = req.body;
+    const { name, description, address, city, state, zipCode } = req.body;
     console.log("create-org", req.body);
     const newOrgLocation = new Location({
-        org_address,
-        org_city,
-        org_state,
-        org_zip,
-        org_country,
+        address,
+        city,
+        state,
+        zipCode,
     });
     const org = new Organization({
-        org_name,
-        org_description,
-        org_location: newOrgLocation,
+        name,
+        description,
+        orgLocation: newOrgLocation,
     });
 
     try {
@@ -59,22 +58,17 @@ router.post('/create-org', async (req, res) => {
 );
 
 router.post('/create-event', async (req, res) => {
-    const { event_name, event_description, event_date, event_time, event_location, event_org } = req.body;
+    const { locId, title, description, deadline, badge } = req.body;
     console.log("create-event", req.body);
-    const newEventLocation = new Location({
-        event_location,
-    });
     const event = new Event({
-        event_name,
-        event_description,
-        event_date,
-        event_time,
-        event_location: newEventLocation,
-        event_org,
+        locId,
+        title,
+        description,
+        deadline,
+        badge,
     });
 
     try {
-        await newEventLocation.save();
         await event.save();
         res.send('Event created');
     } catch (error) {
@@ -84,12 +78,12 @@ router.post('/create-event', async (req, res) => {
 );
 
 router.post('/create-badge', async (req, res) => {
-    const { badge_name, badge_description, badge_image } = req.body;
+    const { name, description, imageUrl } = req.body;
     console.log("create-badge", req.body);
     const badge = new Badge({
-        badge_name,
-        badge_description,
-        badge_image,
+        name,
+        description,
+        imageUrl,
     });
 
     try {
@@ -102,11 +96,13 @@ router.post('/create-badge', async (req, res) => {
 );
 
 router.post('/create-signup', async (req, res) => {
-    const { signup_event, signup_user } = req.body;
+    const { accountId, eventId, status } = req.body;
     console.log("create-signup", req.body);
     const signup = new Signup({
-        signup_event,
-        signup_user,
+        accountId,
+        eventId,
+        signupDate: new Date(),
+        status,
     });
 
     try {
@@ -119,15 +115,15 @@ router.post('/create-signup', async (req, res) => {
 );
 
 router.post('/create-org-event', async (req, res) => {
-    const { org_event_org, org_event_event } = req.body;
+    const { orgId, eventId } = req.body;
     console.log("create-org-event", req.body);
-    const org_event = new OrgEvent({
-        org_event_org,
-        org_event_event,
+    const orgEvent = new OrgEvent({
+        orgId,
+        eventId,
     });
 
     try {
-        await org_event.save();
+        await orgEvent.save();
         res.send('Org Event created');
     } catch (error) {
         res.send(error);
@@ -136,11 +132,12 @@ router.post('/create-org-event', async (req, res) => {
 );
 
 router.post('/create-membership', async (req, res) => {
-    const { membership_user, membership_org } = req.body;
+    const { orgId, accountId, role } = req.body;
     console.log("create-membership", req.body);
     const membership = new Membership({
-        membership_user,
-        membership_org,
+        accountId,
+        orgId,
+        role,
     });
 
     try {

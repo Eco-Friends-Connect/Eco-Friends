@@ -5,5 +5,5 @@ export default function OrganizationLogin(){
         </h1>
 
 
-    )
+    );
 }

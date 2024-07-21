@@ -1,22 +1,22 @@
 import mongoose from 'mongoose';
 
 const orgEventSchema = new mongoose.Schema({
-    org_event_id: {
+    orgEventId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'org_event',
         index: true
     },
-    org_id: {
+    orgId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'organization',
         index: true
     },
-    event_id: {
+    eventId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'event',
         index: true
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now
     }

@@ -1,16 +1,16 @@
-import search_bar_styles from './search_bar.module.scss';
+import searchBarStyles from './search_bar.module.scss';
 
 export default function SearchBar() {
     return (
-        <div className={search_bar_styles.container}>
+        <div className={searchBarStyles.container}>
             <form >
                 <div >
-                    <div className={search_bar_styles.searchContainer}>
+                    <div className={searchBarStyles.searchContainer}>
                         <input  type="text" placeholder="Search..." />
                         <button type="submit">Go</button>
                     </div>
 
-                    <div className={search_bar_styles.filterContainer}>
+                    <div className={searchBarStyles.filterContainer}>
                         <input type="checkbox" id="zoo" name="zoo" value="zoo" />
                         <label htmlFor="zoo"> Zoo</label>
                     
@@ -32,6 +32,6 @@ export default function SearchBar() {
             </form>
 
         </div>
-    )
+    );
 }
 

@@ -5,5 +5,5 @@ export default function VolunteerSearch(){
         </h1>
 
 
-    )
+    );
 }

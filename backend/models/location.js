@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const locationSchema = new mongoose.Schema({
-    loc_id: { type: String, required: true, unique: true, index: true },
+    locId: { type: String, required: true, unique: true, index: true },
     address: String,
     city: String,
     state: String,
-    zip_code: String,
+    zipCode: String,
     country: String,
 });
 
