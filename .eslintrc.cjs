@@ -25,5 +25,7 @@ module.exports = {
     'filenames/match-regex': ['error', '^[a-z0-9-]+$', true],
     // Enforce semicolons at the end of statements
     'semi': ['error', 'always'],
+    // Disable Prop-Types validation rule
+    'react/prop-types': 'off',
   },
 }
