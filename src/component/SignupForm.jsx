@@ -12,12 +12,15 @@ function SignupFormPage() {
   };
 
   return (
-    <div className={styles.page}>
-      <h2>Home Page</h2>
-      <Signup />
-      <DateCalendarServerRequest />
+    
+    <body className={styles.page}>
       
-    </div>
+      <Signup />
+      <div className={styles.calendar}>
+        <DateCalendarServerRequest></DateCalendarServerRequest>
+      </div>
+      
+    </body>
   );
 }
 

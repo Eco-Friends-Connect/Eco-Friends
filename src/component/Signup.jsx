@@ -3,36 +3,40 @@ import styles from './Signup.module.scss';
 
 export default function SignupForm() {
   return (
-    <>
-      <form className={styles.form}>
-        <h1>Sign Up</h1>
-        <label className={styles.label}>
-          <input name="firstName" placeholder="First Name" />
-        </label>
-        <label className={styles.label}>
-          <input name="lastName" placeholder="Last Name" />
-        </label>
-        <br />
-        <label className={styles.label}>
-          <input name="email" placeholder="Email Address" />
-        </label>
-        <label className={styles.label}>
-          <input name="username" placeholder="Username" />
-        </label>
-        <br />
-        <label className={styles.label}>
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <label className={styles.label}>
-          <input name="Re-enter Password" type="password" placeholder="Confirm Password" />
-        </label>
-        <br />
-        <label className={styles.label}>
-          <input type="date" name="Birthdate" defaultValue="Birthdate" />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
-    </>
+    <form className={styles.form}>
+      <h1 className={styles.signup}>Sign Up</h1>
+      <div className={styles.container}>
+        <div className={styles.column}>
+          <label className={styles.label}>
+            <input className={styles.input} name="firstName" placeholder="First Name" />
+          </label>
+          <label className={styles.label}>
+            <input className={styles.input} name="email" placeholder="Email Address" />
+          </label>
+          <label className={styles.label}>
+            <input className={styles.input} name="password" type="password" placeholder="Password" />
+          </label>
+        </div>
+        <div className={styles.column}>
+          <label className={styles.label}>
+            <input className={styles.input} name="lastName" placeholder="Last Name" />
+          </label>
+          <label className={styles.label}>
+            <input className={styles.input} name="username" placeholder="Username" />
+          </label>
+          <label className={styles.label}>
+            <input className={styles.input} name="Re-enter Password" type="password" placeholder="Confirm Password" />
+          </label>
+        </div>
+      </div>
+      
+      <div className={styles.buttoncontainer}>
+
+        <input type="date" name="Birthdate" defaultValue="Birthdate" />
+        <div className={styles.paddiv}></div>
+     
+        <button type="submit" className={styles.button}>Submit</button>
+      </div>
+    </form>
   );
 }
