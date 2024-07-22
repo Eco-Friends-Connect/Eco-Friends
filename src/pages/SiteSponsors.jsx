@@ -5,5 +5,5 @@ export default function SiteSponsors(){
         </h1>
 
 
-    )
+    );
 }
