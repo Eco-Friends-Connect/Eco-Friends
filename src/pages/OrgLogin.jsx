@@ -1,7 +1,8 @@
+import LoginForm from "../component/Loginform";
 export default function OrganizationLogin(){
     return(
         <h1>
-            Log In Here
+            <LoginForm></LoginForm>
         </h1>
 
 
