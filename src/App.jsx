@@ -11,6 +11,8 @@ import EcoChat from './pages/Eco-Chat';
 import AboutTheCreators from './pages/AboutTheCreators';
 import SignupFormPage from './component/SignupForm'; 
 import NotFound from './pages/NotFound'; 
+import SiteSponsors from './pages/SiteSponsors.jsx';
+import Footer from './component/Footer.jsx';
 
 function App() {
   return (
@@ -29,7 +31,9 @@ function App() {
           <Route path="/signup" element={<SignupFormPage />} /> 
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/sitesponsors" element={<SiteSponsors />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
