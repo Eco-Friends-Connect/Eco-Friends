@@ -1,15 +1,16 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
+//import { useNavigate } from 'react-router-dom';
 import Signup from './Signup';
 import DateCalendarServerRequest from './SmallCalendar';
-import styles from './Signup.module.scss'
+import styles from './Signup.module.scss';
 
 function SignupFormPage() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  const handleSignupClick = () => {
+  /*const handleSignupClick = () => {
     navigate('/signup');
   };
+  */
 
   return (
     

@@ -1,5 +1,5 @@
 import { AboutPage } from '../component/about-the-site-text.jsx'; 
-import styles from '../component/AboutTheSiteText.module.scss'
+import styles from '../component/AboutTheSiteText.module.scss';
 
 
 
