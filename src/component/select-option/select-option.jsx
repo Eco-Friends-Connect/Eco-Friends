@@ -1,5 +1,5 @@
 // import React from 'react';
-import EcoButton from './button';
+import EcoButton from '../button/button';
 import style from "./select-option.module.scss";
 
 function SelectOption({ question, options }) {
