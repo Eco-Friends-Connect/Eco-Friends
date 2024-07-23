@@ -1,8 +1,8 @@
 
 //import { useNavigate } from 'react-router-dom';
-import Signup from './Signup';
+import Signup from '../component/signup-form/Signup';
 import DateCalendarServerRequest from './SmallCalendar';
-import styles from './Signup.module.scss';
+import styles from '../component/signup-form/Signup.module.scss';
 
 function SignupFormPage() {
   //const navigate = useNavigate();
@@ -14,14 +14,14 @@ function SignupFormPage() {
 
   return (
     
-    <body className={styles.page}>
+    <div className={styles.page}>
       
       <Signup />
       <div className={styles.calendar}>
         <DateCalendarServerRequest></DateCalendarServerRequest>
       </div>
       
-    </body>
+    </div>
   );
 }
 

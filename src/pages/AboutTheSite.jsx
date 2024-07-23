@@ -1,6 +1,5 @@
-import { AboutPage } from '../component/about-the-site-text.jsx'; 
-import styles from '../component/AboutTheSiteText.module.scss';
-
+import styles from '../component/description/AboutTheSiteText.module.scss';
+import { AboutPage } from '../component/description/about-the-site-text'; 
 
 
 export default function About(){

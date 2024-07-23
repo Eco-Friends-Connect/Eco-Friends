@@ -3,6 +3,7 @@ import styles from './Signup.module.scss';
 
 export default function SignupForm() {
   return (
+    <>
     <form className={styles.form}>
       <h1 className={styles.signup}>Sign Up</h1>
       <div className={styles.container}>
@@ -38,5 +39,6 @@ export default function SignupForm() {
         <button type="submit" className={styles.button}>Submit</button>
       </div>
     </form>
+    </>
   );
 }

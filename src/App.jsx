@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './component/Navbar';
+import Navbar from './component/navbar/Navbar';
+
 import Home from './pages/Home';
 import About from './pages/AboutTheSite';
 import VolunteerSearch from './pages/VolunteerSearch';
@@ -11,7 +12,7 @@ import AboutTheCreators from './pages/AboutTheCreators';
 import SignupFormPage from './component/SignupForm'; 
 import NotFound from './pages/NotFound'; 
 import SiteSponsors from './pages/SiteSponsors.jsx';
-import Footer from './component/Footer.jsx';
+import Footer from './component/footer/Footer';
 
 function App() {
   return (

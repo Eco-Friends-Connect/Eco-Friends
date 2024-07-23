@@ -1,4 +1,4 @@
-import SearchBar from "../component/search_bar";
+import SearchBar from "../component/search-bar/search_bar";
 export default function VolunteerSearch(){
     return(
         <>
