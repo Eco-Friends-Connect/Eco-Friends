@@ -1,7 +1,7 @@
 
 //import { useNavigate } from 'react-router-dom';
 import Signup from '../component/signup-form/Signup';
-import DateCalendarServerRequest from './SmallCalendar';
+import DateCalendarServerRequest from '../component/SmallCalendar';
 import styles from '../component/signup-form/Signup.module.scss';
 
 function SignupFormPage() {

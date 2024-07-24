@@ -9,7 +9,7 @@ import LeaderBoard from './pages/LeaderBoard';
 import UserPage from './pages/UserPage';
 import EcoChat from './pages/Eco-Chat';
 import AboutTheCreators from './pages/AboutTheCreators';
-import SignupFormPage from './component/SignupForm'; 
+import SignupFormPage from './pages/SignupForm'; 
 import NotFound from './pages/NotFound'; 
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
