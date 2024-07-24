@@ -1,4 +1,4 @@
-import { AboutPage } from '../component/about-the-site-text.jsx'; 
+import { AboutPage } from '../component/description/about-the-site-text'; 
 
 
 export default function About(){
