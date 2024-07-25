@@ -6,7 +6,7 @@ export default function LoginForm(){
 <form className={styles.form}>
 <h1>
     Log In
-</h1>
+</h1> 
 
 <label className={styles.label} >
       <input name="userName" placeholder={"User Name"}></input> 
