@@ -5,8 +5,11 @@ import connectDB from './config.js';
 import process from 'process';
 // router
 import postApi from './api/post-api.js';
+import deleteApi from './api/delete-api.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+
+
 
 const app = express();
 
@@ -35,6 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/post', postApi);
+app.use('/api/delete', deleteApi);
 
 // environment variables
 dotenv.config();
