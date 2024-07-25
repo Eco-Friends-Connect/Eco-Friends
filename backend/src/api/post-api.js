@@ -15,27 +15,40 @@ router.post('/create-user', async (req, res) => {
     const { firstName, lastName, email, password, birthDate } = req.body;
     const auth = req.auth;
 
-    createUserWithEmailAndPassword(auth, email, password ).then((userCredential) => {
-        const user = userCredential.user;
-        const newUser = new User({
-            accountId: user.uid,
-            firstName,
-            lastName,
-            email,
-            birthDate,
-        });
-    
-        try {
+    try {
+        createUserWithEmailAndPassword(auth, email, password ).then((userCredential) => {
+            const user = userCredential.user;
+            const newUser = new User({
+                accountId: user.uid,
+                firstName,
+                lastName,
+                email,
+                birthDate,
+            });
             newUser.save();
-            res.send('User registered');
             console.log('user : ', user.email );
-        } catch (error) {
-            res.send(error);
-        }
-    }).catch((error) => {
+            return res.status(201).json({
+                status: 'success',
+                message: 'User created',
+                data: {
+                    accountId: user.uid,
+                    firstName,
+                    lastName,
+                    email,
+                    birthDate,
+                },
+            });
+        });
+    } catch (error) {
         console.log(error);
-    });
-    
+        return res.status(400).json({
+            status: 'fail',
+            message: 'User not created',
+            error: error,
+        });
+    }
+
+
 }
 );
 

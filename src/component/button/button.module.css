@@ -1,0 +1,17 @@
+.btn {
+  background-color: RGB(198, 255, 238);
+  width: calc(20% - 20px);
+  height: 150px;
+  font-size: 1.5rem;
+  color: RGB(46, 30, 20);
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  margin: 20px;
+}
+.btn:hover {
+  background-color: RGB(53, 101, 137);
+  color: white;
+}/*# sourceMappingURL=button.module.css.map */
