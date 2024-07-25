@@ -41,7 +41,7 @@ export function AboutPage() {
     const sections = [HowTheSiteWorks, WhyEcoFriends, KeyFeatures];
 
     return (
-        <div>
+        <div className={styles.sectionContainer}>
             <AboutBody sections={sections} />
         </div>
     );

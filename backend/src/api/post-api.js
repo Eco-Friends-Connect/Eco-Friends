@@ -28,6 +28,7 @@ router.post('/create-user', async (req, res) => {
         try {
             newUser.save();
             res.send('User registered');
+            console.log('user : ', user.email );
         } catch (error) {
             res.send(error);
         }

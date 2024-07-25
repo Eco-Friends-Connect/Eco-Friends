@@ -2,6 +2,9 @@
     display: flex;
     justify-content: space-around;
     margin: 20px;
+    height: 500px;
+    
+   
 }
 
 .about-section {
@@ -11,10 +14,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+    height: 100%;
+    
+    font-size: 2rem ;
+    
+}
+
+.sectionContainer{
+    height: 100%;
 }
 
 .about-section:nth-child(1) {
     background-color: #C6E1EE;
+    height: 100%;
 }
 
 .about-section:nth-child(2) {
