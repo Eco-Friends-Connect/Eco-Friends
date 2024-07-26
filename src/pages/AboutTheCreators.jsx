@@ -1,9 +1,11 @@
-export default function AboutTheCreators(){
-    return(
-        <h1>
-            Learn About the Creators
-        </h1>
+import AboutCreator from '../component/creator/creator';
 
-
-    );
+const AboutTheCreators = () => {
+  return (
+    <div>
+      <AboutCreator />
+    </div>
+  );
 }
+
+export default AboutTheCreators;
