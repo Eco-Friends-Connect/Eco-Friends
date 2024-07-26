@@ -25,6 +25,6 @@ const AboutCreator = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AboutCreator;

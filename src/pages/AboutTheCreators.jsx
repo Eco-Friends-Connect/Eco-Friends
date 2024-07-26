@@ -6,6 +6,6 @@ const AboutTheCreators = () => {
       <AboutCreator />
     </div>
   );
-}
+};
 
 export default AboutTheCreators;
