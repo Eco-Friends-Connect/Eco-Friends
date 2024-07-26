@@ -1,4 +1,4 @@
-import styles from "./Login.module.scss";
+import styles from "./Login.module.scss"; 
 
 export default function LoginForm(){
     return(
