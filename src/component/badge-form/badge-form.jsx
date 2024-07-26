@@ -25,54 +25,58 @@ function BadgeForm(props) {
 
   return (
     <>
-        <div className={styles.formContainer} >
-        <h1>New Attendant</h1>
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-            <label>Title</label>
-            <input
-                onChange={handleChange}
-                className="form-control"
-                type="text"
-                name="title"
-                value={formData.title}
-            />
-            </div>
+        <div className={styles.container}>
 
-            <div className="form-group">
-            <label>Description</label>
-            <input
-                onChange={handleChange}
-                className="form-control"
-                type="text"
-                name="description"
-                value={formData.description}
-            />
-            </div>
+            <div className={styles.formContainer} >
+            <h1>New Attendant</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                <label className={styles.formTitle}>Title</label>
+                <input
+                    onChange={handleChange}
+                    className="form-control"
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                />
+                </div>
 
-            <div className="form-group">
-            <label>Image</label>
-            <input
-                onChange={handleChange}
-                className="form-control"
-                name="image"
-                value={formData.image}
-            />
-            </div>
+                <div className="form-group">
+                <label className={styles.formTitle}>Description</label>
+                <input
+                    onChange={handleChange}
+                    className="form-control"
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                />
+                </div>
 
-            <div className="form-group">
-            <label>Criteria</label>
-            <input
-                onChange={handleChange}
-                className="form-control"
-                type="text"
-                name="criteria"
-                value={formData.criteria}
-            />
+                <div className="form-group">
+                <label className={styles.formTitle}>Image</label>
+                <input
+                    type='file'
+                    onChange={handleChange}
+                    className="form-control"
+                    name="image"
+                    value={formData.image}
+                />
+                </div>
+
+                <div className="form-group">
+                <label className={styles.formTitle}>Criteria</label>
+                <input
+                    onChange={handleChange}
+                    className="form-control"
+                    type="text"
+                    name="criteria"
+                    value={formData.criteria}
+                />
+                </div>
+                <EcoButton type='submit'>Save</EcoButton>
+                {/* <button type='submit' className="btn btn-primary">Save</button> */}
+            </form>
             </div>
-            <EcoButton type='submit' text='Save' />
-            {/* <button type='submit' className="btn btn-primary">Save</button> */}
-        </form>
         </div>
     </>
   );

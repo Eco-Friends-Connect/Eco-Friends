@@ -1,7 +1,7 @@
 .btn {
   background-color: RGB(198, 255, 238);
-  width: calc(20% - 20px);
-  height: 150px;
+  width: calc(50% - 40px);
+  height: calc(50% - 40px);
   font-size: 1.5rem;
   color: RGB(46, 30, 20);
   padding: 10px 20px;
@@ -14,4 +14,16 @@
 .btn:hover {
   background-color: RGB(53, 101, 137);
   color: white;
+}
+@media (min-width: 768px) {
+  .btn {
+    width: calc(50% - 20px);
+    height: calc(50% - 20px);
+  }
+}
+@media (min-width: 1024px) {
+  .btn {
+    width: calc(50% - 10px);
+    height: calc(50% - 10px);
+  }
 }/*# sourceMappingURL=button.module.css.map */
