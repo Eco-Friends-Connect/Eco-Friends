@@ -1,14 +1,13 @@
-
-//import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Signup from '../component/signup-form/Signup';
 import DateCalendarServerRequest from '../component/SmallCalendar';
 import styles from '../component/signup-form/Signup.module.scss';
 import config from '../config';
 
-const signupUser = async (formData) => {
+const signupUser = (formData, setError, setLoading, navigate) => {
   const API_URL = config.API_URL;
-  console.log("User signed up");
-  console.log("form Here", formData);
+  setLoading(true);
   fetch(`${API_URL}/api/post/create-user`, {
     method: 'POST',
     headers: {
@@ -16,24 +15,39 @@ const signupUser = async (formData) => {
     },
     body: JSON.stringify(formData),
   })
-  .then((response) => response.json())
+  .then((response) => {
+    setLoading(false);
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Signup failed');
+    }
+  })
+  .then(() => {
+    navigate('/userororgselect'); 
+  })
   .catch((error) => {
+    setLoading(false);
+    setError('Signup failed. Please try again.');
     console.error('Error:', error);
   });
-
 };
 
 function SignupFormPage() {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    
     <div className={styles.page}>
-      
-      <Signup onSubmit={signupUser} />
+      {error && <div className={styles.error}>{error}</div>}
+      <Signup 
+        onSubmit={(formData) => signupUser(formData, setError, setLoading, navigate)} 
+        loading={loading} 
+      />
       <div className={styles.calendar}>
-        <DateCalendarServerRequest></DateCalendarServerRequest>
+        <DateCalendarServerRequest />
       </div>
-      
     </div>
   );
 }
