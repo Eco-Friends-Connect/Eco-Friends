@@ -28,7 +28,7 @@ function BadgeForm(props) {
         <div className={styles.container}>
 
             <div className={styles.formContainer} >
-            <h1>New Attendant</h1>
+            <h1>New Badge</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                 <label className={styles.formTitle}>Title</label>
