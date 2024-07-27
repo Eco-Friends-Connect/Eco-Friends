@@ -1,0 +1,1 @@
+{"version":3,"sources":["triangle-button.module.scss","../../../../styles/variables.scss","triangle-button.module.css"],"names":[],"mappings":"AAEA;EACI,aAAA;EACA,sDAAA;UAAA,8CAAA;EACA,oCCDS;EDET,YAAA;EACA,iCAAA;EACA,kBAAA;EAEA,iBAAA;EAGA,sBCDS;EDET,iBAAA;AEJJ;AFMI;EACI,mCCPM;EDQN,iCAAA;EACA,yBCbM;EDcN,eAAA;AEJR","file":"triangle-button.module.css"}
