@@ -1,6 +1,6 @@
 import AboutCreator from '../component/creator/creator';
 
-const AboutTheCreators = () => {
+function AboutTheCreators() {
   return (
     <div>
       <AboutCreator />
