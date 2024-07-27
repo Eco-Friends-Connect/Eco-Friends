@@ -73,7 +73,7 @@ function BadgeForm(props) {
                     value={formData.criteria}
                 />
                 </div>
-                <EcoButton type='submit'>Save</EcoButton>
+                <EcoButton type='submit' ecoButtonProps={{btnTitle:"Save"}}/>
                 {/* <button type='submit' className="btn btn-primary">Save</button> */}
             </form>
             </div>
