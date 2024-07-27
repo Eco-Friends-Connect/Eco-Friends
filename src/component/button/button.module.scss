@@ -1,8 +1,10 @@
-
+$default-width: 50%;
+$default-height: 50%;
 .btn {
     background-color: RGB(198,255,238);
-    width: calc(20% - 20px);
-    height: 150px;
+    // calculate width based on relative parent
+    width: calc(#{$default-width} - 40px);
+    height: calc(#{$default-height} - 40px);
     font-size: 1.5rem;
     color: RGB(46,30,20);
     padding: 10px 20px;
@@ -14,6 +16,16 @@
     &:hover {
         background-color: RGB(53,101,137);
         color: white;
+    }
+
+    @media (min-width: 768px) {
+        width: calc(#{$default-width} - 20px);
+        height: calc(#{$default-height} - 20px);
+    }
+
+    @media (min-width: 1024px) {
+        width: calc(#{$default-width} - 10px);
+        height: calc(#{$default-height} - 10px);
     }
 
 }
