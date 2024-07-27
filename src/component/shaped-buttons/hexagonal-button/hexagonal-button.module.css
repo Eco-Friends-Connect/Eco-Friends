@@ -1,0 +1,18 @@
+.btn {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+          clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background-color: rgb(198, 225, 238);
+  border: none;
+  font-size: 1.5rem;
+  color: rgb(46, 30, 20);
+  font-weight: bold;
+}
+.btn:hover {
+  background-color: rgb(136, 157, 53);
+  cursor: pointer;
+  transition: 0.5s;
+  color: rgb(198, 225, 238);
+}/*# sourceMappingURL=hexagonal-button.module.css.map */
