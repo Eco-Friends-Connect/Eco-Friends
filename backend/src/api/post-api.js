@@ -7,7 +7,7 @@ import Badge from '../../models/badge.js';
 import Event from '../../models/event.js';
 import Signup from '../../models/signups.js';
 import OrgEvent from '../../models/org_event.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 
 const router = express.Router();
 // create a new user
@@ -60,9 +60,43 @@ router.post('/login', async (req, res) => {
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
         console.log("login email:", user.email);
-        res.send(user);
+        return res.status(200).send({
+            status: 'success',
+            message: 'User logged in',
+            data: {
+                email: user.email,
+            },
+        });
     }).catch((error) => {
         console.log(error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+            error: error,
+        });
+    });
+}
+);
+// logout a user
+router.post('/logout', async (req, res) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    auth.signOut().then(() => {
+        console.log(user.email);
+        return res.status(200).send({
+            status: 'success',
+            message: 'User logged out',
+            data: {
+                email: user.email,
+            },
+        });
+    }).catch((error) => {
+        console.log(error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged out',
+            error: error,
+        });
     });
 }
 );
