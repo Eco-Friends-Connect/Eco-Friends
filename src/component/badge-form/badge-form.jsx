@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styles from './badge-form.module.css';
-import EcoButton from '../button/button';
+import EcoButton from '../eco-button/eco-button';
 
+// make sure to add onSubmit function to the parent component
 
 function BadgeForm(props) {
   const [formData, setForm] = useState({

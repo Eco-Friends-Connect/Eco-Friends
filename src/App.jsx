@@ -13,6 +13,7 @@ import SignupFormPage from './pages/SignupForm';
 import NotFound from './pages/NotFound'; 
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
+import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
+          <Route path="/org-dashboard" element={<OrgDashboard />} />
         </Routes>
         <Footer />
       </div>
