@@ -36,10 +36,36 @@ function EcoButton({ ecoButtonProps }) {
         return '';
     }
   };
+
+  const getSizeVariant = (size) => {
+    switch (size) {
+      case "small":
+        return style.smallBtn;
+      case "large":
+        return style.largeBtn;
+      case "medium":
+        return style.mediumBtn;
+      default:
+        return style.btn;
+    }
+  };
+
+  const getFontVariant = (font) => {
+    switch (font) {
+      case "small":
+        return style.smallFont;
+      case "large":
+        return style.largeFont;
+      case "medium":
+        return style.mediumFont;
+      default:
+        return style.normalFont;
+    }
+  };
   
   return (
     <>
-      <button className={`${getVariant(ecoButtonProps.btnShape)} ${getColorVariant(ecoButtonProps.btnColor)} ${getAnimationStyle(ecoButtonProps.animate)}`}>
+      <button className={`${getVariant(ecoButtonProps.btnShape)} ${getColorVariant(ecoButtonProps.btnColor)} ${getAnimationStyle(ecoButtonProps.animate)} ${getSizeVariant(ecoButtonProps.btnSize)} ${getFontVariant(ecoButtonProps.btnFontSize)}`}>
             {ecoButtonProps.btnTitle}
        </button>
     </>
@@ -49,6 +75,16 @@ function EcoButton({ ecoButtonProps }) {
 
 EcoButton.propTypes = {
   ecoButtonProps: propTypes.object,
+};
+EcoButton.defaultProps = {
+  ecoButtonProps: {
+    btnShape: "",
+    btnColor: "",
+    animate: 0,
+    btnTitle: "Eco Button",
+    btnSize: "",
+    btnFontSize: ""
+  }
 };
 
 export default EcoButton;
