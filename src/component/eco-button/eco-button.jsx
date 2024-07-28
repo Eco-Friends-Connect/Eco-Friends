@@ -39,6 +39,8 @@ function EcoButton({ ecoButtonProps }) {
 
   const getSizeVariant = (size) => {
     switch (size) {
+      case "tiny":
+        return style.tinyBtn;
       case "small":
         return style.smallBtn;
       case "large":
@@ -52,6 +54,8 @@ function EcoButton({ ecoButtonProps }) {
 
   const getFontVariant = (font) => {
     switch (font) {
+      case "tiny":
+        return style.tinyFont;
       case "small":
         return style.smallFont;
       case "large":

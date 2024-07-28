@@ -170,6 +170,10 @@ $rotation2: (0deg, 20deg, -10deg, 20deg, -10deg, 0deg);
         transform: rotateY(nth($rotation2, 6));
     }
 }
+.tinyBtn{
+    width: 70px;
+    height: 70px;
+}
 .smallBtn{
     width: 100px;
     height: 100px;
@@ -181,6 +185,9 @@ $rotation2: (0deg, 20deg, -10deg, 20deg, -10deg, 0deg);
 .largeBtn{
     width: 300px;
     height: 300px;
+}
+.tinyFont{
+    font-size: 0.5rem;
 }
 .smallFont{
     font-size: 1rem;
