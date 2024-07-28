@@ -1,4 +1,5 @@
 import style from "./eco-button.module.scss";
+import propTypes from 'prop-types';
 
 function EcoButton({ ecoButtonProps }) {
 
@@ -44,5 +45,10 @@ function EcoButton({ ecoButtonProps }) {
     </>
   ); 
 }
+
+
+EcoButton.propTypes = {
+  ecoButtonProps: propTypes.object,
+};
 
 export default EcoButton;

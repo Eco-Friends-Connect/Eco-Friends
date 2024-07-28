@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import Badge from '@mui/material/Badge';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
-
+import propTypes from 'prop-types';
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -35,6 +35,7 @@ function fakeFetch(date, { signal }) {
 const initialValue = dayjs();
 
 function ServerDay(props) {
+
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
   const isSelected = !outsideCurrentMonth && highlightedDays.indexOf(day.date()) >= 0;
@@ -49,6 +50,12 @@ function ServerDay(props) {
     </Badge>
   );
 }
+
+ServerDay.propTypes = {
+  highlightedDays: propTypes.arrayOf(propTypes.number),
+  day: propTypes.instanceOf(dayjs),
+  outsideCurrentMonth: propTypes.bool,
+};
 
 export default function DateCalendarServerRequest() {
   const requestAbortController = React.useRef(null);

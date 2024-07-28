@@ -1,6 +1,7 @@
-const CRLF = '\r\n';  
 import styles from "./AboutTheSiteText.module.scss";
+import propTypes from 'prop-types';
 
+const CRLF = '\r\n';  
 const HowTheSiteWorks = {
     title: "How the Site Works",
     content: "Eco-Friends Connect is a way to help people connect and make friends along with bettering the environment." + CRLF + "We wanted to create a way where... Need more information..."
@@ -37,7 +38,11 @@ function AboutBody({ sections }) {
     );
 }
 
-export function AboutPage() {
+AboutBody.propTypes = {
+    sections: propTypes.array,
+};
+
+function AboutPage() {
     const sections = [HowTheSiteWorks, WhyEcoFriends, KeyFeatures];
 
     return (
@@ -46,3 +51,14 @@ export function AboutPage() {
         </div>
     );
 }
+
+AboutPage.propTypes = {
+    sections: propTypes.array,
+};
+
+AboutTextBox.propTypes = {
+    title: propTypes.string,
+    content: propTypes.string,
+};
+
+export default AboutPage;

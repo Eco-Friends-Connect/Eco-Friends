@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './badge-form.module.css';
 import EcoButton from '../eco-button/eco-button';
+import propTypes from 'prop-types';
 
 // make sure to add onSubmit function to the parent component
 
@@ -82,5 +83,9 @@ function BadgeForm(props) {
     </>
   );
 }
+
+BadgeForm.propTypes = {
+  onSubmit: propTypes.func,
+};
 
 export default BadgeForm;
