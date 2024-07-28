@@ -8,7 +8,6 @@ import Event from '../../models/event.js';
 import Signup from '../../models/signups.js';
 import OrgEvent from '../../models/org_event.js';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { get } from 'mongoose';
 
 const router = express.Router();
 // create a new user
