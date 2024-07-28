@@ -26,6 +26,11 @@ function AboutTextBox({ title, content }) {
     );
 }
 
+AboutTextBox.propTypes = {
+    title: propTypes.string,
+    content: propTypes.string,
+};
+
 function AboutBody({ sections }) {
     return (
         <div className={styles['about-body']}>
@@ -52,13 +57,6 @@ function AboutPage() {
     );
 }
 
-AboutPage.propTypes = {
-    sections: propTypes.array,
-};
 
-AboutTextBox.propTypes = {
-    title: propTypes.string,
-    content: propTypes.string,
-};
 
 export default AboutPage;
