@@ -27,7 +27,6 @@ module.exports = {
     'semi': ['error', 'always'],
     // Enforce Prop-Types validation rule
     'react/prop-types': 'error',
-    // Enforce React import rule
-    'react/react-in-jsx-scope': 'error',
+    // Enforce no-unused-vars rule
   },
 }
