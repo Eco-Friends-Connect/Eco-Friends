@@ -34,7 +34,7 @@ function EventForm(props) {
                 <div className={style.formContainer}>
                     <h1>New Event</h1>
                     <form onSubmit={handleSubmit}>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>Title</label>
                             <input
                                 onChange={handleChange}
@@ -44,9 +44,9 @@ function EventForm(props) {
                                 value={formData.title}
                             />
                         </div>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>Description</label>
-                            <input
+                            <textarea
                                 onChange={handleChange}
                                 className="form-control"
                                 type="text"
@@ -54,7 +54,7 @@ function EventForm(props) {
                                 value={formData.description}
                             />
                         </div>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>Deadline</label>
                             <input
                                 onChange={handleChange}
@@ -64,7 +64,7 @@ function EventForm(props) {
                                 value={formData.deadline}
                             />
                         </div>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>Address</label>
                             <input
                                 onChange={handleChange}
@@ -74,7 +74,7 @@ function EventForm(props) {
                                 value={formData.address}
                             />
                         </div>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>City</label>
                             <input
                                 onChange={handleChange}
@@ -84,7 +84,7 @@ function EventForm(props) {
                                 value={formData.city}
                             />
                         </div>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>State</label>
                             <input
                                 onChange={handleChange}
@@ -94,7 +94,7 @@ function EventForm(props) {
                                 value={formData.state}
                             />
                         </div>
-                        <div >
+                        <div className={style['form-group']}>
                             <label className={style.formTitle}>Zip Code</label>
                             <input
                                 onChange={handleChange}
