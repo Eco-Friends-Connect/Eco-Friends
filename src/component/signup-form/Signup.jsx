@@ -124,7 +124,7 @@ export default function SignupForm({ onSubmit, loading }) {
         
         <div className={styles.buttoncontainer}>
           <input
-            className={styles.input}
+            //className={styles.input}
             onChange={handleChange}
             type="date"
             name="birthDate"
