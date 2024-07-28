@@ -1,7 +1,16 @@
 import style from "./eco-button.module.scss";
 import propTypes from 'prop-types';
 
-function EcoButton({ ecoButtonProps }) {
+let ecoButtonDefaultProps = {
+  // Default props
+  btnShape: "",
+  btnColor: "",
+  animate: 0,
+  btnTitle: "Eco Button",
+  btnSize: "",
+  btnFontSize: ""
+};
+function EcoButton({ ecoButtonProps = ecoButtonDefaultProps }) {
 
   const getVariant = (shape) => {
     switch (shape) {
@@ -79,17 +88,6 @@ function EcoButton({ ecoButtonProps }) {
 
 EcoButton.propTypes = {
   ecoButtonProps: propTypes.object,
-};
-EcoButton.defaultProps = {
-  ecoButtonProps: {
-    // Default props
-    btnShape: "",
-    btnColor: "",
-    animate: 0,
-    btnTitle: "Eco Button",
-    btnSize: "",
-    btnFontSize: ""
-  }
 };
 
 export default EcoButton;
