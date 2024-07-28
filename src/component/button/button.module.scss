@@ -1,12 +1,21 @@
-$default-width: 50%;
-$default-height: 50%;
+@import '../../../styles/styles.scss';
+
+$default-width: 150px;
+$default-height: 150px;
+
+// colors
+$normal-background: $light-blue;
+$hover-background: $dark-blue;
+$normal-text: $dark-brown;
+$hover-text: $light-white;
 .btn {
-    background-color: RGB(198,255,238);
+    background-color: $normal-background;
     // calculate width based on relative parent
     width: calc(#{$default-width} - 40px);
     height: calc(#{$default-height} - 40px);
     font-size: 1.5rem;
-    color: RGB(46,30,20);
+    font-weight: bold;
+    color: $normal-text;
     padding: 10px 20px;
     border-radius: 25px;
     cursor: pointer;
@@ -14,8 +23,8 @@ $default-height: 50%;
     border: none;
     margin: 20px;
     &:hover {
-        background-color: RGB(53,101,137);
-        color: white;
+        background-color: $hover-background;
+        color: $hover-text;
     }
 
     @media (min-width: 768px) {
@@ -28,4 +37,67 @@ $default-height: 50%;
         height: calc(#{$default-height} - 10px);
     }
 
+}
+
+.circularBtn{
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: $normal-background;
+    border: none;
+    font-size: 1.5rem;
+    color: $normal-text;
+    font-weight: bold;
+
+
+    &:hover{
+        background-color: $hover-background;
+        color: $hover-text;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+}
+
+.hexagonBtn {
+    position: relative;
+    height: $default-height;
+    width: $default-width;
+    // use clip-path to create a hexagon
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background-color: $normal-background;
+    border: none;
+    font-size: 1.5rem;
+    color: $normal-text;
+    font-weight: bold;
+
+    &:hover {
+        background-color: $hover-background;
+        cursor: pointer;
+        transition: 0.5s;
+        color: $hover-text;
+    }
+}
+
+.triangleBtn {
+    height: 150px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background-color: $normal-background;
+    border: none;
+    transition: background-color 0.3s;
+    text-align: center;
+    // position text a little lower
+    padding-top: 50px;
+    // border-radius: 25px 25px 10px 10px;
+    font-weight: bold;
+    color: $normal-text;
+    font-size: 1.5rem;
+
+    &:hover {
+        background-color: $hover-background;
+        transition: background-color 0.3s;
+        color: $hover-text;
+        cursor: pointer;
+    }
+    
 }
