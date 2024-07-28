@@ -7,7 +7,7 @@ footer {
   background-color: rgb(138, 114, 39);
   height: var(--footer-height);
   width: 100vw;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   display: flex;

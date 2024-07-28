@@ -6,8 +6,8 @@ export default function Footer() {
     return (
   
       <footer className={styles.footer}>
-          <a href=""><Link className={styles.footer_a} to="/aboutthecreators">Creator Info</Link></a>
-          <a href=""><Link className={styles.footer_a} to="/sitesponsors">Site Sponsors</Link></a>
+          <Link className={styles.footer_a} to="/aboutthecreators">Creator Info</Link>
+          <Link className={styles.footer_a} to="/sitesponsors">Site Sponsors</Link>
           <div className={styles.footer_logo}>
             <img src="src\assets\tree_logo.png" alt="Tree Logo" />
           </div>

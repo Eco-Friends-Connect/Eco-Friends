@@ -1,7 +1,16 @@
 import style from "./eco-button.module.scss";
 import propTypes from 'prop-types';
 
-function EcoButton({ ecoButtonProps }) {
+let ecoButtonDefaultProps = {
+  // Default props
+  btnShape: "",
+  btnColor: "",
+  animate: 0,
+  btnTitle: "Eco Button",
+  btnSize: "",
+  btnFontSize: ""
+};
+function EcoButton({ ecoButtonProps = ecoButtonDefaultProps }) {
 
   const getVariant = (shape) => {
     switch (shape) {
@@ -39,6 +48,8 @@ function EcoButton({ ecoButtonProps }) {
 
   const getSizeVariant = (size) => {
     switch (size) {
+      case "tiny":
+        return style.tinyBtn;
       case "small":
         return style.smallBtn;
       case "large":
@@ -52,6 +63,8 @@ function EcoButton({ ecoButtonProps }) {
 
   const getFontVariant = (font) => {
     switch (font) {
+      case "tiny":
+        return style.tinyFont;
       case "small":
         return style.smallFont;
       case "large":
@@ -75,17 +88,6 @@ function EcoButton({ ecoButtonProps }) {
 
 EcoButton.propTypes = {
   ecoButtonProps: propTypes.object,
-};
-EcoButton.defaultProps = {
-  ecoButtonProps: {
-    // Default props
-    btnShape: "",
-    btnColor: "",
-    animate: 0,
-    btnTitle: "Eco Button",
-    btnSize: "",
-    btnFontSize: ""
-  }
 };
 
 export default EcoButton;
