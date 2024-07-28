@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 
 const membershipSchema = new mongoose.Schema({
     accountId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'user',
-        index: true
+        index: true,
+        unique: true
     },
     orgId: {
         type: mongoose.Schema.Types.ObjectId,

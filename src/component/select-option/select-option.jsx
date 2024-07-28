@@ -1,5 +1,6 @@
 // import React from 'react';
 import EcoButton from '../button/button';
+import propTypes from 'prop-types';
 import style from "./select-option.module.scss";
 
 function SelectOption({ question, options }) {
@@ -26,5 +27,10 @@ function SelectOption({ question, options }) {
         </>
     );
 }
+
+SelectOption.propTypes = {
+    question: propTypes.string,
+    options: propTypes.array,
+};
 
 export default SelectOption;
