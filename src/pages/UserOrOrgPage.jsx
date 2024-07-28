@@ -3,7 +3,7 @@ import SelectOption from "../component/select-option/select-option";
 import styles from '../component/select-option/select-option.module.scss';
 
 const question = 'Are you a volunteer or an organization?';
-const options = ['Volunteer', 'Organization'];
+const options = ['Volunteer', 'Org'];
 
 export default function UserOrOrgSelect() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function UserOrOrgSelect() {
   const handleOptionClick = (option) => {
     if (option === 'Volunteer') {
       navigate('/userpage'); 
-    } else if (option === 'Organization') {
+    } else if (option === 'Org') {
       navigate('/orglogin'); 
     }
   };

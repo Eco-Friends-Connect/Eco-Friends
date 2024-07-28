@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import style from './button.module.scss';
+import style from '../eco-button//eco-button.module.scss';
 
 function EcoButton({ onClick, children }) {
   return (
@@ -15,3 +15,4 @@ EcoButton.propTypes = {
 };
 
 export default EcoButton;
+

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.scss';
-import treeImage from '../assets/tree.jpg';
+import treeImage from '../../assets/tree.jpg';
 
 
 function Home() {
