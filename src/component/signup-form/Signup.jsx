@@ -1,8 +1,9 @@
 
 import styles from './Signup.module.scss';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function SignupForm({ onSubmit }) {
+function SignupForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -70,3 +71,10 @@ export default function SignupForm({ onSubmit }) {
     </>
   );
 }
+
+SignupForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+
+export default SignupForm;

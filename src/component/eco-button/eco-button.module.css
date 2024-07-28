@@ -1,0 +1,185 @@
+.btn {
+  width: calc(150px - 40px);
+  height: calc(150px - 40px);
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  margin: 20px;
+}
+.btn:hover {
+  transition: 0.5s;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .btn {
+    width: calc(150px - 20px);
+    height: calc(150px - 20px);
+  }
+}
+@media (min-width: 1024px) {
+  .btn {
+    width: calc(150px - 10px);
+    height: calc(150px - 10px);
+  }
+}
+
+@keyframes hanging1 {
+  0% {
+    transform: rotateY(0deg);
+  }
+  20% {
+    transform: rotateY(30deg);
+  }
+  40% {
+    transform: rotateY(-20deg);
+  }
+  60% {
+    transform: rotateY(30deg);
+  }
+  80% {
+    transform: rotateY(-20deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+@keyframes hanging2 {
+  0% {
+    transform: rotateY(0deg);
+  }
+  20% {
+    transform: rotateY(20deg);
+  }
+  40% {
+    transform: rotateY(-10deg);
+  }
+  60% {
+    transform: rotateY(20deg);
+  }
+  80% {
+    transform: rotateY(-10deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+.animate1 {
+  animation: hanging1 9s ease-in-out infinite;
+}
+
+.animate2 {
+  animation: hanging2 9s ease-in-out infinite;
+}
+
+.circularBtn {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.circularBtn:hover {
+  transition: 0.5s;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .circularBtn {
+    width: calc(150px - 20px);
+    height: calc(150px - 20px);
+  }
+}
+@media (min-width: 1024px) {
+  .circularBtn {
+    width: calc(150px - 10px);
+    height: calc(150px - 10px);
+  }
+}
+
+.hexagonBtn {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+          clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.hexagonBtn:hover {
+  cursor: pointer;
+  transition: 0.5s;
+}
+@media (min-width: 768px) {
+  .hexagonBtn {
+    width: calc(150px - 20px);
+    height: calc(150px - 20px);
+  }
+}
+@media (min-width: 1024px) {
+  .hexagonBtn {
+    width: calc(150px - 10px);
+    height: calc(150px - 10px);
+  }
+}
+
+.triangleBtn {
+  width: 150px;
+  height: 150px;
+  -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  border: none;
+  transition: background-color 0.3s;
+  text-align: center;
+  padding-top: 50px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.triangleBtn:hover {
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .triangleBtn {
+    width: calc(150px - 20px);
+    height: calc(150px - 20px);
+  }
+}
+@media (min-width: 1024px) {
+  .triangleBtn {
+    width: calc(150px - 10px);
+    height: calc(150px - 10px);
+  }
+}
+
+.normalColor {
+  background-color: rgb(198, 225, 238);
+  color: rgb(46, 30, 20);
+}
+.normalColor:hover {
+  background-color: rgb(53, 101, 137);
+  color: rgb(243, 241, 236);
+}
+
+.darkColor {
+  background-color: rgb(46, 30, 20);
+  color: rgb(243, 241, 236);
+}
+.darkColor:hover {
+  background-color: rgb(243, 241, 236);
+  color: rgb(46, 30, 20);
+}
+
+.yellowColor {
+  background-color: rgb(138, 114, 39);
+  color: rgb(243, 241, 236);
+}
+.yellowColor:hover {
+  background-color: rgb(243, 241, 236);
+  color: rgb(138, 114, 39);
+}/*# sourceMappingURL=eco-button.module.css.map */
