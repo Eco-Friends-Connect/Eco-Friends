@@ -78,6 +78,7 @@ EcoButton.propTypes = {
 };
 EcoButton.defaultProps = {
   ecoButtonProps: {
+    // Default props
     btnShape: "",
     btnColor: "",
     animate: 0,
