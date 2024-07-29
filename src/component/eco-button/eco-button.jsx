@@ -1,16 +1,21 @@
-import style from "./eco-button.module.scss";
+import style from './eco-button.module.scss';
 import propTypes from 'prop-types';
 
 let ecoButtonDefaultProps = {
   // Default props
+  equButtonProps:
+  {
   btnShape: "",
   btnColor: "",
   animate: 0,
-  btnTitle: "Eco Button",
+  btnTitle: "",
   btnSize: "",
-  btnFontSize: ""
+  btnFontSize: "",},
+ 
+  onClick: ()=>{},
+  children: null,
 };
-function EcoButton({ ecoButtonProps = ecoButtonDefaultProps }) {
+function EcoButton({  ecoButtonProps = ecoButtonDefaultProps.equButtonProps, onClick=ecoButtonDefaultProps.onClick }) {
 
   const getVariant = (shape) => {
     switch (shape) {
@@ -78,8 +83,8 @@ function EcoButton({ ecoButtonProps = ecoButtonDefaultProps }) {
   
   return (
     <>
-      <button className={`${getVariant(ecoButtonProps.btnShape)} ${getColorVariant(ecoButtonProps.btnColor)} ${getAnimationStyle(ecoButtonProps.animate)} ${getSizeVariant(ecoButtonProps.btnSize)} ${getFontVariant(ecoButtonProps.btnFontSize)}`}>
-            {ecoButtonProps.btnTitle}
+      <button onClick={onClick} className={`${getVariant(ecoButtonProps.btnShape)} ${getColorVariant(ecoButtonProps.btnColor)} ${getAnimationStyle(ecoButtonProps.animate)} ${getSizeVariant(ecoButtonProps.btnSize)} ${getFontVariant(ecoButtonProps.btnFontSize)}`}>
+            {ecoButtonProps.btnTitle} 
        </button>
     </>
   ); 
@@ -87,7 +92,16 @@ function EcoButton({ ecoButtonProps = ecoButtonDefaultProps }) {
 
 
 EcoButton.propTypes = {
-  ecoButtonProps: propTypes.object,
+  ecoButtonProps: propTypes.shape({
+    btnShape: propTypes.string,
+    btnColor: propTypes.string,
+    animate: propTypes.number,
+    btnTitle: propTypes.string,
+    btnSize: propTypes.string,
+    btnFontSize: propTypes.string,
+  }),
+  onClick: propTypes.func,
+  children: propTypes.node,
 };
 
 export default EcoButton;
