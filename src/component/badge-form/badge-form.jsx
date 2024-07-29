@@ -25,6 +25,12 @@ function BadgeForm(props) {
     props.onSubmit(formData);
   };
 
+  const ecoButtonProps = {
+    btnTitle: 'Save',
+    btnSize: 'small',
+    btnFontSize: 'medium',
+  };
+
   return (
     <>
         <div className={styles.container}>
@@ -75,7 +81,7 @@ function BadgeForm(props) {
                     value={formData.criteria}
                 />
                 </div>
-                <EcoButton type='submit' ecoButtonProps={{btnTitle:"Save"}}/>
+                <EcoButton type='submit' ecoButtonProps={ecoButtonProps}/>
                 {/* <button type='submit' className="btn btn-primary">Save</button> */}
             </form>
             </div>
@@ -85,7 +91,7 @@ function BadgeForm(props) {
 }
 
 BadgeForm.propTypes = {
-  onSubmit: propTypes.func,
+  onSubmit: propTypes.func.isRequired,
 };
 
 export default BadgeForm;

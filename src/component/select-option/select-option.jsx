@@ -4,19 +4,20 @@ import PropTypes from 'prop-types';
 
 
 function SelectOption({ question, options, onOptionClick }) {
+  
   return (
     <>
       <h1 className={style.question}>{question}</h1>
       <div className={style.optionsContainer}>
         {options.map((option, index) => (
-          <EcoButton
+          <EcoButton ecoButtonProps={{btnTitle:`${option}`}}
             key={index}
             onClick={() => {
               console.log(`Button clicked: ${option}`);
               onOptionClick(option);
             }}
           >
-            {option}
+           
           </EcoButton>
         ))}
       </div>
