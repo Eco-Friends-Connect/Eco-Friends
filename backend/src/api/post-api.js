@@ -7,7 +7,7 @@ import Badge from '../../models/badge.js';
 import Event from '../../models/event.js';
 import Signup from '../../models/signups.js';
 import OrgEvent from '../../models/org_event.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 
 const router = express.Router();
 // create a new user
@@ -15,26 +15,40 @@ router.post('/create-user', async (req, res) => {
     const { firstName, lastName, email, password, birthDate } = req.body;
     const auth = req.auth;
 
-    createUserWithEmailAndPassword(auth, email, password ).then((userCredential) => {
-        const user = userCredential.user;
-        const newUser = new User({
-            accountId: user.uid,
-            firstName,
-            lastName,
-            email,
-            birthDate,
-        });
-    
-        try {
+    try {
+        createUserWithEmailAndPassword(auth, email, password ).then((userCredential) => {
+            const user = userCredential.user;
+            const newUser = new User({
+                accountId: user.uid,
+                firstName,
+                lastName,
+                email,
+                birthDate,
+            });
             newUser.save();
-            res.send('User registered');
-        } catch (error) {
-            res.send(error);
-        }
-    }).catch((error) => {
+            console.log('user : ', user.email );
+            return res.status(201).json({
+                status: 'success',
+                message: 'User created',
+                data: {
+                    accountId: user.uid,
+                    firstName,
+                    lastName,
+                    email,
+                    birthDate,
+                },
+            });
+        });
+    } catch (error) {
         console.log(error);
-    });
-    
+        return res.status(400).json({
+            status: 'fail',
+            message: 'User not created',
+            error: error,
+        });
+    }
+
+
 }
 );
 
@@ -46,14 +60,64 @@ router.post('/login', async (req, res) => {
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
         console.log("login email:", user.email);
-        res.send(user);
+        return res.status(200).send({
+            status: 'success',
+            message: 'User logged in',
+            data: {
+                email: user.email,
+            },
+        });
     }).catch((error) => {
         console.log(error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+            error: error,
+        });
+    });
+}
+);
+// logout a user
+router.post('/logout', async (req, res) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    auth.signOut().then(() => {
+        console.log(user.email);
+        return res.status(200).send({
+            status: 'success',
+            message: 'User logged out',
+            data: {
+                email: user.email,
+            },
+        });
+    }).catch((error) => {
+        console.log(error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged out',
+            error: error,
+        });
     });
 }
 );
 
 router.post('/create-org', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null || auth.currentUser.uid === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
+    //if current user is a member of an organization, return error
+    const currUser = auth.currentUser;
+    const membershipAlready = await Membership.findOne({ accountId: currUser.uid.toString() });
+    if(membershipAlready !== null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User already a member of an organization',
+        });
+    }
     const { name, description, address, city, state, zipCode } = req.body;
     console.log("create-org", req.body);
     const newOrgLocation = new Location({
@@ -65,20 +129,52 @@ router.post('/create-org', async (req, res) => {
     const org = new Organization({
         name,
         description,
-        orgLocation: newOrgLocation,
+        location: newOrgLocation,
     });
 
+    // add membership for the user
+    const user = auth.currentUser;
+    const membership = new Membership({
+        accountId: user.uid,
+        orgId: org._id,
+        role: 'admin',
+    });
+    
     try {
         await newOrgLocation.save();
         await org.save();
-        res.send('Organization created');
+        await membership.save();
+        res.status(201).send({
+            status: 'success',
+            message: 'Organization created',
+            data: {
+                name,
+                description,
+                address,
+                city,
+                state,
+                zipCode,
+            },
+        });
+        
     } catch (error) {
-        res.send(error);
+        res.status(400).send({
+            status: 'fail',
+            message: 'Organization not created',
+            error: error,
+        });
     }
 }
 );
 
 router.post('/create-event', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
     const { locId, title, description, deadline, badge } = req.body;
     console.log("create-event", req.body);
     const event = new Event({
@@ -99,6 +195,13 @@ router.post('/create-event', async (req, res) => {
 );
 
 router.post('/create-badge', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
     const { name, description, imageUrl } = req.body;
     console.log("create-badge", req.body);
     const badge = new Badge({
@@ -117,6 +220,13 @@ router.post('/create-badge', async (req, res) => {
 );
 
 router.post('/create-signup', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
     const { accountId, eventId, status } = req.body;
     console.log("create-signup", req.body);
     const signup = new Signup({
@@ -136,6 +246,13 @@ router.post('/create-signup', async (req, res) => {
 );
 
 router.post('/create-org-event', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
     const { orgId, eventId } = req.body;
     console.log("create-org-event", req.body);
     const orgEvent = new OrgEvent({
@@ -153,6 +270,13 @@ router.post('/create-org-event', async (req, res) => {
 );
 
 router.post('/create-membership', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
     const { orgId, accountId, role } = req.body;
     console.log("create-membership", req.body);
     const membership = new Membership({

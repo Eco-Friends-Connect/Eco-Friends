@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 
 const organizationSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        index: true,
+        unique: true
+    }, 
     description: String,
     location: {
         type: mongoose.Schema.Types.ObjectId,
