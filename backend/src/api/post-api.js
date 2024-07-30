@@ -7,9 +7,16 @@ import Badge from '../../models/badge.js';
 import Event from '../../models/event.js';
 import Signup from '../../models/signups.js';
 import OrgEvent from '../../models/org_event.js';
+
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 
+import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
+import multer from 'multer';
+const multerEngine = multer.memoryStorage();
+const upload = multer({ storage: multerEngine});
+
 const router = express.Router();
+
 // create a new user
 router.post('/create-user', async (req, res) => {
     const { firstName, lastName, email, password, birthDate } = req.body;
@@ -193,7 +200,7 @@ router.post('/create-event', async (req, res) => {
     }
 }
 );
-
+// create a new badge
 router.post('/create-badge', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -202,22 +209,95 @@ router.post('/create-badge', async (req, res) => {
             message: 'User not logged in',
         });
     }
-    const { name, description, imageUrl } = req.body;
     console.log("create-badge", req.body);
-    const badge = new Badge({
-        name,
-        description,
-        imageUrl,
-    });
-
+    const badgeInfo = req.body;
+    const badge = new Badge(badgeInfo);
     try {
         await badge.save();
-        res.send('Badge created');
+        res.status(201).send({
+            status: 'success',
+            message: 'Badge created',
+            data: badgeInfo,
+        });
     } catch (error) {
-        res.send(error);
+        res.status(400).send({
+            status: 'fail',
+            message: 'Badge not created',
+            error: error,
+        });
     }
+    
 }
 );
+
+// upload a badge image
+router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
+    const auth = getAuth();
+    const storage = getStorage();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
+    const reqImage = req.file;
+    if(reqImage !== undefined) {
+        const metadata = {
+            contentType: 'image/png',
+        };
+        const storageRef = ref(storage, 'org/badgeImgs/' + reqImage.originalname);
+        const uploadTask = uploadBytesResumable(storageRef, reqImage.buffer, metadata);
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                }
+            },
+            (error) => {
+                let msg = '';
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        msg = 'User does not have permission to access the object';
+                        break;
+                    case 'storage/canceled':
+                        msg = 'User canceled the upload';
+                        break;
+                    case 'storage/unknown':
+                        msg = 'Unknown error occurred, inspect error.serverResponse';
+                        break;
+                }
+                console.log(msg);
+                return res.status(400).send({
+                    status: 'fail',
+                    message: msg,
+                    error: error,
+                });
+                
+            },
+            async () => {
+                const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+                return res.status(200).send({
+                    status: 'success',
+                    message: 'Badge image uploaded',
+                    data: {
+                        image: reqImage.originalname,
+                        url: downloadUrl,
+                    },
+                });
+            }
+        );
+    }
+});
+
+
 
 router.post('/create-signup', async (req, res) => {
     const auth = getAuth();

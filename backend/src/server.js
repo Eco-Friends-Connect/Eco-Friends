@@ -7,6 +7,7 @@ import process from 'process';
 import postApi from './api/post-api.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 const app = express();
 
@@ -22,9 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
+const storage = getStorage(firebaseApp);
+
 
 app.use((req, res, next) => {
     req.auth = auth;
+    req.storage = storage;
     next();
 }
 );
