@@ -1,5 +1,7 @@
 import styles from "./Login.module.scss"; 
 
+// import EcoButton from "../../component/eco-button/eco-button";
+
 export default function LoginForm(){
     return(
 <>
@@ -9,18 +11,19 @@ export default function LoginForm(){
 </h1> 
 
 <label className={styles.label} >
-      <input name="userName" placeholder={"User Name"}></input> 
+      <input className={styles.input} name="userName" placeholder={"User Name"}></input> 
 </label>
 
-<label className={styles.label}>
-      <input name="password" placeholder={"password"}></input> 
+<label className={styles.label}> 
+      <input className={styles.input}name="password" placeholder={"password"}></input> 
 </label>
 <br></br>
     
-     <button  type="submit">Sign Up</button>
+     <button className={styles.signupbutton} type="submit">Sign Up</button>
+     {/* <EcoButton  type="submit" ecoButtonProps={{btnTitle:"Sign  Up",btnColor:"dark"}} className={styles.btnSize}/> */}
      <div className={styles.divider}></div>
-     <button  type="submit">Log In</button>
-    
+     <button  className={styles.loginbutton} type="submit">Log In</button>   
+
 <br></br>
      <input className={styles.forget} type="checkbox" id="Remember me" name="Remember me" value="Remember me" />
                         <label htmlFor="Remember me"> Remember me</label>
@@ -29,5 +32,5 @@ export default function LoginForm(){
                         <label htmlFor="Forget username/password"> Forget username/password</label>
 </form>
 </>
-);
+); 
 } 
