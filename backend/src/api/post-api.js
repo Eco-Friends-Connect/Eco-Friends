@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../../models/user.js';
 import Organization from '../../models/organization.js';
 import Membership from '../../models/membership.js';
+import OrgBadge from '../../models/org_badge.js';
 import Location from '../../models/location.js';
 import Badge from '../../models/badge.js';
 import Event from '../../models/event.js';
@@ -16,6 +17,10 @@ const multerEngine = multer.memoryStorage();
 const upload = multer({ storage: multerEngine});
 
 const router = express.Router();
+
+router.get('/', (req, res) => {
+    res.send('Post API is working');
+});
 
 // create a new user
 router.post('/create-user', async (req, res) => {
@@ -212,8 +217,29 @@ router.post('/create-badge', async (req, res) => {
     console.log("create-badge", req.body);
     const badgeInfo = req.body;
     const badge = new Badge(badgeInfo);
+
+    const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
+    if(membership === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not a member of an organization',
+        });
+    }
+    const orgId = membership.orgId;
+    const orgBadge = await Badge.findOne({ title: badgeInfo.title });
+    if(orgBadge !== null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Badge already exists',
+        });
+    }
+    const newOrgBadge = new OrgBadge({
+        badgeId: badge._id,
+        orgId: orgId,
+    });
     try {
         await badge.save();
+        await newOrgBadge.save();
         res.status(201).send({
             status: 'success',
             message: 'Badge created',

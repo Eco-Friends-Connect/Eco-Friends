@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
-const orgEventSchema = new mongoose.Schema({
+const orgBadgeSchema = new mongoose.Schema({
     orgId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'organization',
         index: true
     },
-    eventId: {
+    badgeId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'event',
+        ref: 'badge',
         index: true
     },
     createdAt: {
@@ -17,6 +17,6 @@ const orgEventSchema = new mongoose.Schema({
     }
 });
 
-const OrgEvent = mongoose.model('org-event', orgEventSchema);
+const OrgBadge = mongoose.model('org-badge', orgBadgeSchema);
 
-export default OrgEvent;
+export default OrgBadge;
