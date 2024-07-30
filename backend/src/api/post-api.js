@@ -112,7 +112,7 @@ router.post('/logout', async (req, res) => {
     });
 }
 );
-
+// create a new organization
 router.post('/create-org', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null || auth.currentUser.uid === null) {
@@ -178,7 +178,7 @@ router.post('/create-org', async (req, res) => {
     }
 }
 );
-
+// create a new event
 router.post('/create-event', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -187,22 +187,86 @@ router.post('/create-event', async (req, res) => {
             message: 'User not logged in',
         });
     }
-    const { locId, title, description, deadline, badge } = req.body;
+    
+    const {title, description, deadline, badge } = req.body;
     console.log("create-event", req.body);
     const event = new Event({
-        locId,
         title,
         description,
         deadline,
         badge,
     });
-
-    try {
-        await event.save();
-        res.send('Event created');
-    } catch (error) {
-        res.send(error);
+    const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
+    if(membership === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not a member of an organization',
+        });
     }
+    const orgId = membership.orgId;
+    const newOrgEvent = new OrgEvent({
+        orgId: orgId,
+        eventId: event._id,
+    });
+    try {
+        await newOrgEvent.save();
+        await event.save();
+        res.status(201).send({
+            status: 'success',
+            message: 'Event created',
+            data: {
+                eventId: event._id,
+                title,
+                description,
+                deadline,
+                badge,
+            },
+        });
+    } catch (error) {
+        res.status(400).send({
+            status: 'fail',
+            message: 'Event not created',
+            error: error,
+        });
+    }
+}
+);
+// add badge to an event
+router.post('/add-badge-to-event', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
+    const { eventId, badgeId } = req.body;
+    const eventFound = await Event.findOne({ _id: eventId });
+    const badgeFound = await Badge.findOne({ _id: badgeId });
+    if(eventFound === null || badgeFound === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Event or Badge not found',
+        });
+    }
+    try {
+        eventFound.badge = badgeId;
+        await eventFound.save();
+    } catch (error) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Badge not added to event',
+            error: error,
+        });
+    }
+    return res.status(200).send({
+        status: 'success',
+        message: 'Badge added to event',
+        data: {
+            eventId,
+            badgeId,
+        },
+    });
 }
 );
 // create a new badge
@@ -249,6 +313,7 @@ router.post('/create-badge', async (req, res) => {
             status: 'success',
             message: 'Badge created',
             data: {
+                badgeId: badge._id,
                 title,
                 description,
                 criteria,
