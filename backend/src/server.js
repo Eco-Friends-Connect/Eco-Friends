@@ -6,6 +6,7 @@ import process from 'process';
 // router
 import postApi from './api/post-api.js';
 import deleteApi from './api/delete-api.js';
+import updateApi from './api/update-api.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/post', postApi);
 app.use('/api/delete', deleteApi);
+app.use('/api/put', updateApi);
 
 // environment variables
 dotenv.config();
