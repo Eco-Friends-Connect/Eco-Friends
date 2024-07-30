@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './component/navbar/Navbar';
 
 import Home from './pages/home/Home';
@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
 import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
+import UserOrOrgSelect from './pages/UserOrOrgPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/ecochat" element={<EcoChat />} />
           <Route path="/aboutthecreators" element={<AboutTheCreators />} />
           <Route path="/signup" element={<SignupFormPage />} /> 
+          <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
