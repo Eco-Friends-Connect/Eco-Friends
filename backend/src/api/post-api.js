@@ -215,8 +215,13 @@ router.post('/create-badge', async (req, res) => {
         });
     }
     console.log("create-badge", req.body);
-    const badgeInfo = req.body;
-    const badge = new Badge(badgeInfo);
+    const {title,description,criteria,imgStorageRef} = req.body;
+    const badge = new Badge({
+        title,
+        description,
+        criteria,
+        imgStorageRef,
+    });
 
     const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
     if(membership === null) {
@@ -226,7 +231,7 @@ router.post('/create-badge', async (req, res) => {
         });
     }
     const orgId = membership.orgId;
-    const orgBadge = await Badge.findOne({ title: badgeInfo.title });
+    const orgBadge = await Badge.findOne({ title:title });
     if(orgBadge !== null) {
         return res.status(400).send({
             status: 'fail',
@@ -243,7 +248,12 @@ router.post('/create-badge', async (req, res) => {
         res.status(201).send({
             status: 'success',
             message: 'Badge created',
-            data: badgeInfo,
+            data: {
+                title,
+                description,
+                criteria,
+                imgStorageRef,
+            }
         });
     } catch (error) {
         res.status(400).send({
@@ -315,6 +325,7 @@ router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
                     message: 'Badge image uploaded',
                     data: {
                         image: reqImage.originalname,
+                        imageRef: storageRef.fullPath,
                         url: downloadUrl,
                     },
                 });
