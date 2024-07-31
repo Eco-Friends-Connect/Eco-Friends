@@ -1,5 +1,6 @@
 import style from './eco-button.module.scss';
 import propTypes from 'prop-types';
+import React from 'react';
 
 let ecoButtonDefaultProps = {
   // Default props

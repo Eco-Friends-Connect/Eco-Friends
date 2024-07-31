@@ -1,8 +1,9 @@
 import styles from './footer.module.scss';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 
-export default function Footer() {
+function Footer() {
     return (
   
       <footer className={styles.footer}>
@@ -15,3 +16,5 @@ export default function Footer() {
       </footer>
     );
   }
+
+export default Footer;

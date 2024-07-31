@@ -1,5 +1,6 @@
 import styles from "./AboutTheSiteText.module.scss";
 import propTypes from 'prop-types';
+import React from 'react';
 
 const CRLF = '\r\n';  
 const HowTheSiteWorks = {

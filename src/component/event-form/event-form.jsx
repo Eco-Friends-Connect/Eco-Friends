@@ -1,6 +1,7 @@
 import style from './event-form.module.css';
 import EcoButton from '../eco-button/eco-button';
 import propTypes from 'prop-types';
+import React from 'react';
 import { useState } from 'react';
 
 function EventForm(props) {
