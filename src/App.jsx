@@ -4,7 +4,6 @@ import Navbar from './component/navbar/Navbar';
 import Home from './pages/home/Home';
 import About from './pages/AboutTheSite';
 import VolunteerSearch from './pages/VolunteerSearch';
-import OrganizationLogin from './pages/OrgLogin';
 import LeaderBoard from './pages/LeaderBoard';
 import UserPage from './pages/UserPage';
 import EcoChat from './pages/Eco-Chat';
@@ -25,7 +24,6 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/volunteersearch" element={<VolunteerSearch />} />
-          <Route path="/orglogin" element={<OrganizationLogin />} />
           <Route path="/leaderboard" element={<LeaderBoard />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/ecochat" element={<EcoChat />} />
