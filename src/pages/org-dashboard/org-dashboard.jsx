@@ -15,9 +15,12 @@ function OrgDashboard() {
             <div className={styles.colContainer}>
                 <EcoButton ecoButtonProps={{btnTitle: "Events", btnShape: "none", btnColor:"dark", animate:2}}/>
                 <div className={styles.eventContainer}>
-
                     <EcoButton ecoButtonProps={{btnTitle: "Create Event", btnShape: "triangle", btnColor:"light", animate: 1}}/>
-                    <EcoButton ecoButtonProps={{btnTitle: "Check Signups", btnShape: "circle", btnColor:"yellow", animate: 2}}/>
+                    <div className={styles.colContainer}>
+                        <EcoButton ecoButtonProps={{btnTitle: "Check Signups", btnShape: "circle", btnColor:"yellow", animate: 2}}/>
+                        <EcoButton ecoButtonProps={{btnTitle: "Create Signup", btnShape: "normal", btnColor:"light", animate: 1}}/>
+                    </div>
+
                 </div>
             </div>
             <div className={styles.colContainer}>

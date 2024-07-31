@@ -5,6 +5,7 @@ import connectDB from './config.js';
 import process from 'process';
 // router
 import postApi from './api/post-api.js';
+import getApi from './api/get-api.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/post', postApi);
+app.use('/api/get', getApi);
 
 // environment variables
 dotenv.config();

@@ -5,12 +5,14 @@ const membershipSchema = new mongoose.Schema({
         type: String,
         ref: 'user',
         index: true,
-        unique: true
+        unique: true,
+        isRequired: true
     },
     orgId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'organization',
-        index: true
+        index: true,
+        isRequired: true
     },
     role: String,
     createdAt: {

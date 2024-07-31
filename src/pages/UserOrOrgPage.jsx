@@ -13,7 +13,7 @@ export default function UserOrOrgSelect() {
     if (option === 'Volunteer') {
       navigate('/userpage'); 
     } else if (option === 'Org') {
-      navigate('/orglogin'); 
+      navigate('/org-dashboard'); 
     }
   };
 
