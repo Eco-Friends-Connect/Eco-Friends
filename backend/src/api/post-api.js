@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
     res.send('Post API is working');
 });
 
-// create a new user
+// create a new user  ✅
 router.post('/create-user', async (req, res) => {
     const { firstName, lastName, email, password, birthDate } = req.body;
     const auth = req.auth;
@@ -64,7 +64,7 @@ router.post('/create-user', async (req, res) => {
 }
 );
 
-// login a user
+// login a user ✅
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const auth = req.auth;
@@ -89,7 +89,7 @@ router.post('/login', async (req, res) => {
     });
 }
 );
-// logout a user
+// logout a user ✅
 router.post('/logout', async (req, res) => {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -112,7 +112,7 @@ router.post('/logout', async (req, res) => {
     });
 }
 );
-// create a new organization
+// create a new organization ✅
 router.post('/create-org', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null || auth.currentUser.uid === null) {
@@ -178,7 +178,7 @@ router.post('/create-org', async (req, res) => {
     }
 }
 );
-// create a new event
+// create a new event ✅
 router.post('/create-event', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -231,7 +231,7 @@ router.post('/create-event', async (req, res) => {
     }
 }
 );
-// add badge to an event
+// add badge to an event ✅
 router.post('/add-badge-to-event', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -269,7 +269,7 @@ router.post('/add-badge-to-event', async (req, res) => {
     });
 }
 );
-// create a new badge
+// create a new badge ✅
 router.post('/create-badge', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -331,7 +331,7 @@ router.post('/create-badge', async (req, res) => {
 }
 );
 
-// upload a badge image
+// upload a badge image ✅
 router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
     const auth = getAuth();
     const storage = getStorage();
@@ -399,8 +399,6 @@ router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
     }
 });
 
-
-
 router.post('/create-signup', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -415,7 +413,7 @@ router.post('/create-signup', async (req, res) => {
         accountId,
         eventId,
         signupDate: new Date(),
-        status,
+        status, // pending, approved, denied
     });
 
     try {
@@ -435,6 +433,14 @@ router.post('/create-org-event', async (req, res) => {
             message: 'User not logged in',
         });
     }
+    // check if user is a member of an organization
+    const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
+    if(membership === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not a member of an organization',
+        });
+    }
     const { orgId, eventId } = req.body;
     console.log("create-org-event", req.body);
     const orgEvent = new OrgEvent({
@@ -450,13 +456,20 @@ router.post('/create-org-event', async (req, res) => {
     }
 }
 );
-
+// create a new membership ✅
 router.post('/create-membership', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
         return res.status(400).send({
             status: 'fail',
             message: 'User not logged in',
+        });
+    }
+    const userMembership = await Membership.findOne({ accountId: auth.currentUser.uid });
+    if(userMembership === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not a member of an organization',
         });
     }
     const { orgId, accountId, role } = req.body;

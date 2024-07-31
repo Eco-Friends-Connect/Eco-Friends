@@ -10,47 +10,59 @@ router.get('/', (req, res) => {
     res.send('Get API is working');
 });
 
-function getDownloadURLFromFirebase(imgStorageRefFullPath) {
-    const storage = getStorage();
-    return new Promise((resolve, reject) => {
-        const imgRef = ref(storage, imgStorageRefFullPath);
-        
-        getDownloadURL(imgRef).then((url) => {
-            resolve(url);
-        }).catch((error) => {
-            reject(error);
-        });
-    });
-}
+// Get all badges 
 router.get('/badges', async (req, res) => {
     const auth = getAuth();
+    const storage = getStorage();
+    
     if (auth.currentUser === null) {
-        res.status(401).json({ message: 'Unauthorized' });
-        return;
-    }
-    try {
-        const memberships = await Membership.find({ accountId: auth.currentUser.uid });
-        const orgIds = memberships.map(membership => membership.orgId);
-        const orgBadges = await OrgBadge.find({ orgId: { $in: orgIds } });
-        Badge.find({ _id: { $in: orgBadges.map(orgBadge => orgBadge.badgeId) } }).then((badges) => {
-            const badgesWithImgUrl = [];
-            badges.forEach(async (badge) => {
-                const badgeObj = badge.toObject();
-                badgeObj.imgUrl = await getDownloadURLFromFirebase(badge.imgStorageRef);
-                badgesWithImgUrl.push(badgeObj);
-                if (badgesWithImgUrl.length === badges.length) {
-                    res.status(200).json({ 
-                        status: 'success',
-                        message: 'Badges retrieved successfully',
-                        badges: badgesWithImgUrl 
-                    });
-                }
-            });
-            
+        return res.status(401).json({ 
+            status: 'error',
+            message: 'User not logged in',
         });
+    }
+    
+    try {
+        const badges = await Badge.find();
+        const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
+
+        // Create an array of promises for fetching the download URLs
+        const returnBadges = [];
+        const badgePromises = badges.map(async (badge) => {
+            const badgeWithLink = badge.toObject();
+            if (badge.imgStorageRef) {
+                try {
+                    const storageRef = ref(storage, badge.imgStorageRef);
+                    badge.imgUrl = await getDownloadURL(storageRef);
+                    // console.log('Fetched download URL for badge', badge._id);
+                    // console.log('Badge image URL:', badge.imgUrl);
+                    badgeWithLink.imgUrl = badge.imgUrl;
+                    returnBadges.push(badgeWithLink);
+                } catch (error) {
+                    console.error('Error fetching download URL for badge', badge._id, error);
+                    badge.imgUrl = null; // or some default URL
+                }
+                await badge.save();
+            }
+        });
+
+        // Wait for all promises to complete
+        await Promise.all(badgePromises);
+
+        return res.json({
+            status: 'success',
+            data: returnBadges,
+        });
+
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        console.error('Error fetching badges or membership', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Internal server error',
+        });
     }
 });
+
+
 
 export default router;
