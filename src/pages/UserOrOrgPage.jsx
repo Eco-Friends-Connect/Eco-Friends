@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import SelectOption from "../component/select-option/select-option";
 import styles from '../component/select-option/select-option.module.scss';
+import React from 'react';
 
 const question = 'Are you a volunteer or an organization?';
 const options = ['Volunteer', 'Org'];

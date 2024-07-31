@@ -1,6 +1,8 @@
 
 import EcoButton from '../../component/eco-button/eco-button';
 import styles from './org-dashboard.module.scss';
+import React from 'react';
+
 function OrgDashboard() {
 
   return (

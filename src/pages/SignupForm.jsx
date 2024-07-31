@@ -4,6 +4,8 @@ import Signup from '../component/signup-form/Signup';
 import DateCalendarServerRequest from '../component/SmallCalendar';
 import styles from '../component/signup-form/Signup.module.scss';
 import config from '../config';
+import React from 'react';
+
 
 const signupUser = (formData, setError, setLoading, navigate) => {
   const API_URL = config.API_URL;

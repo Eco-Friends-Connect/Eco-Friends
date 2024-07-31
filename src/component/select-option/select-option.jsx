@@ -1,6 +1,7 @@
 import EcoButton from '../eco-button/eco-button';
 import style from './select-option.module.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 
 function SelectOption({ question, options, onOptionClick }) {

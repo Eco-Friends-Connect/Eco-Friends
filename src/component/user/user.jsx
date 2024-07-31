@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './user.module.scss';
 import DateCalendarServerRequest from '../SmallCalendar';
+import React from 'react';
 
 function ClickableButtons() {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules', '*.test.jsx',],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh','filenames'],
@@ -27,6 +27,9 @@ module.exports = {
     'semi': ['error', 'always'],
     // Enforce Prop-Types validation rule
     'react/prop-types': 'error',
+    // Enforce react import rule
+    'react/react-in-jsx-scope': 'error',
     // Enforce no-unused-vars rule
+    'no-unused-vars': 'off',
   },
 }
