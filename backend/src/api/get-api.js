@@ -2,7 +2,7 @@ import express from 'express';
 import { getAuth } from 'firebase/auth';
 import Badge from '../../models/badge.js';
 import Membership from '../../models/membership.js';
-import OrgBadge from '../../models/org_badge.js';
+// import OrgBadge from '../../models/org_badge.js';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 const router = express.Router();
 
@@ -25,7 +25,12 @@ router.get('/badges', async (req, res) => {
     try {
         const badges = await Badge.find();
         const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
-
+        if (!membership) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Membership not found',
+            });
+        }
         // Create an array of promises for fetching the download URLs
         const returnBadges = [];
         const badgePromises = badges.map(async (badge) => {
