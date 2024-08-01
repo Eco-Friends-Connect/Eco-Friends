@@ -18,10 +18,6 @@ const upload = multer({ storage: multerEngine});
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Post API is working');
-});
-
 // create a new user  ✅
 router.post('/create-user', async (req, res) => {
     const { firstName, lastName, email, password, birthDate } = req.body;
