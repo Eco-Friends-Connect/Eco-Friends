@@ -1,13 +1,12 @@
-name: Track Ticket Claim
+name: Track Ticket Completion
 
 on:
-  issues:
-    types: [opened]
+  pull_request:
+    types: [closed]
 
 jobs:
   update-points:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -22,9 +21,9 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: Run Update Points Script
-        if: ${{ github.event.issue.pull_request }}
+        if: ${{ github.event.pull_request.merged }}
         run: |
-          python scripts/update_points_docs.py "${{ github.actor }}" 10 "claimed"
+          python scripts/update_points_docs.py "${{ github.actor }}" 30 "completed"
 
       - name: Commit and Push Changes
         run: |
