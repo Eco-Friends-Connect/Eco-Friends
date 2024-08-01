@@ -8,15 +8,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.send('Get API is working');
 });
-/**
- * @swagger
- * /badges:
- *   get:
- *     summary: Returns a list of organization badges
- *     responses:
- *       200:
- *         description: A list of all the badges
- */
+
 // Get all badges 
 router.get('/badges', async (req, res) => {
     const auth = getAuth();

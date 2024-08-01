@@ -5,6 +5,8 @@ import connectDB from './config.js';
 import process from 'process';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+import path from 'path';
 // router
 import postApi from './api/post-api.js';
 import getApi from './api/get-api.js';
@@ -18,9 +20,9 @@ const swaggerOptions = {
     definition: {
       openapi: '3.0.0',
       info: {
-        title: 'My API',
+        title: 'Eco-Friends Backend API',
         version: '1.0.0',
-        description: 'A description of my API',
+        description: 'Eco-Friends Backend API',
       },
     },
     apis: ['./src/api/*.js', './src/server.js'], // Path to the API docs
@@ -49,20 +51,12 @@ app.use((req, res, next) => {
 );
 
 // routes
-/**
- * @swagger
- * /:
- *  get:
- *   summary: check if the Backend is running
- *  responses:
- *      200:
- *      description: A message that the Backend is running is Displayed
- */
 app.get('/', (req, res) => {
     res.send('The Backend is running');
 });
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerOptions)));
+// TODO:create-user, login, logout endpoints have been reviewed but the others need review
+const swaggerDocs = JSON.parse(fs.readFileSync(path.resolve('./docs/swagger.json'), 'utf-8'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api/post', postApi);
 app.use('/api/get', getApi);
 
