@@ -1,0 +1,36 @@
+name: Track Ticket Claiming
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+    update-points:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                python-version: '3.x'
+            
+            - name: Install dependencies
+              run: |
+                python3 -m pip install --upgrade pip
+            
+            - name: Run Update Points Script
+              if: ${{ github.event.issue.pull_request }}
+              run: |
+                  python scripts/update_points_docs.py "${{ github.actor }}" 10 "claimed"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+            - name: Commit and Push Changes
+              run: |
+                  git config user.name "github-actions"
+                  git config user.email "actions@github.com"
+                  git add docs/team-points.md
+                  git commit -m "Update points for ${GITHUB_ACTOR}"
+                  git push
