@@ -1,10 +1,6 @@
-name: Track Ticket Claiming
+name: Test Workflow
 
-on:
-  issues:
-    types: [opened, edited, closed]
-  pull_request:
-    types: [opened, closed, reopened]
+on: [push]
 
 jobs:
   update-points:
@@ -37,3 +33,4 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
