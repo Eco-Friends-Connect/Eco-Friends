@@ -1,6 +1,8 @@
 name: Test Workflow
 
-on: [push]
+on:
+  issues:
+    types: [assigned] 
 
 jobs:
   update-points:
@@ -21,8 +23,7 @@ jobs:
       - name: Run Update Points Script
         run: |
           python scripts/update_points_docs.py "${{ github.actor }}" 10 "claimed"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
 
       - name: Commit and Push Changes
         run: |
@@ -31,6 +32,5 @@ jobs:
           git add docs/team-points.md
           git commit -m "Update points for ${GITHUB_ACTOR}"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
 
