@@ -6,12 +6,20 @@ import styles from "./pop-out.module.scss";
 
 function PopOut({isOpened, onClose, children}) {
     const [show, setShow] = useState(false);
-    function handleClose (event) {
+
+    function handleClose(event) {
         event.preventDefault();
         setShow(false);
         console.log("Closing popout");
         onClose();
     }
+    // Handler to close popup on overlay click
+    const handleOverlayClick = (event) => {
+        if (event.target === event.currentTarget) {
+        onClose();
+        }
+    };
+
     useEffect(() => {
         setShow(true);
     }, [isOpened]);
@@ -20,7 +28,7 @@ function PopOut({isOpened, onClose, children}) {
     if(!isOpened) {return null;}
     return (
     <>
-        <div className={styles["popup-overlay"]} >
+        <div onClick={handleOverlayClick} className={styles["popup-overlay"]} >
             <div className={styles["popup-content"]}>
                 {children}
                 <EcoButton onClick={handleClose} ecoButtonProps={{btnTitle: "Close", btnSize: "small", btnColor:"yellow", animate: 1}}/>
