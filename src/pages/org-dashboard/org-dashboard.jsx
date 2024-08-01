@@ -54,7 +54,7 @@ function OrgDashboard() {
         </div>
         {
             eventFormOpened && (
-                <PopOut isOpened={true} onClose={() => {toggleEventFormOpened();}}>
+                <PopOut isOpened={true} isForm={true} onClose={() => {toggleEventFormOpened();}}>
                     <EventForm onSubmit={createEvent}/>
                 </PopOut>
             )

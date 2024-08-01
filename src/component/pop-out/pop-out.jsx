@@ -4,7 +4,7 @@ import EcoButton from "../eco-button/eco-button";
 import styles from "./pop-out.module.scss";
 
 
-function PopOut({isOpened, onClose, children}) {
+function PopOut({isOpened, isForm, onClose, children}) {
     const [show, setShow] = useState(false);
 
     function handleClose(event) {
@@ -19,6 +19,12 @@ function PopOut({isOpened, onClose, children}) {
         onClose();
         }
     };
+    function isFormComponent() {
+        if(isForm) {
+            return styles["form"];
+        }
+        return styles["info"];
+    }
 
     useEffect(() => {
         setShow(true);
@@ -29,7 +35,7 @@ function PopOut({isOpened, onClose, children}) {
     return (
     <>
         <div onClick={handleOverlayClick} className={styles["popup-overlay"]} >
-            <div className={styles["popup-content"]}>
+            <div className={`${styles["popup-content"]} ${isFormComponent()}`}>
                 {children}
                 <EcoButton onClick={handleClose} ecoButtonProps={{btnTitle: "Close", btnSize: "small", btnColor:"yellow", animate: 1}}/>
             </div>
@@ -41,6 +47,7 @@ function PopOut({isOpened, onClose, children}) {
 
 PopOut.propTypes = {
     isOpened: propTypes.bool.isRequired,
+    isForm: propTypes.bool,
     onClose: propTypes.func,
     children: propTypes.node,
 };
