@@ -21,7 +21,6 @@ jobs:
                 python3 -m pip install --upgrade pip
             
             - name: Run Update Points Script
-              if: ${{ github.event.issue.pull_request }}
               run: |
                   python scripts/update_points_docs.py "${{ github.actor }}" 10 "claimed"
               env:
@@ -34,3 +33,5 @@ jobs:
                   git add docs/team-points.md
                   git commit -m "Update points for ${GITHUB_ACTOR}"
                   git push
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
