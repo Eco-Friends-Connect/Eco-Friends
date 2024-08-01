@@ -15,6 +15,7 @@ function EventForm(props) {
         zipCode: '',
     });
     const handleChange = (e) => {
+        e.preventDefault();
         setForm({
             ...formData,
             [e.target.name]: e.target.value,
