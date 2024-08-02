@@ -1,0 +1,40 @@
+@import '../../../styles/styles.scss';
+$container-width: 1000px;
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: $dark-brown;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 2px solid $dark-brown;
+    margin-bottom: 60px;
+}
+
+.container {
+    display: flex;
+    align-items:baseline;
+    justify-content: center;
+    gap: 350px;
+    padding-bottom: 100px;
+    margin-top: 0px;
+}
+
+.colContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.eventContainer {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-top: 0px;
+    gap: 50px;
+}

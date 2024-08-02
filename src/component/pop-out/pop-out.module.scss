@@ -1,0 +1,54 @@
+/* src/components/Popup.scss */
+@import '../../../styles/styles.scss';
+$container-width: 1000px;
+$container-height: 1000px;
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    width: 100%;
+    align-items: center; 
+    overflow: auto;
+    padding: 35px;
+  }
+  .form {
+    border: 1px solid black;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .info {
+    border: 1px solid blue;
+    max-width: 700px;
+  }
+  
+  .error {
+    border: 1px solid red;
+
+  }
+  
+  .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  

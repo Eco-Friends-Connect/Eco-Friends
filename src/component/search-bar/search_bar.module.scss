@@ -1,0 +1,54 @@
+
+
+.container {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+  //width: 20%; 
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: rgb(53,101,137);
+}
+/* styles.module.css */
+/* .searchContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px;
+} */
+
+/* General form styling */
+/* form {
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(53,101,137);
+  } */
+  
+  /* Text input styling */
+  input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }  
+  
+  /* Checkbox and label styling */
+  input[type="checkbox"] {
+    margin-right: 10px;
+  } 
+  
+  label {
+    margin-right: 20px;
+    font-size: 14px;
+  } 
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+  } 
+  
