@@ -5,7 +5,6 @@ import Membership from '../../models/membership.js';
 import OrgBadge from '../../models/org_badge.js';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 const router = express.Router();
-
 router.get('/', (req, res) => {
     res.send('Get API is working');
 });
