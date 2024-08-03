@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config.js';
 import process from 'process';
-import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import path from 'path';
