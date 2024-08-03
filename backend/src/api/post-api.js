@@ -7,11 +7,13 @@ import Location from '../../models/location.js';
 import Badge from '../../models/badge.js';
 import Event from '../../models/event.js';
 import Signup from '../../models/signups.js';
+import VolunteerRequest from '../../models/volunteer_request.js';
 import OrgEvent from '../../models/org_event.js';
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
-
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth as getAdminAuth } from 'firebase-admin/auth';
 import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
+
 import multer from 'multer';
 const multerEngine = multer.memoryStorage();
 const upload = multer({ storage: multerEngine});
@@ -420,6 +422,153 @@ router.post('/create-signup', async (req, res) => {
     }
 }
 );
+
+// create a volunteer request ✅
+router.post('/create-volunteer-request', async (req, res) => {
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
+    const { firstName, lastName, email, birthDate, eventId, status } = req.body;
+    console.log("create-volunteer-request", req.body);
+    const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
+    if(membership === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not a member of an organization',
+        });
+    }
+    const orgId = membership.orgId;
+    const volunteer = new VolunteerRequest({
+        firstName,
+        lastName,
+        email,
+        birthDate,
+        eventId,
+        orgId,
+        status, // pending, approved, denied
+    });
+
+    try {
+        await volunteer.save();
+        return res.status(201).send({
+            status: 'success',
+            message: 'Volunteer Request created',
+            data: {
+                volunteerId: volunteer._id,
+                firstName,
+                lastName,
+                email,
+                birthDate,
+                eventId,
+                orgId,
+                status,
+            },
+        });
+    } catch (error) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Volunteer Request not created',
+            error: error,
+        });
+    }
+
+}
+);
+
+// Approve a volunteer request
+router.post('/approve-volunteer-request', async (req, res) => {
+    const auth = getAuth();
+    const adminAuth = getAdminAuth();
+    if (auth.currentUser === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not logged in',
+        });
+    }
+    const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
+    if(membership === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not a member of an organization',
+        });
+    }
+    const { volunteerId } = req.body;
+    console.log("approve-volunteer-request", req.body);
+    let volunteer = await VolunteerRequest.find({ _id: volunteerId });
+    volunteer = volunteer[0];
+    if(volunteer === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Volunteer Request not found',
+        });
+    }
+    volunteer.status = 'approved';
+    console.log("volunteer", volunteer);
+    const userRecord = await adminAuth.createUser({
+        email: volunteer.email,
+        emailVerified: false,
+        password: 'password',
+        displayName: volunteer.firstName + ' ' + volunteer.lastName,
+        disabled: false,
+    }).catch((error) => {
+        console.log('Error creating new user:', error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not created',
+            error: error,
+        });
+    });
+    console.log('Successfully created new user:', userRecord.uid);
+    // add user to user collection
+    try{
+
+            const newUser = new User({
+                accountId: userRecord.uid,
+                firstName: volunteer.firstName,
+                lastName: volunteer.lastName,
+                email: volunteer.email,
+                birthDate: volunteer.birthDate,
+            });
+            await newUser.save();
+            await VolunteerRequest.updateOne({ _id: volunteerId }, volunteer);
+    } catch (error) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not created',
+            error: error,
+        });
+    }
+    // send password reset email
+    try{
+        await sendPasswordResetEmail(auth, volunteer.email).then(() => {
+            console.log('Successfully sent password reset email:', volunteer.email);
+        });
+
+        console.log('Password reset email sent to user:', volunteer.email);
+
+    } catch (error) {
+        console.log('Error sending password reset email:', error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Password reset email not sent',
+            error: error,
+        });
+    }
+
+    return res.status(200).send({
+        status: 'success',
+        message: 'Volunteer Request approved',
+        data: {
+            volunteerId,
+        },
+    });
+}
+);
+
 
 router.post('/create-org-event', async (req, res) => {
     const auth = getAuth();

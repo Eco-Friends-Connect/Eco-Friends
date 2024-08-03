@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { application } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config.js';
@@ -11,21 +11,12 @@ import postApi from './api/post-api.js';
 import getApi from './api/get-api.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { initializeApp as initializeAdminApp } from 'firebase-admin/app';
 import { getStorage } from 'firebase/storage';
+import { cert } from 'firebase-admin/app';
+
 
 const app = express();
-// Swagger setup
-const swaggerOptions = {
-    definition: {
-      openapi: '3.0.0',
-      info: {
-        title: 'Eco-Friends Backend API',
-        version: '1.0.0',
-        description: 'Eco-Friends Backend API',
-      },
-    },
-    apis: ['./src/api/*.js', './src/server.js'], // Path to the API docs
-  };
 
 // connect to database
 connectDB();
@@ -37,14 +28,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // initialize firebase
 const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+const adminConfig = JSON.parse(process.env.FIREBASE_ADMIN_CONFIG);
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
+const adminApp = initializeAdminApp({
+    credential: cert(adminConfig)});
 const storage = getStorage(firebaseApp);
 
 
 app.use((req, res, next) => {
     req.auth = auth;
     req.storage = storage;
+    req.adminApp = adminApp;
     next();
 }
 );
