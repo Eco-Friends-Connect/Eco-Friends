@@ -10,31 +10,37 @@ import config from '../../config';
 
 const signupFields = [
   {
-    label: "Account ID",
+    label: "First Name",
     type: "input",
-    name: "accountId"
+    name: "firstName"
   },
   {
-    label: "Event ID",
+    label: "Last Name",
     type: "input",
-    name: "eventId"
+    name: "lastName"
   },
   {
-    label: "Signup Date",
+    label: "Email",
+    type: "input",
+    name: "email"
+  },
+  {
+    label: "Date of Birth",
     type: "date",
-    name: "signupDate"
+    name: "dob"
   },
   {
-    label: "Status",
-    type: "input",
-    name: "status"
-  }
+    label: "Sign Date",
+    type: "date",
+    name: "signDate"
+  },
 ];
 const signupFormData = {
-  accountId: "",
-  eventId: "",
-  signupDate: "",
-  status: ""
+  firstName: "",
+  lastName: "",
+  email: "",
+  dob: "",
+  signDate: "",
 };
 
 function OrgDashboard() {
