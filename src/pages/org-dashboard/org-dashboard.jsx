@@ -34,6 +34,16 @@ const signupFields = [
     type: "date",
     name: "signDate"
   },
+  {
+    label: "Is a user",
+    type: "checkbox",
+    name: "isUser"
+  },{
+    label: "Events",
+    type: "select",
+    name: "events",
+    options: [""],//getEvents()["data"].map((event) => {return event.title;})
+  }
 ];
 const signupFormData = {
   firstName: "",
@@ -41,12 +51,22 @@ const signupFormData = {
   email: "",
   dob: "",
   signDate: "",
+  isUser: false,
+  event: ""
 };
+async function getEvents() {
+  return fetch(`${config.API_URL}/api/get/events`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
 
+  });
+
+}
 function OrgDashboard() {
   const [eventFormOpened, setEventFormOpened] = useState(false);
   const [signupFormOpened, setSignupFormOpened] = useState(false);
-  
   async function createEvent(formData) {
     console.log("Handling create event");
     console.log(formData);

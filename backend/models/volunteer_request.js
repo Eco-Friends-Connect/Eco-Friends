@@ -8,6 +8,7 @@ const VolunteerRequestSchema = new mongoose.Schema({
     eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'event', index: true, required: true },
     orgId: { type: mongoose.Schema.Types.ObjectId, ref: 'organization', index: true, required: true },
     status: String, // 'pending', 'approved', 'rejected'
+    isUser: { type: Boolean, default: false, required: true },
     createdAt: { type: Date, default: Date.now },
 });
 

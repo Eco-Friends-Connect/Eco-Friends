@@ -432,7 +432,6 @@ router.post('/create-volunteer-request', async (req, res) => {
             message: 'User not logged in',
         });
     }
-    const { firstName, lastName, email, birthDate, eventId, status } = req.body;
     console.log("create-volunteer-request", req.body);
     const membership = await Membership.findOne({ accountId: auth.currentUser.uid });
     if(membership === null) {
@@ -441,6 +440,7 @@ router.post('/create-volunteer-request', async (req, res) => {
             message: 'User not a member of an organization',
         });
     }
+    const { firstName, lastName, email, birthDate, eventId, status, isUser } = req.body;
     const orgId = membership.orgId;
     const volunteer = new VolunteerRequest({
         firstName,
@@ -449,6 +449,7 @@ router.post('/create-volunteer-request', async (req, res) => {
         birthDate,
         eventId,
         orgId,
+        isUser,
         status, // pending, approved, denied
     });
 
@@ -466,6 +467,7 @@ router.post('/create-volunteer-request', async (req, res) => {
                 eventId,
                 orgId,
                 status,
+                isUser,
             },
         });
     } catch (error) {
@@ -508,23 +510,24 @@ router.post('/approve-volunteer-request', async (req, res) => {
     }
     volunteer.status = 'approved';
     console.log("volunteer", volunteer);
-    const userRecord = await adminAuth.createUser({
-        email: volunteer.email,
-        emailVerified: false,
-        password: 'password',
-        displayName: volunteer.firstName + ' ' + volunteer.lastName,
-        disabled: false,
-    }).catch((error) => {
-        console.log('Error creating new user:', error);
-        return res.status(400).send({
-            status: 'fail',
-            message: 'User not created',
-            error: error,
+    let userRecord;
+    if(!volunteer.isUser) {
+        userRecord = await adminAuth.createUser({
+            email: volunteer.email,
+            emailVerified: false,
+            password: 'password',
+            displayName: volunteer.firstName + ' ' + volunteer.lastName,
+            disabled: false,
+        }).catch((error) => {
+            console.log('Error creating new user:', error);
+            return res.status(400).send({
+                status: 'fail',
+                message: 'User not created',
+                error: error,
+            });
         });
-    });
-    console.log('Successfully created new user:', userRecord.uid);
-    // add user to user collection
-    try{
+        // add user to user collection
+        try{
 
             const newUser = new User({
                 accountId: userRecord.uid,
@@ -535,37 +538,58 @@ router.post('/approve-volunteer-request', async (req, res) => {
             });
             await newUser.save();
             await VolunteerRequest.updateOne({ _id: volunteerId }, volunteer);
-    } catch (error) {
-        return res.status(400).send({
-            status: 'fail',
-            message: 'User not created',
-            error: error,
+        } catch (error) {
+            return res.status(400).send({
+                status: 'fail',
+                message: 'User not created',
+                error: error,
+            });
+        }
+        // send password reset email
+        try{
+            await sendPasswordResetEmail(auth, volunteer.email).then(() => {
+                console.log('Successfully sent password reset email:', volunteer.email);
+            });
+
+            console.log('Password reset email sent to user:', volunteer.email);
+
+        } catch (error) {
+            console.log('Error sending password reset email:', error);
+            return res.status(400).send({
+                status: 'fail',
+                message: 'Password reset email not sent',
+                error: error,
+            });
+        }
+    } else {
+        userRecord = await adminAuth.getUserByEmail(volunteer.email).catch((error) => {
+            console.log('Error getting user by email:', error);
+            return res.status(400).send({
+                status: 'fail',
+                message: 'User not found',
+                error: error,
+            });
         });
     }
-    // send password reset email
-    try{
-        await sendPasswordResetEmail(auth, volunteer.email).then(() => {
-            console.log('Successfully sent password reset email:', volunteer.email);
-        });
-
-        console.log('Password reset email sent to user:', volunteer.email);
-
-    } catch (error) {
-        console.log('Error sending password reset email:', error);
-        return res.status(400).send({
-            status: 'fail',
-            message: 'Password reset email not sent',
-            error: error,
-        });
-    }
-
-    return res.status(200).send({
-        status: 'success',
-        message: 'Volunteer Request approved',
-        data: {
-            volunteerId,
-        },
+    // signup user for event
+    const signup = new Signup({
+        accountId: userRecord.uid,
+        eventId: volunteer.eventId,
+        signupDate: new Date(),
+        status: 'approved',
     });
+    try {
+        await signup.save();
+    } catch (error) {
+        console.log('Successfully created new user:', userRecord.uid);
+        return res.status(200).send({
+            status: 'success',
+            message: 'Volunteer Request approved',
+            data: {
+                volunteerId,
+            },
+        });
+    }
 }
 );
 
