@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import EventList from '../component/event-list/Event-List'
-import SearchBar from '../component/search-bar/search_bar'
+import EventList from '../component/event-list/Event-List';
+import SearchBar from '../component/search-bar/search_bar';
 
 
 
