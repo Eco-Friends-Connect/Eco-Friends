@@ -1,0 +1,477 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Eco Friends Backend API",
+      "description": "API documentation for Eco-Friends backend",
+      "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+            "summary": "Ping Backend ",
+            "responses": {
+                "200": {
+                "description": "A message that the Backend is running is Displayed"
+                }
+            }
+            }
+        },
+        "/api/post/create-user": {
+            "post": {
+            "summary": "Create a new user",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "firstName": {
+                        "type": "string"
+                        },
+                        "lastName": {
+                        "type": "string"
+                        },
+                        "email": {
+                        "type": "string"
+                        },
+                        "password": {
+                        "type": "string"
+                        },
+                        "birthDate": {
+                        "type": "string",
+                        "format": "date"
+                        }
+                    },
+                    "required": [
+                        "firstName",
+                        "lastName",
+                        "email",
+                        "password",
+                        "birthDate"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "User created"
+                },
+                "400": {
+                "description": "User not created"
+                }
+            }
+            }
+        },
+        "/api/post/login": {
+            "post": {
+            "summary": "Login a user",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                        "type": "string"
+                        },
+                        "password": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "email",
+                        "password"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "200": {
+                "description": "User logged in"
+                },
+                "400": {
+                "description": "User not logged in"
+                }
+            }
+            }
+        },
+        "/api/post/logout": {
+            "post": {
+            "summary": "Logout a user",
+            "responses": {
+                "200": {
+                "description": "User logged out"
+                },
+                "400": {
+                "description": "User not logged out"
+                }
+            }
+            }
+        },
+        "/api/post/create-org": {
+            "post": {
+            "summary": "Create a new organization",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                        "type": "string"
+                        },
+                        "description": {
+                        "type": "string"
+                        },
+                        "imgUrl": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "description",
+                        "imgUrl"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Organization created"
+                },
+                "400": {
+                "description": "Organization not created"
+                }
+            }
+            }
+        },
+        "/api/post/create/event": {
+            "post": {
+            "summary": "Create a new event",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                        "type": "string"
+                        },
+                        "description": {
+                        "type": "string"
+                        },
+                        "date": {
+                        "type": "string",
+                        "format": "date"
+                        },
+                        "imgUrl": {
+                        "type": "string"
+                        },
+                        "organizationId": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "description",
+                        "date",
+                        "imgUrl",
+                        "organizationId"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Event created"
+                },
+                "400": {
+                "description": "Event not created"
+                }
+            }
+            }
+        },
+        "/api/post/create/badge": {
+            "post": {
+            "summary": "Create a new badge",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                        "type": "string"
+                        },
+                        "description": {
+                        "type": "string"
+                        },
+                        "imgUrl": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "description",
+                        "imgUrl"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Badge created"
+                },
+                "400": {
+                "description": "Badge not created"
+                }
+            }
+            }
+        },
+        "/api/post/add-badge-to-event": {
+            "post": {
+            "summary": "Add a badge to an event",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "eventId": {
+                        "type": "string"
+                        },
+                        "badgeId": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "eventId",
+                        "badgeId"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Badge added to event"
+                },
+                "400": {
+                "description": "Badge not added to event"
+                }
+            }
+            }
+        },
+        "/api/post/upload-badge-image": {
+            "post": {
+            "summary": "Upload a badge image",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "multipart/form-data": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "file": {
+                        "type": "string",
+                        "format": "binary"
+                        }
+                    },
+                    "required": [
+                        "file"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Badge image uploaded"
+                },
+                "400": {
+                "description": "Badge image not uploaded"
+                }
+            }
+            }
+        },
+        "/api/post/create-signup": {
+            "post": {
+            "summary": "Create a new signup",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "userId": {
+                        "type": "string"
+                        },
+                        "eventId": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "userId",
+                        "eventId"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Signup created"
+                },
+                "400": {
+                "description": "Signup not created"
+                }
+            }
+            }
+        },
+        "/api/post/create-org-event": {
+            "post": {
+            "summary": "Create a new organization event",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                        "type": "string"
+                        },
+                        "description": {
+                        "type": "string"
+                        },
+                        "date": {
+                        "type": "string",
+                        "format": "date"
+                        },
+                        "imgUrl": {
+                        "type": "string"
+                        },
+                        "organizationId": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "description",
+                        "date",
+                        "imgUrl",
+                        "organizationId"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Organization event created"
+                },
+                "400": {
+                "description": "Organization event not created"
+                }
+            }
+            }
+        },
+        "/api/post/create-membership": {
+            "post": {
+            "summary": "Create a new membership",
+            "requestBody": {
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "userId": {
+                        "type": "string"
+                        },
+                        "organizationId": {
+                        "type": "string"
+                        }
+                    },
+                    "required": [
+                        "userId",
+                        "organizationId"
+                    ]
+                    }
+                }
+                }
+            },
+            "responses": {
+                "201": {
+                "description": "Membership created"
+                },
+                "400": {
+                "description": "Membership not created"
+                }
+            }
+            }
+        },
+        "/badges": {
+                "get": {
+                "summary": "Returns a list of organization badges",
+                "responses": {
+                    "200": {
+                    "description": "A list of all the badges",
+                    "content": {
+                        "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                            "status": {
+                                "type": "string"
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                "type": "object",
+                                "properties": {
+                                    "_id": {
+                                    "type": "string"
+                                    },
+                                    "name": {
+                                    "type": "string"
+                                    },
+                                    "description": {
+                                    "type": "string"
+                                    },
+                                    "imgUrl": {
+                                    "type": "string"
+                                    }
+                                }
+                                }
+                            }
+                            },
+                            "required": ["data"]
+                        }
+                        }
+                    }
+                    }
+                },
+                "security": [
+                    {
+                    "firebase": []
+                    }
+                ]
+                }
+            }
+        
+    }
+}
+  

@@ -1,6 +1,7 @@
 import style from './event-form.module.css';
 import EcoButton from '../eco-button/eco-button';
 import propTypes from 'prop-types';
+import React from 'react';
 import { useState } from 'react';
 
 function EventForm(props) {
@@ -14,6 +15,7 @@ function EventForm(props) {
         zipCode: '',
     });
     const handleChange = (e) => {
+        e.preventDefault();
         setForm({
             ...formData,
             [e.target.name]: e.target.value,

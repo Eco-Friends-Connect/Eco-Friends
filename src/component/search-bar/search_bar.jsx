@@ -1,4 +1,5 @@
 import searchBarStyles from './search_bar.module.scss';
+import React from 'react';
 
 export default function SearchBar() {
     return (

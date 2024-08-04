@@ -1,9 +1,10 @@
 import style from './eco-button.module.scss';
 import propTypes from 'prop-types';
+import React from 'react';
 
 let ecoButtonDefaultProps = {
   // Default props
-  equButtonProps:
+  ecoButtonProps:
   {
   btnShape: "",
   btnColor: "",
@@ -15,7 +16,7 @@ let ecoButtonDefaultProps = {
   onClick: ()=>{},
   children: null,
 };
-function EcoButton({  ecoButtonProps = ecoButtonDefaultProps.equButtonProps, onClick=ecoButtonDefaultProps.onClick }) {
+function EcoButton({  ecoButtonProps = ecoButtonDefaultProps.ecoButtonProps, onClick=ecoButtonDefaultProps.onClick }) {
 
   const getVariant = (shape) => {
     switch (shape) {

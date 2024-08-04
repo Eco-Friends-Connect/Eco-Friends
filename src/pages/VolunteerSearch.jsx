@@ -1,4 +1,6 @@
 import SearchBar from "../component/search-bar/search_bar";
+import React from 'react';
+
 export default function VolunteerSearch(){
     return(
         <>

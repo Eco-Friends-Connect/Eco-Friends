@@ -12,22 +12,26 @@
 
 .container {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   gap: 350px;
+  padding-bottom: 100px;
+  margin-top: 0px;
 }
 
 .colContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0px;
   flex-direction: column;
-  gap: 100px;
+  gap: 20px;
 }
 
 .eventContainer {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
+  margin-top: 0px;
   gap: 50px;
 }/*# sourceMappingURL=org-dashboard.module.css.map */

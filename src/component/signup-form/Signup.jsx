@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styles from './Signup.module.scss';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function SignupForm({ onSubmit, loading }) {
   const [formData, setFormData] = useState({
