@@ -9,6 +9,7 @@ import UserPage from './pages/UserPage';
 import EcoChat from './pages/Eco-Chat';
 import AboutTheCreators from './pages/AboutTheCreators';
 import SignupFormPage from './pages/SignupForm'; 
+import LoginPage from './pages/login-page/login-page.jsx';
 import NotFound from './pages/NotFound'; 
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/ecochat" element={<EcoChat />} />
           <Route path="/aboutthecreators" element={<AboutTheCreators />} />
           <Route path="/signup" element={<SignupFormPage />} /> 
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />

@@ -1,37 +1,76 @@
-import styles from "./Login.module.scss"; 
-import React from "react";
+import styles from "./Login.module.scss";
+import PropTypes from "prop-types"; 
+import React, {useState} from "react";
+import Switch from '@mui/material/Switch';
 
-// import EcoButton from "../../component/eco-button/eco-button";
+function LoginForm({onClickSignUp, onSubmit}) {
+    const [formData, setFormData] = useState({
+        userName: '',
+        password: '',
+        rememberMe: false,
+    });
 
-export default function LoginForm(){
+    const [errors, setErrors] = useState({});
+    const validate = () => {
+        const newErrors = {};
+        if (!formData.userName) {
+            newErrors.userName = 'Please enter your User Name';
+        }
+        if (!formData.password) {
+            newErrors.password = 'Please enter your password';
+        }
+        return newErrors;
+    };
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData({
+            ...formData,
+            [name]: e.target.name === 'rememberMe' ? e.target.checked : value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length === 0) {
+            onSubmit(formData);
+        } else {
+            setErrors(validationErrors);
+        }
+    };
+
+
     return(
-<>
-<form className={styles.form}>
-<h1>
-    Log In
-</h1> 
-
-<label className={styles.label} >
-      <input className={styles.input} name="userName" placeholder={"User Name"}></input> 
-</label>
-
-<label className={styles.label}> 
-      <input className={styles.input}name="password" placeholder={"password"}></input> 
-</label>
-<br></br>
-    
-     <button className={styles.signupbutton} type="submit">Sign Up</button>
-     {/* <EcoButton  type="submit" ecoButtonProps={{btnTitle:"Sign  Up",btnColor:"dark"}} className={styles.btnSize}/> */}
-     <div className={styles.divider}></div>
-     <button  className={styles.loginbutton} type="submit">Log In</button>   
-
-<br></br>
-     <input className={styles.forget} type="checkbox" id="Remember me" name="Remember me" value="Remember me" />
-                        <label htmlFor="Remember me"> Remember me</label>
-<br></br>
-     <input type="checkbox" id="Forget username/password" name="Forget username/password" value="Forget username/password" />
-                        <label htmlFor="Forget username/password"> Forget username/password</label>
-</form>
-</>
-); 
+        <>
+            <form className={styles.form} onChange={handleChange}>
+                <h1>Log In</h1> 
+                <div className={styles.inputContainer}>
+                    <input className={styles.input} name="userName" placeholder={"User Name"}></input> 
+                    <input className={styles.input}name="password" placeholder={"password"}></input> 
+                </div>
+                <div className={styles.buttonContainer}>
+                    <button onClick={handleSubmit} className={styles.loginbutton} type="submit">Log In</button>   
+                </div>  
+                <button className={styles.signupbutton} onClick={onClickSignUp}>
+                    Not a member of Eco Friends? Sign Up
+                </button>
+                    
+                <div>
+                    <div className={styles.rememberMeDiv}>
+                        <Switch color="error" name="rememberMe" />
+                        <label className={styles.rememberMeText} >Remember me</label>
+                    </div>
+                    <button className={styles.forgotBtn} type="button">Forget Password?</button>
+                </div>
+            </form>
+        </>
+    ); 
 }    
+
+LoginForm.propTypes = {
+    onClickSignUp: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired,
+};
+
+export default LoginForm;

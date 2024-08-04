@@ -1,6 +1,8 @@
 @import "../../../styles/styles.scss";
 
 .form {
+  display: flex;
+  flex-direction: column;
   border-radius: 25px;
   background: $dark-blue;
   padding: 30px;
@@ -10,6 +12,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  gap: 1rem;
 }
 
 .label {
@@ -19,15 +22,10 @@
   gap: 1rem;
 }
 
-.Forget {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
   
-.Forgetbutton { 
+.forgotBtn { 
     justify-content: center; 
-    width: 35%;
+    width: 100%;
     padding: 10px 10px;
     border: none;
     border-radius: 5px;
@@ -37,11 +35,10 @@
     gap: 1rem;
 }
 
-.divider {
-  width: 15px;
-  height: auto;
-  display: inline-block;
-  gap: 1rem;
+.rememberMeText {
+  font: 1em sans-serif;
+  font-size: larger;
+  color: white;
 }
 
 .input {
@@ -51,19 +48,28 @@
   display: flex;
   flex-direction: column;
 }
-
-.login {
-  font-size: 4em;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  grid-column: span 2;
+.input:focus {
+  border: 2px solid rgb(138,114,39);
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.inputContainer {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  gap: 2rem;
 }
 
 .column {
@@ -83,19 +89,10 @@
   cursor: pointer;
 }
 
-.buttoncontainer {
-  padding: 10px;
-  grid-column: span 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-}
 
 .signupbutton {
   justify-content: center;
-  width: 30%;
+  width: 100%;
   padding: 20px 20px;
   border: none;
   border-radius: 5px;
