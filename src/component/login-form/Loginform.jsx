@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, {useState} from "react";
 import Switch from '@mui/material/Switch';
 
-function LoginForm({onClickSignUp, onSubmit}) {
+function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
         userName: '',
         password: '',
@@ -38,7 +38,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
         } else {
             setErrors(validationErrors);
         }
-    };
+    }; 
 
 
     return(
