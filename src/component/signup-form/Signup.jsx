@@ -4,7 +4,7 @@ import styles from './Signup.module.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function SignupForm({ onSubmit, loading }) {
+export default function SignupForm({ onSubmit, loading, onSignIn }) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -138,12 +138,16 @@ export default function SignupForm({ onSubmit, loading }) {
           </button>
         </div>
       </form>
+      <button className={styles.signInBtn} onClick={onSignIn}>
+        Already have an account? Log in
+      </button>
     </div>
   );
 }
 
 SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  onSignIn: PropTypes.func,
   loading: PropTypes.bool,
 };
 
