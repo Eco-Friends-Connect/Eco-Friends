@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "title": "My API",
-      "description": "API documentation for my backend",
+      "title": "Eco Friends Backend API",
+      "description": "API documentation for Eco-Friends backend",
       "version": "1.0.0"
     },
     "paths": {

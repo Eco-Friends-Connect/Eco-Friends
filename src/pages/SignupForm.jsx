@@ -35,17 +35,22 @@ const signupUser = (formData, setError, setLoading, navigate) => {
   });
 };
 
+
 function SignupFormPage() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const SignInUser = () => {
+    navigate('/login');
+  };
+  
   return (
     <div className={styles.page}>
       {error && <div className={styles.error}>{error}</div>}
       <Signup 
         onSubmit={(formData) => signupUser(formData, setError, setLoading, navigate)} 
         loading={loading} 
+        onSignIn={SignInUser}
       />
       <div className={styles.calendar}>
         <DateCalendarServerRequest />
