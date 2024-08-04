@@ -14,7 +14,10 @@ function LoginPage() {
     }
     return (
     <>
+        <div className={styles.page}>
+
         <LoginForm onSubmit={onSubmit} onClickSignUp={handleSignUp} />
+        </div>
     </>
     );
 }
