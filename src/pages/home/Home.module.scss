@@ -5,7 +5,12 @@
   font-weight: 400;
   font-style: normal;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}     
 
 .signupButton {
     background-color: #356589;
@@ -46,9 +51,16 @@
     text-align: center;
     font-family: "Jacques Francois Shadow", serif;
     font-weight: 400;
+    font-size: 65px;
     font-style: normal;
+    
   }
-
+  .anton{
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+  }
   .buttoncontainer{
    display: flex;
    align-items: center;

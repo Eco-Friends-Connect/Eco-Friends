@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EventList from '../component/event-list/Event-List';
 import SearchBar from '../component/search-bar/search_bar';
-
+import styles from './VolunteerSearch.module.scss';
 
 
 const VolunteerSearch = () => {
@@ -31,7 +31,7 @@ const VolunteerSearch = () => {
 
   return (
     <div>
-      <h1>Volunteer Opportunities</h1>
+      <h1 className={styles.anton}>Volunteer Opportunities</h1>
       <SearchBar />
       <EventList events={events} onSignUp={handleSignUp} />
       {signedUpEvent && (

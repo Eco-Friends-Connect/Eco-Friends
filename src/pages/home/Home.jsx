@@ -14,13 +14,13 @@ function Home() {
   
   
 
-  return (
+  return ( 
     <div>
       <h1>Eco-Friends Connect</h1>
       <div className={styles.treeimg}>
       <img src={treeImage}  alt="Tree"></img>
-      <h1>To Better the Enviroment <br></br></h1> 
-      <h1>and Connect People</h1>
+      <h1 className={styles.anton}> To Better the Environment <br></br></h1> 
+      <h1 className={styles.anton}>and Connect People</h1>
       </div>
       <div className={styles.buttoncontainer}>
         
