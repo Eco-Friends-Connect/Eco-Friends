@@ -42,7 +42,11 @@
   input[type="checkbox"] {
     margin-right: 10px;
   } 
-  
+
+  .filterContainer{
+    display: flex;
+
+  }
   label {
     margin-right: 20px;
     font-size: 14px;
