@@ -15,22 +15,22 @@ function Home() {
   
 
   return (
-    <div>
-      <h1>Eco-Friends Connect</h1>
-      <div className={styles.treeimg}>
-      <img src={treeImage}  alt="Tree"></img>
-      <h1>To Better the Enviroment <br></br></h1> 
-      <h1>and Connect People</h1>
-      </div>
-      <div className={styles.buttoncontainer}>
-        
-          <button className={styles.signupButton} onClick={handleSignupClick}>
-            Sign up for help
-        </button>
-      
+    <div className={styles.container}>
+      <header>
+        <h1>Eco-Friends Connect</h1>
+      </header>
+      <section className={styles.treeimg}>
+        <img src={treeImage}  alt="Tree"></img>
+      </section>
+      <section className={styles.phrase}>
+        <h1>To Better the Enviroment <br></br></h1> 
+        <h1>and Connect People</h1>
+      </section>
+      <section className={styles.button}>
+          <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Sign up for help</p ></button>
       <button className={styles.calendarButton}>Calendar</button>
       <button className={styles.howItWorksButton}>How it works</button>
-      </div>
+      </section>
     </div>
   );
 }

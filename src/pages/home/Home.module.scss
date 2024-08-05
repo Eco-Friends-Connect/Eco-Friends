@@ -5,8 +5,33 @@
   font-weight: 400;
   font-style: normal;
 }
+.container{
+  display: grid;
+  grid-template-areas: 
+    'header header header header header header header header header header header header'
+    'treeimg treeimg treeimg treeimg treeimg treeimg treeimg treeimg treeimg treeimg treeimg treeimg'
+    'phrase phrase phrase phrase phrase phrase phrase phrase phrase phrase phrase phrase'
+    'button button button button button button button button button button button button';
+  width: 100%;
+  margin: auto;
 
+}
+header{
+  grid-area: header;
+}
+.treeimg{
+  grid-area: treeimg;
+}
+.phrase{
+  grid-area: phrase;
 
+}
+.button {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 .signupButton {
     background-color: #356589;
     color: white;
@@ -22,14 +47,14 @@
     background-color: darkblue;
   }
 
-  .page {
+  /*.page {
     background-image: url('..assets/user.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
     height: 100vh;
-  }
+  }*/
   
   .calendarButton {
     background-color: #889D35;
@@ -49,19 +74,6 @@
     font-style: normal;
   }
 
-  .buttoncontainer{
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 20px;
-  
-  
-  }
-  button{
-    width: 10%;
-  
-  }
-
   img {
     width: 90vw; 
     height: 30vh; 
@@ -79,4 +91,60 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
+  .center{
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .container{
+      grid-template-areas: 
+      'header'
+      //'treeimg'
+      'phrase'
+      'button';
+
+    }
+    .button {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .signupButton {
+      background-color: #356589;
+      color: white;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+    .calendarButton {
+      background-color: #889D35;
+      color: white;
+      text-align: center;
+      padding: 20px 45px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .howItWorksButton {
+      background-color: #356589;
+      color: white;
+      padding: 20px 45px;
+      margin: 0;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .treeimg{
+      grid-area: treeimg;
+      display: none;
+    }
   
+    
+  }
