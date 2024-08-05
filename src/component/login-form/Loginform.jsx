@@ -117,6 +117,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
 
 LoginForm.propTypes = {
     onClickSignUp: PropTypes.func,
+    onSubmit: PropTypes.func,
 };
 
 export default LoginForm;
