@@ -44,7 +44,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
     return(
         <>
             <form className={styles.form} onChange={handleChange}>
-                <h1>Log In</h1> 
+                <h1 className={styles.anton}>Log In</h1> 
                 <div className={styles.inputContainer}>
                     <input className={styles.input} name="userName" placeholder={"User Name"}></input> 
                     <input className={styles.input}name="password" placeholder={"password"}></input> 

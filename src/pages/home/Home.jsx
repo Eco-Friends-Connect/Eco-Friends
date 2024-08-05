@@ -14,6 +14,7 @@ function Home() {
   
   
 
+      
   return (
     <div className={styles.container}>
       <header>
@@ -23,8 +24,8 @@ function Home() {
         <img src={treeImage}  alt="Tree"></img>
       </section>
       <section className={styles.phrase}>
-        <h1>To Better the Enviroment <br></br></h1> 
-        <h1>and Connect People</h1>
+        <h1 className={styles.anton}>To Better the Enviroment <br></br></h1> 
+        <h1 className={styles.anton}>and Connect People</h1>
       </section>
       <section className={styles.button}>
           <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Sign up for help</p ></button>
