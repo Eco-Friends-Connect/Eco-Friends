@@ -9,7 +9,6 @@ export default function UserPage() {
     <>
       <h1> 
         <UserComponent />
-        <LoginForm/>
       </h1>
      
     </>
