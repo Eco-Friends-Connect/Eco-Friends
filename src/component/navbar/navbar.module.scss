@@ -1,5 +1,5 @@
 /* navbar.module.css */
-
+@import '../../../styles/styles.scss';
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 .anton-regular {
   font-family: "Anton", sans-serif;
@@ -7,6 +7,7 @@
   font-style: normal;
 }     
 
+ 
 nav {
   background-color: white; 
   padding: 1rem;
@@ -49,7 +50,7 @@ a:hover {
   height: 4px;
   width: 100%;
   position: absolute; 
-  left: 0;
+  left: 0; 
   transition: 0.3s;
 }
 
@@ -78,7 +79,7 @@ a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  ul.active {
+  ul.active { 
     display: flex;
   }
 
