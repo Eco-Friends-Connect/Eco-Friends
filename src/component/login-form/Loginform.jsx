@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import Switch from '@mui/material/Switch';
 import config from '../../config';
 
-function LoginForm({onClickSignUp}) {
+function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -65,9 +65,10 @@ function LoginForm({onClickSignUp}) {
         } else {
             setErrors(validationErrors);
         }
-    };
-    
-    return (
+    }; 
+
+
+    return(
         <>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <h1>Log In</h1>
