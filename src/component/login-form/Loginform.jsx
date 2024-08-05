@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React, {useState} from "react";
 import Switch from '@mui/material/Switch';
 import config from '../../config';
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
 
     const [errors, setErrors] = useState({});
     const [message, setMessage] = useState('');
+    const navigate = useNavigate(); 
 
     const validate = () => {
         const newErrors = {};
@@ -54,6 +56,8 @@ function LoginForm({onClickSignUp, onSubmit}) {
     
                 if (response.ok) {
                     setMessage('User logged in successfully!');
+                    navigate("/userororgselect");
+                    
                 } else {
                     setMessage(text.message || 'User not logged in');
                     setErrors(text.errors || {});

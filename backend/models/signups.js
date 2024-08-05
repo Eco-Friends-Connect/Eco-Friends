@@ -1,4 +1,3 @@
-import { create } from "@mui/material/styles/createTransitions";
 import mongoose from "mongoose";
 
 const signupSchema = new mongoose.Schema({
