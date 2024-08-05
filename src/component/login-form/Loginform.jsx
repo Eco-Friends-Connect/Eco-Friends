@@ -57,7 +57,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
                 if (response.ok) {
                     setMessage('User logged in successfully!');
                     if (response.formData.isOrg == true){
-                        navigate('/org-dashboard')
+                        navigate('/org-dashboard');
                     }
                     else {
                         navigate('/userpage');
