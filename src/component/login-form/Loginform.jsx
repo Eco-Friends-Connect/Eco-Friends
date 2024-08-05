@@ -80,7 +80,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
     return(
         <>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <h1>Log In</h1>
+                <h1 className={styles.anton}>Log In</h1>
                 {message && <p>{message}</p>}
                 <div className={styles.inputContainer}>
                     <input 
