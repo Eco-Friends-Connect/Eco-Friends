@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 .form {
   border-radius: 25px;
   background: #356589;
@@ -10,6 +11,18 @@
   transform: translate(-50%, -50%);
 }
 
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal; 
+}
+ 
+.anton{
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 45px;
+}
 
 .label{
   
@@ -32,13 +45,16 @@
 
 .signup{
   font-size: 4em;
-  //height: 10%;
+  //height: 10%; 
   width: 100%;
   display: flex;
   justify-content: center; 
   //padding: 10px 5%;
   grid-column: span 2; 
-
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
 }
 
 .container {
