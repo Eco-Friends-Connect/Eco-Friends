@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound';
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
 import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
-import UserOrOrgSelect from './pages/UserOrOrgPage';
+import UserOrOrgSelect from './pages/userororgpage/UserOrOrgPage';
 
 function App() {
   return (

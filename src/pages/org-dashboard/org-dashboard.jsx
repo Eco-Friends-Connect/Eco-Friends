@@ -54,16 +54,7 @@ const signupFormData = {
   isUser: false,
   event: ""
 };
-async function getEvents() {
-  return fetch(`${config.API_URL}/api/get/events`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
 
-  });
-
-}
 function OrgDashboard() {
   const [eventFormOpened, setEventFormOpened] = useState(false);
   const [signupFormOpened, setSignupFormOpened] = useState(false);

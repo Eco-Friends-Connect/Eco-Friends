@@ -143,9 +143,8 @@ router.post('/create-org', async (req, res) => {
     });
 
     // add membership for the user
-    const user = auth.currentUser;
     const membership = new Membership({
-        accountId: user.uid,
+        accountId: auth.currentUser.uid,
         orgId: org._id,
         role: 'admin',
     });
@@ -154,7 +153,7 @@ router.post('/create-org', async (req, res) => {
         await newOrgLocation.save();
         await org.save();
         await membership.save();
-        res.status(201).send({
+        return res.status(201).send({
             status: 'success',
             message: 'Organization created',
             data: {
@@ -168,7 +167,7 @@ router.post('/create-org', async (req, res) => {
         });
         
     } catch (error) {
-        res.status(400).send({
+        return res.status(400).send({
             status: 'fail',
             message: 'Organization not created',
             error: error,
