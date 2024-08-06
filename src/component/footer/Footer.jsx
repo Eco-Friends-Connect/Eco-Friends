@@ -5,15 +5,15 @@ import React from 'react';
 
 function Footer() {
     return (
-  
+      <div className={styles.container}>
       <footer className={styles.footer}>
           <Link className={styles.footer_a} to="/aboutthecreators">Creator Info</Link>
           <Link className={styles.footer_a} to="/sitesponsors">Site Sponsors</Link>
           <div className={styles.footer_logo}>
             <img src="src\assets\tree_logo.png" alt="Tree Logo" />
           </div>
-          
       </footer>
+      </div>
     );
   }
 
