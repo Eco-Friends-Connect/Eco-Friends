@@ -92,6 +92,10 @@ function OrgDashboard() {
     console.log("Badges clicked");
     navigate('/badges');
   };
+  const onClickEvents = () => {
+    console.log("Events clicked");
+    navigate('/events');
+  };
 
   return (
     <div>
@@ -101,7 +105,7 @@ function OrgDashboard() {
         </div>
         <div className={styles.container}>
             <div className={styles.colContainer}>
-                <EcoButton ecoButtonProps={{btnTitle: "Events", btnShape: "none", btnColor:"dark", animate:2}}/>
+                <EcoButton onClick={onClickEvents} ecoButtonProps={{btnTitle: "Events", btnShape: "none", btnColor:"dark", animate:2}}/>
                 <div className={styles.eventContainer}>
                     <EcoButton onClick={toggleEventFormOpened} ecoButtonProps={{btnTitle: "Create Event", btnShape: "triangle", btnColor:"light", animate: 1}}/>
                     <div className={styles.colContainer}>

@@ -41,7 +41,7 @@ const EventCard = ({ event, onSignUp, buttonAvailable = true }) => {
 EventCard.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
+    location: PropTypes.string,
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     imageUrl: PropTypes.string,
