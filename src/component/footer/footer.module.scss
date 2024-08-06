@@ -1,19 +1,20 @@
-
-.container{
-    grid-template-areas: 
-    'footer footer footer footer footer footer footer footer footer footer footer footer';
-}
-
-:root{
+:root {
     --footer-height: 10vh;
-}
-
-footer {
+    --footer-height-mobile: 100px;
+  }
+  
+  .container {
+    grid-template-areas:
+      'footer footer footer footer footer footer footer footer footer footer footer footer';
+    padding-bottom: var(--footer-height);
+  }
+  
+  footer {
     grid-area: footer;
     background-color: rgb(138, 114, 39);
     height: var(--footer-height);
     width: 100%;
-    position: sticky;
+    position: fixed;
     bottom: 0px;
     left: 0px;
     display: flex;
@@ -21,60 +22,64 @@ footer {
     align-items: center;
     overflow: hidden;
     margin-top: 7px;
-}
-
-.footer_a {
+  }
+  
+  .footer_a {
     color: white;
     font-size: 18px;
     width: 20vw;
     display: flex;
     justify-content: center;
-}
-
-.footer_logo {
+  }
+  
+  .footer_logo {
     height: var(--footer-height);
     width: 20vw;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-footer img {
+  }
+  
+  footer img {
     height: 20vh;
-}
-@media (max-width: 768px), (max-height: 630px){
-    .container{
-        grid-template-areas: 
-        'footer';
-        margin-left: 0px;
+  }
+  
+  @media (max-width: 768px), (max-height: 630px) {
+    .container {
+      grid-template-areas: 'footer';
+      margin-left: 0px;
+      padding-bottom: var(--footer-height-mobile);
     }
-footer {
-    grid-area: footer;
-    background-color: rgb(138, 114, 39);
-    width: 100%;
-    position: sticky;
-    margin-top: 7px;
-    margin-left:0px ;
-}
-.footer_a {
-    color: white;
-    font-size: 18px;
-    width: 20vw;
-    display: flex;
-    justify-content: center;
-}
-
-.footer_logo {
-    height: var(--footer-height);
-    width: 20vw;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-footer img {
-    height: 100px;
-}
-}
+    
+    footer {
+      grid-area: footer;
+      background-color: rgb(138, 114, 39);
+      width: 100%;
+      position: fixed;
+      margin-top: 15px;
+      margin-left: 0px;
+    }
+  
+    .footer_a {
+      color: white;
+      font-size: 18px;
+      width: 20vw;
+      display: flex;
+      justify-content: center;
+    }
+  
+    .footer_logo {
+      height: var(--footer-height-mobile);
+      width: 20vw;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    footer img {
+      height: 100px;
+    }
+  }
+  
