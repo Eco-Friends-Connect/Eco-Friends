@@ -1,6 +1,7 @@
 
 import styles from './org-dashboard.module.scss';
 import {React, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import PopOut from '../../component/pop-out/pop-out';
 import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
@@ -54,19 +55,11 @@ const signupFormData = {
   isUser: false,
   event: ""
 };
-async function getEvents() {
-  return fetch(`${config.API_URL}/api/get/events`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
 
-  });
-
-}
 function OrgDashboard() {
   const [eventFormOpened, setEventFormOpened] = useState(false);
   const [signupFormOpened, setSignupFormOpened] = useState(false);
+  const navigate = useNavigate();
   async function createEvent(formData) {
     console.log("Handling create event");
     console.log(formData);
@@ -94,6 +87,11 @@ function OrgDashboard() {
   useEffect(() => {
     console.log("Event form opened: ", eventFormOpened);
   }, [eventFormOpened]);
+  // Navigation funcs
+  const onClickBadges = () => {
+    console.log("Badges clicked");
+    navigate('/badges');
+  };
 
   return (
     <div>
@@ -114,7 +112,7 @@ function OrgDashboard() {
                 </div>
             </div>
             <div className={styles.colContainer}>
-                <EcoButton ecoButtonProps={{btnTitle: "Badges", btnShape: "circle", btnColor:"light", animate:2}}/>
+                <EcoButton onClick={onClickBadges} ecoButtonProps={{btnTitle: "Badges", btnShape: "circle", btnColor:"light", animate:2}}/>
                 <EcoButton ecoButtonProps={{btnTitle: "Create Badge", btnShape: "hexagon", btnColor:"dark", animate: 1}}/>
             </div>
         </div>
