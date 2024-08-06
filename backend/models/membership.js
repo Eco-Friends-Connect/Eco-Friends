@@ -14,6 +14,10 @@ const membershipSchema = new mongoose.Schema({
         index: true,
         isRequired: true
     },
+    firstName: {
+        type: String,
+        required: true
+    },
     role: String,
     createdAt: {
         type: Date,
@@ -21,6 +25,6 @@ const membershipSchema = new mongoose.Schema({
     }
 });
 
-const Membership = mongoose.model('Membership', membershipSchema);
+const Membership = mongoose.model('Membership', membershipSchema, 'users');
 
 export default Membership;

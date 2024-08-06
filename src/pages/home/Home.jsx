@@ -3,6 +3,7 @@ import styles from './Home.module.scss';
 import treeImage from '../../assets/tree.jpg';
 import React from 'react';
 import { useAuth } from '../../component/auth-context';
+import EcoLogoutButton from '../../component/eco-button/eco-button-logout';
 
 
 
@@ -15,8 +16,7 @@ function Home() {
     navigate('/signup');
   };
 
-  const { isLoggedIn, logout } = useAuth();
-  
+  const { isLoggedIn, username, logout } = useAuth();
   
 
       
@@ -38,13 +38,13 @@ function Home() {
       <button className={styles.howItWorksButton}>How it works</button>
       </section>
       {isLoggedIn ? (
-                <div>
-                    <p>You are logged in!</p>
-                    <button onClick={logout}>Logout</button>
-                </div>
-            ) : (
-                <p>You are not logged in.</p>
-            )}
+        <div>
+          <p>Welcome, {username}!</p>
+          <EcoLogoutButton/>
+        </div>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 }

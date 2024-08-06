@@ -1,8 +1,11 @@
 import React from 'react';
 import EcoButton from './eco-button';
 import config from '../../config';
+import { useAuth } from '../../component/auth-context';
+
 
 const EcoLogoutButton= () => {
+    const { isLoggedIn, username, logout } = useAuth();
   const handleLogout = async () => {
     const API_URL = config.API_URL;
     try {
@@ -31,10 +34,10 @@ const EcoLogoutButton= () => {
           btnColor: 'yellow',
           animate: 1,
           btnTitle: 'Logout',
-          btnSize: 'medium',
+          btnSize: 'small',
           btnFontSize: 'large',
         }} 
-        onClick={handleLogout}
+        onClick={logout}
       />
     </div>
   );

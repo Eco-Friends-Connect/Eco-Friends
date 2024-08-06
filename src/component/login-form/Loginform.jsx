@@ -58,8 +58,10 @@ function LoginForm({onClickSignUp, onSubmit}) {
     
                 if (response.ok) {
                     console.log(text.data);
+                    console.log(text.data.firstname);
+                    console.log(text.data.email);
                     setMessage('User logged in successfully!');
-                    login(text.data.token, formData.rememberMe);
+                    login(text.data.token, text.data.firstname, formData.rememberMe);
                     if (text.data.isOrg === false) {
                         navigate('/org-dashboard');
                     } else {

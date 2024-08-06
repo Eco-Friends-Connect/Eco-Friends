@@ -75,23 +75,27 @@ router.post('/login', async (req, res) => {
         const membership = await Membership.findOne({ accountId: user.uid });
         
         if (membership === null) {
+            console.log("member not found");
             return res.status(404).send({
                 status: 'error',
                 message: 'Membership not found',
             });
         }
 
+        console.log("lowercasefirstname:", membership.firstName);
+
         // Get the Firebase ID token
         const token = await user.getIdToken();
-
+        
         res.status(200).send({
             status: 'success',
             message: 'User logged in',
             data: {
                 accountId: user.uid,
-                email: user.email,
+                email: membership.email,
                 isOrg: membership.isOrg,
-                token,
+                token: token,
+                firstname: membership.firstName,
             },
         });
     } catch (error) {
@@ -127,7 +131,7 @@ const verifyToken = async (req, res, next) => {
 };
 
 // Use the middleware for protected routes
-app.use('/protected-route', verifyToken, (req, res) => {
+router.use('/protected-route', verifyToken, (req, res) => {
     // Handle the protected route request
     res.status(200).send({
         status: 'success',
