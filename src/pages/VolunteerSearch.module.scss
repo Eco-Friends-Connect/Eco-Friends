@@ -1,3 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}     
+
 .Card {
   margin: 16px;
   padding: 16px;
@@ -20,4 +28,11 @@
 .Typography {
   margin-top: 16px;
   color: green;
+}
+
+.anton{
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
 }
