@@ -10,8 +10,8 @@ export default function NavBar() {
     setIsOpen(!isOpen);
   };
 
-  return (
-    <nav className={styles.nav}> 
+  return ( 
+    <nav className={styles.nav}>   
       <div className={styles.hamburgerMenu} onClick={toggleMenu}>
         <div className={styles.line}></div>
         <div className={styles.line}></div>
