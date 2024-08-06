@@ -7,53 +7,72 @@ import config from "../../config";
 
 function BadgesPage() {
     const [badges, setBadges] = useState([]);
+    const [error, setError] = useState(null); // Add state for handling errors
+    const [loading, setLoading] = useState(true);
+    // Use async/await for better readability
     async function getBadges() {
-        fetch(`${config.API_URL}/api/get/badges`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
+        setLoading(true);
+        try {
+            const response = await fetch(`${config.API_URL}/api/get/badges`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        }).then(response => response.json())
-        .then(data => {
+            
+            const data = await response.json();
             console.log(data.data);
-            let formattedData = [];
-            for (let i = 0; i < data.data.length; i++) {
-                formattedData.push({
-                    title: data.data[i].title,
-                    location: "TBA",
-                    // format data.date[i].createdAt to a readable date
-                    date: new Date(data.data[i].createdAt).toDateString(),
-                    description: data.data[i].description,
-                    imageUrl: data.data[i].imgUrl
-                });
-            }
+
+            // Format the data
+            const formattedData = data.data.map(badge => ({
+                title: badge.title,
+                location: "TBA",
+                date: new Date(badge.createdAt).toDateString(), // format date
+                description: badge.description,
+                imageUrl: badge.imgUrl
+            }));
+
             setBadges(formattedData);
-        }).catch(error => {
+        } catch (error) {
             console.error(error);
-        });
+            setError('Failed to load badges. Please try again later.');
+        } finally {
+            setLoading(false);
+        }
     }
+
     function onSignUp(title) {
         console.log(`Signed up for ${title}`);
     }
+
     useEffect(() => {
         getBadges();
-    }, []);
-  return (
-    <>
-        <h1>Badges</h1>
-        <SearchBar />
-        <div className={styles.resultsDiv} >
-            {
-                badges.length === 0 ? <h2>No badges found</h2> :
-                badges.map((event, index) => {
-                    return (
-                        <EventCard key={index} event={event} onSignUp={onSignUp} />
-                    );
-                })
-            }
-        </div>
-    </>
-  );
+    }, []); // Empty dependency array is correct here
+
+    return (
+        <>
+            <h1>Badges</h1>
+            {/* <SearchBar /> */}
+            {loading && <p>Loading...</p>} {/* Display loading message */}
+            {error && <p className={styles.error}>{error}</p>} {/* Display error if it exists */}
+            {!loading && !error && badges.length === 0 && <p>No badges found</p>} {/* Display message if no badges */}
+            {!loading && !error && badges.length > 0 && (
+                <div className={styles.resultsDiv}>
+                    {badges.length === 0 ? (
+                        <h2>No badges found</h2>
+                    ) : (
+                        badges.map((badge) => (
+                            <EventCard key={badge.title} event={badge} onSignUp={onSignUp} />
+                        ))
+                    )}
+                </div>
+            )}
+        </>
+    );
 }
 
 export default BadgesPage;
