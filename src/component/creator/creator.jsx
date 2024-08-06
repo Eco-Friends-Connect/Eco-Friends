@@ -6,7 +6,7 @@ const AboutCreator = () => {
     <>
     <div className={styles.container}>
       <header>
-        <h1 className={styles.anton}>About The Crators</h1>
+        <h1 className={styles.anton}>About The Creators</h1>
       </header>
       <div className={`${styles.square}`}>
         <h1 className={styles.anton}>Ruth Ann Aakre</h1>
