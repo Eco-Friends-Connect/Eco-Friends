@@ -15,31 +15,35 @@ import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
 import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
 import UserOrOrgSelect from './pages/UserOrOrgPage';
+import ProtectedRoute from './component/protected-route.jsx';
+import { AuthProvider } from './component/auth-context.jsx';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/volunteersearch" element={<VolunteerSearch />} />
-          <Route path="/leaderboard" element={<LeaderBoard />} />
-          <Route path="/userpage" element={<UserPage />} />
-          <Route path="/ecochat" element={<EcoChat />} />
-          <Route path="/aboutthecreators" element={<AboutTheCreators />} />
-          <Route path="/signup" element={<SignupFormPage />} /> 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/sitesponsors" element={<SiteSponsors />} />
-          <Route path="/org-dashboard" element={<OrgDashboard />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/volunteersearch" element={<VolunteerSearch />} />
+            <Route path="/leaderboard" element={<LeaderBoard />} />
+            <Route path="/userpage" element={<UserPage />} />
+            <Route path="/ecochat" element={<EcoChat />} />
+            <Route path="/aboutthecreators" element={<AboutTheCreators />} />
+            <Route path="/signup" element={<SignupFormPage />} /> 
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/sitesponsors" element={<SiteSponsors />} />
+            <Route path="/org-dashboard" element={<OrgDashboard />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
