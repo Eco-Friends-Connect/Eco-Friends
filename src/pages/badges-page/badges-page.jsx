@@ -66,7 +66,7 @@ function BadgesPage() {
                         <h2>No badges found</h2>
                     ) : (
                         badges.map((badge) => (
-                            <EventCard key={badge.title} event={badge} onSignUp={onSignUp} />
+                            <EventCard key={badge.title} event={badge} onSignUp={onSignUp} buttonAvailable={false}/>
                         ))
                     )}
                 </div>
