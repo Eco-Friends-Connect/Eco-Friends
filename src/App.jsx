@@ -14,7 +14,8 @@ import NotFound from './pages/NotFound';
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
 import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
-import UserOrOrgSelect from './pages/UserOrOrgPage';
+import UserOrOrgSelect from './pages/userororgpage/UserOrOrgPage';
+import BadgesPage from './pages/badges-page/badges-page.jsx';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/signup" element={<SignupFormPage />} /> 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
+          <Route path="/badges" element={<BadgesPage />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
