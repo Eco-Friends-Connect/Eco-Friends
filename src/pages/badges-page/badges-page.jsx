@@ -62,13 +62,9 @@ function BadgesPage() {
             {!loading && !error && badges.length === 0 && <p>No badges found</p>} {/* Display message if no badges */}
             {!loading && !error && badges.length > 0 && (
                 <div className={styles.resultsDiv}>
-                    {badges.length === 0 ? (
-                        <h2>No badges found</h2>
-                    ) : (
-                        badges.map((badge) => (
-                            <EventCard key={badge.title} event={badge} onSignUp={onSignUp} buttonAvailable={false}/>
-                        ))
-                    )}
+                    {
+                        badges.map((badge) => (<EventCard key={badge.title} event={badge} onSignUp={onSignUp} buttonAvailable={false}/>))
+                    }
                 </div>
             )}
         </>
