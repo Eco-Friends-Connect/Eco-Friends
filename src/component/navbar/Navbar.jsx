@@ -11,7 +11,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav}> 
       <div className={styles.hamburgerMenu} onClick={toggleMenu}>
         <div className={styles.line}></div>
         <div className={styles.line}></div>
