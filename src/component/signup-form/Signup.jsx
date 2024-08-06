@@ -45,12 +45,12 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    }); 
+  }; 
 
   return (
     <div className={styles.form}>
-      <h1 className={styles.signup}>Sign Up</h1>
+      <h1 className={styles.signup}>Sign Up</h1> 
       <form onSubmit={handleSubmit}>
         <div className={styles.container}>
           <div className={styles.column}>
