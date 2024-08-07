@@ -53,8 +53,8 @@ function EventsPage() {
                 {!loading && !error && events.length === 0 && <p>No events found.</p>}
                 {!loading && !error && events.length > 0  && 
                     <div className={styles.resultsDiv}>
-                        {events.map((event) => (
-                            <EventCard key={event.title} buttonAvailable={false} event={event} onSignUp={() => console.log(`Signed up for ${event.title}`)} />
+                        {events.map((event, index) => (
+                            <EventCard key={index} buttonAvailable={false} event={event} onSignUp={() => console.log(`Signed up for ${event.title}`)} />
                         ))}
                     </div>
                 }

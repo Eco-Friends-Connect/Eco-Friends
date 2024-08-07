@@ -100,7 +100,7 @@ export default function UserOrOrgSelect() {
       </div>
       {isCreatingOrg && (
           <div>
-            <PopOut title='Create Organization' isOpened={true} isForm={true} onClose={()=>{toggleCreatingOrg();}}>
+            <PopOut title='Create Organization' isOpened={true} popOutType={"form"} onClose={()=>{toggleCreatingOrg();}}>
               <EcoForm title='Create Organization' fields={orgFields} formData={orgFormData} onSubmit={onSubmitOrgForm} submitTitle="Create" />
             </PopOut>
           </div>

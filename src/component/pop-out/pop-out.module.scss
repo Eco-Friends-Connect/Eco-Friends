@@ -26,20 +26,32 @@ $container-height: 1000px;
     overflow: auto;
     padding: 35px;
   }
-  .form {
+  .formMessage {
     border: 1px solid black;
     max-width: 500px;
     max-height: 500px;
   }
 
-  .info {
+  .infoMessage {
     border: 1px solid blue;
     max-width: 700px;
   }
   
-  .error {
-    border: 1px solid red;
-
+  .errorMessage {
+    border: 1px solid;
+    color: white;
+    font-style: bold;
+    font-size: 1.5rem;
+    background-color: $red;
+    max-width: 500px;
+  }
+  .successMessage {
+    border: 1px solid;
+    color: white;
+    font-style: bold;
+    font-size: 1.5rem;
+    background-color: $green;
+    max-width: 500px;
   }
   
   .popup-close {
