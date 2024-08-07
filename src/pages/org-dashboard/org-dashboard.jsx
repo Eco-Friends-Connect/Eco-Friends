@@ -129,7 +129,9 @@ function OrgDashboard() {
     }
     console.log("Result",data);
   }
-
+  function toggleBadgeFormOpened() {
+    setBadgeFormOpened(!badgeFormOpened);
+  }
   function toggleEventFormOpened() {
     setEventFormOpened(!eventFormOpened);
   }
@@ -192,23 +194,23 @@ function OrgDashboard() {
         }
         {
             badgeFormOpened && (
-                <PopOut isOpened={true} popOutType={"form"} onClose={() => {setBadgeFormOpened(false);}}>
+              <PopOut isOpened={true} popOutType={"form"} onClose={() => {toggleBadgeFormOpened();}}>
                     <EcoForm title="Create Badge" fields={badgeFields} formData={badgeFormData} onSubmit={createBadge} submitTitle={'Create'} />
                 </PopOut>
             )
         }
         {
-            errorMessage !== null && (
-                <PopOut isOpened={true} popOutType={"error"} onClose={() => {setErrorMessage(null);}}>
-                    <div>{errorMessage}</div>
-                </PopOut>
+          errorMessage !== null && (
+            <PopOut isOpened={true} popOutType={"error"} onClose={() => {setErrorMessage(null);}}>
+              <div>{errorMessage}</div>
+              </PopOut>
             )
         }
         {
-            outputMessage !== null && errorMessage === null && (
-                <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
-                    <div>{outputMessage}</div>
-                </PopOut>
+          outputMessage !== null && errorMessage === null && (
+            <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
+              <div>{outputMessage}</div>
+              </PopOut>
             )
         }
     </div>

@@ -19,27 +19,33 @@ function PopOut({isOpened, popOutType, onClose, children}) {
         onClose();
         }
     };
-    function handlePopOutType() {
-        if(popOutType === "form") {
-            return styles["form"];
-        }else if(popOutType === "error") {
-            return styles["error"];
-        }else if(popOutType === "success") {
-            return styles["success"];
-        }
-        return styles["info"];
-    }
+    const handlePopOutType = () => {
+        if(popOutType === "error") return styles["errorMessage"];
+        else if(popOutType === "form") return styles["formMessage"];
+        else if(popOutType === "success") return styles["successMessage"];
+        return styles["successMessage"];
+        // switch(popOutType) {
+        //     case "form":
+        //         return styles["formMessage"];
+        //     case "success":
+        //         return styles["successMessage"];
+        //     case "error":
+        //         return styles["errorMessage"];
+        //     default:
+        //         return "";
+        // }
+    };
 
     useEffect(() => {
         setShow(true);
     }, [isOpened]);
-
+    
     if(!show) {return null;}
     if(!isOpened) {return null;}
     return (
     <>
         <div onClick={handleOverlayClick} className={styles["popup-overlay"]} >
-            <div className={`${styles["popup-content"]} ${handlePopOutType()}`}>
+            <div className={`${handlePopOutType()} ${styles["popup-content"]}`}>
                 {children}
                 <EcoButton onClick={handleClose} ecoButtonProps={{btnTitle: "Close", btnSize: "small", btnColor:"yellow", animate: 1}}/>
             </div>
@@ -51,7 +57,7 @@ function PopOut({isOpened, popOutType, onClose, children}) {
 
 PopOut.propTypes = {
     isOpened: propTypes.bool.isRequired,
-    popOutType: propTypes.string,
+    popOutType: propTypes.string.isRequired,
     onClose: propTypes.func,
     children: propTypes.node,
 };

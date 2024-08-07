@@ -63,7 +63,7 @@ function BadgesPage() {
             {!loading && !error && badges.length > 0 && (
                 <div className={styles.resultsDiv}>
                     {
-                        badges.map((badge) => (<EventCard key={badge.title} event={badge} onSignUp={onSignUp} buttonAvailable={false}/>))
+                        badges.map((badge,index) => (<EventCard key={index} event={badge} onSignUp={onSignUp} buttonAvailable={false}/>))
                     }
                 </div>
             )}

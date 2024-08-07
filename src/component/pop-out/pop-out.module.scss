@@ -26,18 +26,18 @@ $container-height: 1000px;
     overflow: auto;
     padding: 35px;
   }
-  .form {
+  .formMessage {
     border: 1px solid black;
     max-width: 500px;
     max-height: 500px;
   }
 
-  .info {
+  .infoMessage {
     border: 1px solid blue;
     max-width: 700px;
   }
   
-  .error {
+  .errorMessage {
     border: 1px solid;
     color: white;
     font-style: bold;
@@ -45,7 +45,7 @@ $container-height: 1000px;
     background-color: $red;
     max-width: 500px;
   }
-  .success {
+  .successMessage {
     border: 1px solid;
     color: white;
     font-style: bold;
