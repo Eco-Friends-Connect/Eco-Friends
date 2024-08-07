@@ -28,6 +28,11 @@ p {
   font-size: 25px;
 }
 
+.square, .square1, .square2, .square3, .square4 {
+  padding: 20px;
+  min-height: calc((100vh - 25px - 30px) / 3);
+}
+
 .square {
   grid-area: square;
   margin: 15px 45px;
@@ -76,5 +81,13 @@ p {
   header {
     grid-area: header;
     margin-top: 25px;
+  }
+}
+@media (min-width: 1200px) {
+  .anton {
+    font-size: 60px;
+  }
+  p {
+    font-size: 40px;
   }
 }/*# sourceMappingURL=creator.module.css.map */
