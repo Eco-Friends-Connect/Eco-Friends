@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardContent, Typography, Button, Avatar } from '@mui/material';
 import styles from './EventCard.module.scss';
 
-const EventCard = ({ event, onSignUp }) => {
+const EventCard = ({ event, onSignUp, buttonAvailable = true }) => {
   const handleSignUp = () => {
     onSignUp(event.title);
   };
@@ -23,9 +23,9 @@ const EventCard = ({ event, onSignUp }) => {
         <Typography variant="body1" component="p">
           {event.description}
         </Typography>
-        <Button variant="contained" color="primary" onClick={handleSignUp} style={{ marginTop: '16px' }}>
+        {buttonAvailable &&(<Button variant="contained" color="primary" onClick={handleSignUp} style={{ marginTop: '16px' }}>
           Sign Up
-        </Button>
+        </Button>)}
         {event.imageUrl && (
           <Avatar
             src={event.imageUrl}
@@ -41,11 +41,12 @@ const EventCard = ({ event, onSignUp }) => {
 EventCard.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
+    location: PropTypes.string,
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     imageUrl: PropTypes.string,
   }).isRequired,
+  buttonAvailable: PropTypes.bool,
   onSignUp: PropTypes.func.isRequired,
 };
 

@@ -2,19 +2,24 @@ import styles from "./Login.module.scss";
 import PropTypes from "prop-types"; 
 import React, {useState} from "react";
 import Switch from '@mui/material/Switch';
+import config from '../../config';
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
-        userName: '',
+        email: '',
         password: '',
         rememberMe: false,
     });
 
     const [errors, setErrors] = useState({});
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate(); 
+
     const validate = () => {
         const newErrors = {};
-        if (!formData.userName) {
-            newErrors.userName = 'Please enter your User Name';
+        if (!formData.email) {
+            newErrors.email = 'Please enter your User Name';
         }
         if (!formData.password) {
             newErrors.password = 'Please enter your password';
@@ -23,18 +28,49 @@ function LoginForm({onClickSignUp, onSubmit}) {
     };
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const {name, value, type, checked} = e.target;
         setFormData({
             ...formData,
-            [name]: e.target.name === 'rememberMe' ? e.target.checked : value,
+            [name]: type === 'checkbox' ? checked : value,
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        const API_URL = config.API_URL;
         e.preventDefault();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length === 0) {
-            onSubmit(formData);
+            try {
+                const response = await fetch(`${API_URL}/api/post/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: formData.email,
+                        password: formData.password,
+                    }),
+                });
+    
+                const text = await response.json();
+    
+                if (response.ok) {
+                    setMessage('User logged in successfully!');
+                    if (text.data.isOrg === true) {
+                        navigate('/org-dashboard');
+                    }
+                    else {
+                        navigate('/userpage');
+                    }
+                    
+                } else {
+                    setMessage(text.message || 'User not logged in');
+                    setErrors(text.errors || {});
+                }
+            } catch (error) {
+                console.error('Error logging in:', error);
+                setMessage('An error occurred. Please try again later.');
+            }
         } else {
             setErrors(validationErrors);
         }
@@ -43,34 +79,54 @@ function LoginForm({onClickSignUp, onSubmit}) {
 
     return(
         <>
-            <form className={styles.form} onChange={handleChange}>
-                <h1 className={styles.anton}>Log In</h1> 
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <h1 className={styles.anton}>Log In</h1>
+                {message && <p>{message}</p>}
                 <div className={styles.inputContainer}>
-                    <input className={styles.input} name="userName" placeholder={"User Name"}></input> 
-                    <input className={styles.input}name="password" placeholder={"password"}></input> 
+                    <input 
+                        className={styles.input} 
+                        name="email" 
+                        placeholder="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    {errors.email && <p>{errors.email}</p>}
+                    <input 
+                        className={styles.input} 
+                        name="password" 
+                        type="password" 
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                    {errors.password && <p>{errors.password}</p>}
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button onClick={handleSubmit} className={styles.loginbutton} type="submit">Log In</button>   
-                </div>  
+                    <button className={styles.loginbutton} type="submit">Log In</button>
+                </div>
                 <button className={styles.signupbutton} onClick={onClickSignUp}>
                     Not a member of Eco Friends? Sign Up
                 </button>
-                    
                 <div>
                     <div className={styles.rememberMeDiv}>
-                        <Switch color="error" name="rememberMe" />
-                        <label className={styles.rememberMeText} >Remember me</label>
+                        <Switch 
+                            color="error" 
+                            name="rememberMe" 
+                            checked={formData.rememberMe}
+                            onChange={handleChange}
+                        />
+                        <label className={styles.rememberMeText}>Remember me</label>
                     </div>
                     <button className={styles.forgotBtn} type="button">Forget Password?</button>
                 </div>
             </form>
         </>
     ); 
-}    
+}
 
 LoginForm.propTypes = {
     onClickSignUp: PropTypes.func,
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
 };
 
 export default LoginForm;

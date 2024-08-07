@@ -70,21 +70,39 @@ router.post('/login', async (req, res) => {
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
         console.log("login email:", user.email);
+        const membership = Membership.findOne({ accountId: user.uid });
+        if(membership === null) {
+            return res.status(200).send({
+                status: 'success',
+                message: 'User logged in',
+                data: {
+                    accountId: user.uid,
+                    email: user.email,
+                    isOrg: false,
+                },
+            });
+        } 
         return res.status(200).send({
             status: 'success',
             message: 'User logged in',
             data: {
+                accountId: user.uid,
                 email: user.email,
+                isOrg: true,
             },
         });
+        
     }).catch((error) => {
         console.log(error);
         return res.status(400).send({
             status: 'fail',
             message: 'User not logged in',
             error: error,
+            errorMessage: error.message,
         });
+        
     });
+    
 }
 );
 // logout a user ✅
@@ -143,9 +161,8 @@ router.post('/create-org', async (req, res) => {
     });
 
     // add membership for the user
-    const user = auth.currentUser;
     const membership = new Membership({
-        accountId: user.uid,
+        accountId: auth.currentUser.uid,
         orgId: org._id,
         role: 'admin',
     });
@@ -154,7 +171,7 @@ router.post('/create-org', async (req, res) => {
         await newOrgLocation.save();
         await org.save();
         await membership.save();
-        res.status(201).send({
+        return res.status(201).send({
             status: 'success',
             message: 'Organization created',
             data: {
@@ -168,7 +185,7 @@ router.post('/create-org', async (req, res) => {
         });
         
     } catch (error) {
-        res.status(400).send({
+        return res.status(400).send({
             status: 'fail',
             message: 'Organization not created',
             error: error,
