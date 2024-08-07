@@ -7,6 +7,8 @@ import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
+import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
+import { useAuth } from '../../component/auth-context';
 
 
 const signupFields = [
@@ -55,6 +57,7 @@ const signupFormData = {
   isUser: false,
   event: ""
 };
+
 const badgeFields = [
   {
     label: "Title",
@@ -155,6 +158,9 @@ function OrgDashboard() {
     setBadgeFormOpened(true);
   };
 
+  
+  const { isLoggedIn, username, logout } = useAuth();
+
   return (
     <div>
         <div className={styles.navContainer}>
@@ -213,6 +219,32 @@ function OrgDashboard() {
               </PopOut>
             )
         }
+        {
+            badgeFormOpened && (
+              <PopOut isOpened={true} popOutType={"form"} onClose={() => {toggleBadgeFormOpened();}}>
+                    <EcoForm title="Create Badge" fields={badgeFields} formData={badgeFormData} onSubmit={createBadge} submitTitle={'Create'} />
+                </PopOut>
+            )
+        }
+        {
+          errorMessage !== null && (
+            <PopOut isOpened={true} popOutType={"error"} onClose={() => {setErrorMessage(null);}}>
+              <div>{errorMessage}</div>
+              </PopOut>
+            )
+        }
+        {
+          outputMessage !== null && errorMessage === null && (
+            <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
+              <div>{outputMessage}</div>
+              </PopOut>
+            )
+        }
+         {isLoggedIn ? (
+                <WelcomeLogout username={username} logout={logout} />
+            ) : (
+                <p></p>
+            )}
     </div>
   );
 }

@@ -2,8 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.scss';
 import treeImage from '../../assets/tree.jpg';
 import React from 'react';
+import { useAuth } from '../../component/auth-context';
+import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
 
 
+
+  
 
 function Home() {
   const navigate = useNavigate();
@@ -11,7 +15,8 @@ function Home() {
   const handleSignupClick = () => {
     navigate('/signup');
   };
-  
+
+  const { isLoggedIn, username, logout } = useAuth();
   
 
       
@@ -32,6 +37,11 @@ function Home() {
       <button className={styles.calendarButton}>Calendar</button>
       <button className={styles.howItWorksButton}>How it works</button>
       </section>
+      {isLoggedIn ? (
+                <WelcomeLogout username={username} logout={logout} />
+            ) : (
+                <p></p>
+            )}
     </div>
   );
 }
