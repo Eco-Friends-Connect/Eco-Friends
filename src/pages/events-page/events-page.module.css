@@ -1,0 +1,10 @@
+.resultsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.eventCard {
+  flex: 1 1 200px; /* Grow and shrink with a base size of 200px */
+}/*# sourceMappingURL=events-page.module.css.map */
