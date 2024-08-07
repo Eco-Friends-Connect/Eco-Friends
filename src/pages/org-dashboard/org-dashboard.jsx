@@ -6,6 +6,8 @@ import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
+import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
+import { useAuth } from '../../component/auth-context';
 
 
 const signupFields = [
@@ -54,6 +56,7 @@ const signupFormData = {
   isUser: false,
   event: ""
 };
+
 async function getEvents() {
   return fetch(`${config.API_URL}/api/get/events`, {
     method: 'GET',
@@ -95,6 +98,9 @@ function OrgDashboard() {
     console.log("Event form opened: ", eventFormOpened);
   }, [eventFormOpened]);
 
+  
+  const { isLoggedIn, username, logout } = useAuth();
+
   return (
     <div>
         <div className={styles.navContainer}>
@@ -132,6 +138,11 @@ function OrgDashboard() {
                 </PopOut>
             )
         }
+         {isLoggedIn ? (
+                <WelcomeLogout username={username} logout={logout} />
+            ) : (
+                <p></p>
+            )}
     </div>
   );
 }

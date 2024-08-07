@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import EventList from '../component/event-list/Event-List';
 import SearchBar from '../component/search-bar/search_bar';
 import styles from './VolunteerSearch.module.scss';
+import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
+import { useAuth } from '../component/auth-context';
 
 
 const VolunteerSearch = () => {
@@ -28,6 +30,7 @@ const VolunteerSearch = () => {
   const handleSignUp = (title) => {
     setSignedUpEvent(title);
   };
+  const { isLoggedIn, username, logout } = useAuth();
 
   return (
     <div>
@@ -40,6 +43,11 @@ const VolunteerSearch = () => {
           <p>You have signed up for: {signedUpEvent}</p>
         </div>
       )}
+       {isLoggedIn ? (
+                <WelcomeLogout username={username} logout={logout} />
+            ) : (
+                <p></p>
+            )}
     </div>
   );
 };

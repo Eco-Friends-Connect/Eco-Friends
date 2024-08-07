@@ -1,32 +1,18 @@
 import React from 'react';
-import EcoLogoutButton from '../component/eco-button/eco-button-logout'
-
 import { useAuth } from '../component/auth-context';
+import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
 
-
-export default function EcoChat(){
+export default function EcoChat() {
     const { isLoggedIn, username, logout } = useAuth();
-    return(
+    
+    return (
         <div>
-         {isLoggedIn ? (
-        <div>
-          <p>Welcome, {username}!</p>
-          <EcoLogoutButton/>
+            {isLoggedIn ? (
+                <WelcomeLogout username={username} logout={logout} />
+            ) : (
+                <p></p>
+            )}
+            <h1>Chat here!</h1>
         </div>
-      ) : (
-        <p></p>
-      )}
-        
-        <h1>
-            Chat here!
-        </h1>
-        
-       
-    </div>
- 
-
-        
-        
-       
     );
 }

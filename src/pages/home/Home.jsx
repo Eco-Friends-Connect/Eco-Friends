@@ -3,7 +3,7 @@ import styles from './Home.module.scss';
 import treeImage from '../../assets/tree.jpg';
 import React from 'react';
 import { useAuth } from '../../component/auth-context';
-import EcoLogoutButton from '../../component/eco-button/eco-button-logout';
+import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
 
 
 
@@ -38,13 +38,10 @@ function Home() {
       <button className={styles.howItWorksButton}>How it works</button>
       </section>
       {isLoggedIn ? (
-        <div>
-          <p>Welcome, {username}!</p>
-          <EcoLogoutButton/>
-        </div>
-      ) : (
-        <p></p>
-      )}
+                <WelcomeLogout username={username} logout={logout} />
+            ) : (
+                <p></p>
+            )}
     </div>
   );
 }
