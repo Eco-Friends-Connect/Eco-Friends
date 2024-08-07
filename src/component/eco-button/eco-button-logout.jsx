@@ -43,4 +43,4 @@ const EcoLogoutButton= () => {
   );
 };
 
-export default EcoLogoutButton
+export default EcoLogoutButton ;

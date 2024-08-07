@@ -109,6 +109,7 @@ router.post('/login', async (req, res) => {
 
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
+    const auth = getAuth();
     
     if (!token) {
         return res.status(401).send({
@@ -118,7 +119,7 @@ const verifyToken = async (req, res, next) => {
     }
 
     try {
-        const decodedToken = await admin.auth().verifyIdToken(token);
+        const decodedToken = await auth().verifyIdToken(token);
         req.user = decodedToken;
         next();
     } catch (error) {
