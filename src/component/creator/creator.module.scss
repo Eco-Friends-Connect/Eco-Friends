@@ -8,6 +8,7 @@ $dark-blue: rgba(53 101 137);
 .container {
   display: grid;
   grid-template-areas: 
+    'header header header header header header header header header header header header'
     'square square square square square1 square1 square1 square1 square2 square2 square2 square2'
     'square3 square3 square3 square3 square3 square3 square4 square4 square4 square4 square4 square4';
   width: 100%;
@@ -25,10 +26,19 @@ $dark-blue: rgba(53 101 137);
     font-style: normal;
     font-size: 45px;
 } 
+header{
+  grid-area: header;
+  margin-top: 25px;
+  
+}
  p{
   font-size: 25px;   
 
  }
+ .square, .square1, .square2, .square3, .square4 {
+  padding: 20px;
+  min-height: calc((100vh - 25px - 2 * 15px) / 3);
+}
 .square {
   grid-area: square;
   margin: 15px 45px;
@@ -64,4 +74,33 @@ $dark-blue: rgba(53 101 137);
   background-color: $dark-blue;
   color: $white;
   padding: 15px;
+}
+@media (max-width: 1200px), (max-height: 630px) {
+  .container {
+    display: grid;
+    grid-template-areas: 
+      'header'
+      'square'
+      'square1'
+      'square2' 
+      'square3'
+      'square4';
+    width: 100%;
+    margin: auto;
+  }
+  header{
+    grid-area: header;
+    margin-top: 25px;
+  }
+
+
+}
+@media (min-width: 1200px) {
+  .anton {
+    font-size: 60px; 
+  }
+
+  p {
+    font-size: 40px;
+  }
 }

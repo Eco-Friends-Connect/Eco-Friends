@@ -1,8 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 .container {
   display: grid;
-  grid-template-areas: "square square square square square1 square1 square1 square1 square2 square2 square2 square2" "square3 square3 square3 square3 square3 square3 square4 square4 square4 square4 square4 square4";
+  grid-template-areas: "header header header header header header header header header header header header" "square square square square square1 square1 square1 square1 square2 square2 square2 square2" "square3 square3 square3 square3 square3 square3 square4 square4 square4 square4 square4 square4";
   width: 100%;
   margin: auto;
+}
+
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.anton {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 45px;
+}
+
+header {
+  grid-area: header;
+  margin-top: 25px;
+}
+
+p {
+  font-size: 25px;
+}
+
+.square, .square1, .square2, .square3, .square4 {
+  padding: 20px;
+  min-height: calc((100vh - 25px - 30px) / 3);
 }
 
 .square {
@@ -10,7 +38,7 @@
   margin: 15px 45px;
   background-color: rgb(46, 30, 20);
   color: rgb(243, 241, 236);
-  padding: 15px;
+  padding: 20px;
 }
 
 .square1 {
@@ -41,4 +69,25 @@
   background-color: rgb(53, 101, 137);
   color: rgb(243, 241, 236);
   padding: 15px;
+}
+
+@media (max-width: 1200px), (max-height: 630px) {
+  .container {
+    display: grid;
+    grid-template-areas: "header" "square" "square1" "square2" "square3" "square4";
+    width: 100%;
+    margin: auto;
+  }
+  header {
+    grid-area: header;
+    margin-top: 25px;
+  }
+}
+@media (min-width: 1200px) {
+  .anton {
+    font-size: 60px;
+  }
+  p {
+    font-size: 40px;
+  }
 }/*# sourceMappingURL=creator.module.css.map */

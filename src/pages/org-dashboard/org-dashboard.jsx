@@ -1,6 +1,7 @@
 
 import styles from './org-dashboard.module.scss';
 import {React, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import PopOut from '../../component/pop-out/pop-out';
 import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
@@ -57,19 +58,38 @@ const signupFormData = {
   event: ""
 };
 
-async function getEvents() {
-  return fetch(`${config.API_URL}/api/get/events`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+const badgeFields = [
+  {
+    label: "Title",
+    type: "input",
+    name: "title"
+  },
+  {
+    label: "Description",
+    type: "input",
+    name: "description"
+  },
+  {
+    label: "Criteria",
+    type: "input",
+    name: "criteria"
+  },
+];
 
-  });
+const badgeFormData = {
+    title: "",
+    description: "",
+    criteria: ""
+};
 
-}
 function OrgDashboard() {
   const [eventFormOpened, setEventFormOpened] = useState(false);
   const [signupFormOpened, setSignupFormOpened] = useState(false);
+  const [badgeFormOpened, setBadgeFormOpened] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [outputMessage, setOutputMessage] = useState(null);
+
+  const navigate = useNavigate();
   async function createEvent(formData) {
     console.log("Handling create event");
     console.log(formData);
@@ -81,12 +101,39 @@ function OrgDashboard() {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
+    if(response.status === 200) {
+        setOutputMessage(data.message ? data.message : "Event created successfully");
+    } else {
+        setErrorMessage(data.message ? data.message : "Error creating event");
+    }
     console.log("Result",data);
   }
   
   async function createSignup(formData) {
     console.log("Handling create signup");
     console.log(formData);
+
+  }
+  async function createBadge(formData) {
+    console.log("Handling create badge");
+    console.log(formData);
+    const response = await fetch(`${config.API_URL}/api/post/create-badge`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if(response.status === 200) {
+        setOutputMessage(data.message ? data.message : "Badge created successfully");
+    } else {
+        setErrorMessage(data.message ? data.message : "Error creating badge");
+    }
+    console.log("Result",data);
+  }
+  function toggleBadgeFormOpened() {
+    setBadgeFormOpened(!badgeFormOpened);
   }
   function toggleEventFormOpened() {
     setEventFormOpened(!eventFormOpened);
@@ -97,6 +144,19 @@ function OrgDashboard() {
   useEffect(() => {
     console.log("Event form opened: ", eventFormOpened);
   }, [eventFormOpened]);
+  // onClick funcs
+  const onClickBadges = () => {
+    console.log("Badges clicked");
+    navigate('/badges');
+  };
+  const onClickEvents = () => {
+    console.log("Events clicked");
+    navigate('/events');
+  };
+  const onClickCreateBadge = () => {
+    console.log("Create Badge clicked");
+    setBadgeFormOpened(true);
+  };
 
   
   const { isLoggedIn, username, logout } = useAuth();
@@ -109,7 +169,7 @@ function OrgDashboard() {
         </div>
         <div className={styles.container}>
             <div className={styles.colContainer}>
-                <EcoButton ecoButtonProps={{btnTitle: "Events", btnShape: "none", btnColor:"dark", animate:2}}/>
+                <EcoButton onClick={onClickEvents} ecoButtonProps={{btnTitle: "Events", btnShape: "none", btnColor:"dark", animate:2}}/>
                 <div className={styles.eventContainer}>
                     <EcoButton onClick={toggleEventFormOpened} ecoButtonProps={{btnTitle: "Create Event", btnShape: "triangle", btnColor:"light", animate: 1}}/>
                     <div className={styles.colContainer}>
@@ -120,22 +180,64 @@ function OrgDashboard() {
                 </div>
             </div>
             <div className={styles.colContainer}>
-                <EcoButton ecoButtonProps={{btnTitle: "Badges", btnShape: "circle", btnColor:"light", animate:2}}/>
-                <EcoButton ecoButtonProps={{btnTitle: "Create Badge", btnShape: "hexagon", btnColor:"dark", animate: 1}}/>
+                <EcoButton onClick={onClickBadges} ecoButtonProps={{btnTitle: "Badges", btnShape: "circle", btnColor:"light", animate:2}}/>
+                <EcoButton onClick={onClickCreateBadge} ecoButtonProps={{btnTitle: "Create Badge", btnShape: "hexagon", btnColor:"dark", animate: 1}}/>
             </div>
         </div>
         {
             eventFormOpened && (
-                <PopOut isOpened={true} isForm={true} onClose={() => {toggleEventFormOpened();}}>
+                <PopOut isOpened={true} popOutType={"form"} onClose={() => {toggleEventFormOpened();}}>
                     <EventForm onSubmit={createEvent}/>
                 </PopOut>
             )
         }
         {
             signupFormOpened && (
-                <PopOut isOpened={true} isForm={true} onClose={() => {toggleSignupFormOpened();}}>
+                <PopOut isOpened={true} popOutType={"form"} onClose={() => {toggleSignupFormOpened();}}>
                     <EcoForm title="Volunteer Sign up" fields={signupFields} formData={signupFormData} onSubmit={createSignup} submitTitle={'Request'} />
                 </PopOut>
+            )
+        }
+        {
+            badgeFormOpened && (
+              <PopOut isOpened={true} popOutType={"form"} onClose={() => {toggleBadgeFormOpened();}}>
+                    <EcoForm title="Create Badge" fields={badgeFields} formData={badgeFormData} onSubmit={createBadge} submitTitle={'Create'} />
+                </PopOut>
+            )
+        }
+        {
+          errorMessage !== null && (
+            <PopOut isOpened={true} popOutType={"error"} onClose={() => {setErrorMessage(null);}}>
+              <div>{errorMessage}</div>
+              </PopOut>
+            )
+        }
+        {
+          outputMessage !== null && errorMessage === null && (
+            <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
+              <div>{outputMessage}</div>
+              </PopOut>
+            )
+        }
+        {
+            badgeFormOpened && (
+              <PopOut isOpened={true} popOutType={"form"} onClose={() => {toggleBadgeFormOpened();}}>
+                    <EcoForm title="Create Badge" fields={badgeFields} formData={badgeFormData} onSubmit={createBadge} submitTitle={'Create'} />
+                </PopOut>
+            )
+        }
+        {
+          errorMessage !== null && (
+            <PopOut isOpened={true} popOutType={"error"} onClose={() => {setErrorMessage(null);}}>
+              <div>{errorMessage}</div>
+              </PopOut>
+            )
+        }
+        {
+          outputMessage !== null && errorMessage === null && (
+            <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
+              <div>{outputMessage}</div>
+              </PopOut>
             )
         }
          {isLoggedIn ? (

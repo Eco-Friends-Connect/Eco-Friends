@@ -14,7 +14,9 @@ import NotFound from './pages/NotFound';
 import SiteSponsors from './pages/SiteSponsors.jsx';
 import Footer from './component/footer/Footer';
 import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
-import UserOrOrgSelect from './pages/UserOrOrgPage';
+import UserOrOrgSelect from './pages/userororgpage/UserOrOrgPage';
+import BadgesPage from './pages/badges-page/badges-page.jsx';
+import EventsPage from './pages/events-page/events-page.jsx';
 import ProtectedRoute from './component/protected-route.jsx';
 import { AuthProvider } from './component/auth-context.jsx';
 

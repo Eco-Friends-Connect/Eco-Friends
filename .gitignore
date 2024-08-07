@@ -27,3 +27,6 @@ dist-ssr
 package-lock.json
 
 /backend/.env
+
+# Ignore all .module.scss.map files
+**/*.module.css.map
