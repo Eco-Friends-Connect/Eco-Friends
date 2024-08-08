@@ -24,16 +24,7 @@ function PopOut({isOpened, popOutType, onClose, children}) {
         else if(popOutType === "form") return styles["formMessage"];
         else if(popOutType === "success") return styles["successMessage"];
         return styles["successMessage"];
-        // switch(popOutType) {
-        //     case "form":
-        //         return styles["formMessage"];
-        //     case "success":
-        //         return styles["successMessage"];
-        //     case "error":
-        //         return styles["errorMessage"];
-        //     default:
-        //         return "";
-        // }
+
     };
 
     useEffect(() => {
