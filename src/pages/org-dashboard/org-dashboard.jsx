@@ -98,7 +98,7 @@ function OrgDashboard() {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    if(response.status === 200) {
+    if(response.status === 201) {
         setOutputMessage(data.message ? data.message : "Event created successfully");
     } else {
         setErrorMessage(data.message ? data.message : "Error creating event");
@@ -122,7 +122,7 @@ function OrgDashboard() {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    if(response.status === 200) {
+    if(response.status === 201) {
         setOutputMessage(data.message ? data.message : "Badge created successfully");
     } else {
         setErrorMessage(data.message ? data.message : "Error creating badge");
@@ -208,9 +208,9 @@ function OrgDashboard() {
         }
         {
           outputMessage !== null && errorMessage === null && (
-            <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
+            <PopOut isOpened={true} popOutType={'success'} onClose={() => {setOutputMessage(null);}}>
               <div>{outputMessage}</div>
-              </PopOut>
+            </PopOut>
             )
         }
     </div>
