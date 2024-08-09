@@ -93,7 +93,7 @@ router.get('/events', async (req, res) => {
         const orgEvents = await OrgEvent.find({ orgId: membership.orgId });
         const currentOrgEvents = orgEvents.map((event)=>{return event.eventId;});
         const currentEvents = await Event.find({ _id: { $in: currentOrgEvents } });
-        return res.json({
+        return res.status(200).json({
             status: 'success',
             data: currentEvents,
         });
