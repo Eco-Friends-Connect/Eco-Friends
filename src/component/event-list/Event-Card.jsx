@@ -4,7 +4,7 @@ import { Card, CardContent, Typography, Button, Avatar } from '@mui/material';
 import styles from './EventCard.module.scss';
 import EcoButton from '../eco-button/eco-button';
 
-const EventCard = ({ event, onSignUp, buttonAvailable = true, buttonTitle, children }) => {
+const EventCard = ({ event, onSignUp, buttonAvailable = true, buttonTitle, isButtonDisabled=false, children }) => {
   const handleSignUp = () => {
     onSignUp(event.title);
   };
@@ -24,7 +24,7 @@ const EventCard = ({ event, onSignUp, buttonAvailable = true, buttonTitle, child
         <Typography variant="body1" component="p">
           {event.description}
         </Typography>
-        {buttonAvailable &&(<Button variant="contained" color="primary" onClick={handleSignUp} style={{ marginTop: '16px' }}>
+        {buttonAvailable &&(<Button disabled={isButtonDisabled} variant="contained" color="primary" onClick={handleSignUp} style={{ marginTop: '16px' }}>
           {buttonTitle || 'Sign Up'}
         </Button>)}
         {event.imageUrl && (
@@ -50,6 +50,7 @@ EventCard.propTypes = {
   }).isRequired,
   buttonAvailable: PropTypes.bool,
   buttonTitle: PropTypes.string,
+  isButtonDisabled: PropTypes.bool,
   children: PropTypes.node,
   onSignUp: PropTypes.func.isRequired,
 };
