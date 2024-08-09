@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardContent, Typography, Button, Avatar } from '@mui/material';
 import styles from './EventCard.module.scss';
+import EcoButton from '../eco-button/eco-button';
 
-const EventCard = ({ event, onSignUp, buttonAvailable = true }) => {
+const EventCard = ({ event, onSignUp, buttonAvailable = true, buttonTitle, children }) => {
   const handleSignUp = () => {
     onSignUp(event.title);
   };
@@ -18,13 +19,13 @@ const EventCard = ({ event, onSignUp, buttonAvailable = true }) => {
           {event.date}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Location: {event.location}
+          {(event.location) ? `Location: ${event.location}` : ''}
         </Typography>
         <Typography variant="body1" component="p">
           {event.description}
         </Typography>
         {buttonAvailable &&(<Button variant="contained" color="primary" onClick={handleSignUp} style={{ marginTop: '16px' }}>
-          Sign Up
+          {buttonTitle || 'Sign Up'}
         </Button>)}
         {event.imageUrl && (
           <Avatar
@@ -33,6 +34,7 @@ const EventCard = ({ event, onSignUp, buttonAvailable = true }) => {
             style={{ marginTop: '16px', width: '60px', height: '60px' }}
           />
         )}
+        {children}
       </CardContent>
     </Card>
   );
@@ -47,6 +49,8 @@ EventCard.propTypes = {
     imageUrl: PropTypes.string,
   }).isRequired,
   buttonAvailable: PropTypes.bool,
+  buttonTitle: PropTypes.string,
+  children: PropTypes.node,
   onSignUp: PropTypes.func.isRequired,
 };
 

@@ -23,17 +23,8 @@ function PopOut({isOpened, popOutType, onClose, children}) {
         if(popOutType === "error") return styles["errorMessage"];
         else if(popOutType === "form") return styles["formMessage"];
         else if(popOutType === "success") return styles["successMessage"];
-        return styles["successMessage"];
-        // switch(popOutType) {
-        //     case "form":
-        //         return styles["formMessage"];
-        //     case "success":
-        //         return styles["successMessage"];
-        //     case "error":
-        //         return styles["errorMessage"];
-        //     default:
-        //         return "";
-        // }
+        return styles["infoMessage"];
+
     };
 
     useEffect(() => {
@@ -57,7 +48,7 @@ function PopOut({isOpened, popOutType, onClose, children}) {
 
 PopOut.propTypes = {
     isOpened: propTypes.bool.isRequired,
-    popOutType: propTypes.string.isRequired,
+    popOutType: propTypes.string,
     onClose: propTypes.func,
     children: propTypes.node,
 };

@@ -17,6 +17,7 @@ import OrgDashboard from './pages/org-dashboard/org-dashboard.jsx';
 import UserOrOrgSelect from './pages/userororgpage/UserOrOrgPage';
 import BadgesPage from './pages/badges-page/badges-page.jsx';
 import EventsPage from './pages/events-page/events-page.jsx';
+import CheckParticipant from './pages/check-participant/check-participant.jsx';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/events" element={<EventsPage />} />
+          <Route path="/check-participant" element={<CheckParticipant />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
