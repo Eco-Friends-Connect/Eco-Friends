@@ -422,11 +422,25 @@ router.post('/create-signup', async (req, res) => {
             message: 'User not logged in',
         });
     }
-    const { accountId, eventId, status } = req.body;
+    const { eventId, status } = req.body;
+    const user = await User.findOne({ accountId: auth.currentUser.uid });
+    if(user === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not found in database',
+        });
+    }
+    const event = await Event.findOne({ _id: eventId });
+    if(event === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Event not found in database',
+        });
+    }
     console.log("create-signup", req.body);
     const signup = new Signup({
-        accountId,
-        eventId,
+        accountId: auth.currentUser.uid,
+        eventId: event,
         signupDate: new Date(),
         status, // pending, approved, denied
     });
