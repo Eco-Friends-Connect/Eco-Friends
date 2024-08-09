@@ -8,6 +8,7 @@ import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
 import { set } from 'mongoose';
+import CheckParticipant from '../check-participant/check-participant';
 
 
 const signupFields = [
@@ -193,6 +194,10 @@ function OrgDashboard() {
     console.log("Create Badge clicked");
     setBadgeFormOpened(true);
   };
+  const onClickCheckParticipant = () => {
+    console.log("Check Participant clicked");
+    navigate('/check-participant');
+  };
 
   return (
     <div>
@@ -206,7 +211,7 @@ function OrgDashboard() {
                 <div className={styles.eventContainer}>
                     <EcoButton onClick={toggleEventFormOpened} ecoButtonProps={{btnTitle: "Create Event", btnShape: "triangle", btnColor:"light", animate: 1}}/>
                     <div className={styles.colContainer}>
-                        <EcoButton ecoButtonProps={{btnTitle: "Check Signups", btnShape: "circle", btnColor:"yellow", animate: 2}}/>
+                        <EcoButton onClick={onClickCheckParticipant} ecoButtonProps={{btnTitle: "Check Signups", btnShape: "circle", btnColor:"yellow", animate: 2}}/>
                         <EcoButton onClick={toggleSignupFormOpened} ecoButtonProps={{btnTitle: "Create Signup", btnShape: "normal", btnColor:"light", animate: 1}}/>
                     </div>
 

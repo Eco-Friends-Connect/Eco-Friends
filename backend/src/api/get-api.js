@@ -111,6 +111,9 @@ router.get('/events', async (req, res) => {
 
 router.get('/participants', async (req, res) => {
     const auth = getAuth();
+    const {eventId} = req.query;
+    const incomingEventId = eventId;
+    console.log("incoming event id",incomingEventId);
     if (auth.currentUser === null) {
         return res.status(401).json({ 
             status: 'error',
@@ -128,7 +131,7 @@ router.get('/participants', async (req, res) => {
             });
         }
 
-        const orgEvent = await OrgEvent.findOne({ orgId: membership.orgId, eventId: req.body.eventId });
+        const orgEvent = await OrgEvent.findOne({ orgId: membership.orgId, eventId: incomingEventId });
 
         if (!orgEvent) {
             return res.status(404).json({
@@ -137,7 +140,7 @@ router.get('/participants', async (req, res) => {
             });
         }
 
-        const event = await Event.findOne({ _id: req.body.eventId });
+        const event = await Event.findOne({ _id: incomingEventId });
 
         if (!event) {
             return res.status(404).json({
@@ -146,7 +149,7 @@ router.get('/participants', async (req, res) => {
             });
         }
 
-        const signups = await Signup.find({ eventId: req.body.eventId });
+        const signups = await Signup.find({ eventId: incomingEventId });
 
         if (!signups) {
             return res.status(404).json({
@@ -159,6 +162,7 @@ router.get('/participants', async (req, res) => {
             let eventParticipant = await User.findOne({ accountId: signup.accountId });
             eventParticipant = eventParticipant.toObject();
             eventParticipant.status = signup.status;
+            eventParticipant.signupDate = signup.createdAt;
             return eventParticipant;
         }
         ));
