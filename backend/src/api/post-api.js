@@ -457,7 +457,7 @@ router.post('/create-volunteer-request', async (req, res) => {
             message: 'User not a member of an organization',
         });
     }
-    const { firstName, lastName, email, birthDate, eventId, status, isUser } = req.body;
+    const { firstName, lastName, email, birthDate, eventId } = req.body;
     const orgId = membership.orgId;
     const volunteer = new VolunteerRequest({
         firstName,
@@ -466,8 +466,8 @@ router.post('/create-volunteer-request', async (req, res) => {
         birthDate,
         eventId,
         orgId,
-        isUser,
-        status, // pending, approved, denied
+        isUser: true,
+        status:"pending", // pending, approved, denied
     });
 
     try {
@@ -483,8 +483,8 @@ router.post('/create-volunteer-request', async (req, res) => {
                 birthDate,
                 eventId,
                 orgId,
-                status,
-                isUser,
+                status: volunteer.status,
+                isUser: volunteer.isUser,
             },
         });
     } catch (error) {
