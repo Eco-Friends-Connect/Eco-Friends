@@ -156,7 +156,9 @@ router.get('/participants', async (req, res) => {
         }
 
         const eventParticipants = await Promise.all(signups.map(async (signup) => {
-            const eventParticipant = await User.findOne({ accountId: signup.accountId });
+            let eventParticipant = await User.findOne({ accountId: signup.accountId });
+            eventParticipant = eventParticipant.toObject();
+            eventParticipant.status = signup.status;
             return eventParticipant;
         }
         ));
