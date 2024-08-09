@@ -133,7 +133,7 @@ function OrgDashboard() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData), 
     });
     const data = await response.json();
     if(response.status === 201) {
@@ -203,7 +203,7 @@ function OrgDashboard() {
     <div>
         <div className={styles.navContainer}>
             <h2>Welcome </h2>
-            <h1>Organization Dashboard</h1>
+            <h1 className={styles.anton}>Organization Dashboard</h1>
         </div>
         <div className={styles.container}>
             <div className={styles.colContainer}>
