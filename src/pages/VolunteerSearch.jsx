@@ -25,8 +25,8 @@ const VolunteerSearch = () => {
    
   ];
 
-  const handleSignUp = (title) => {
-    setSignedUpEvent(title);
+  const handleSignUp = (event) => {
+    setSignedUpEvent(event.title);
   };
 
   return (

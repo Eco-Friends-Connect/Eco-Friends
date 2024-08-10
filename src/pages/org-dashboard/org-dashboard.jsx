@@ -7,8 +7,6 @@ import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
-import { set } from 'mongoose';
-import CheckParticipant from '../check-participant/check-participant';
 
 
 const signupFields = [

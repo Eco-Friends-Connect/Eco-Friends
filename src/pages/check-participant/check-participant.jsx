@@ -122,12 +122,14 @@ function CheckParticipant() {
                             <div className={styles.resultsDiv}>
                                 {participants.map((participant, index) => (
                                     <EventCard key={index} 
-                                    buttonAvailable={false} 
+                                    buttonAvailable={true} 
+                                    buttonTitle={participant.status}
                                     event={{
                                         title:participant.firstName + ' '+participant.lastName ,
                                         date: new Date(participant.signupDate).toDateString(),
                                         description: participant.email,
-                                    }} 
+                                    }}
+                                    isButtonDisabled={true}
                                     onSignUp={() => {}} />
                                 ))}
                             </div>
