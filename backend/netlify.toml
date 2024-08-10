@@ -1,6 +1,6 @@
 [build]
   functions = "src/api"  # Directory where your serverless functions are located
-  command = "npm install"  # Command to install dependencies
+  command = "npm install && npm start"  # Command to install dependencies
 
 [[redirects]]
   from = "/api/*"
