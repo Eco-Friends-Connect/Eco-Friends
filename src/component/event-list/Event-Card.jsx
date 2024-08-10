@@ -6,7 +6,7 @@ import EcoButton from '../eco-button/eco-button';
 
 const EventCard = ({ event, onSignUp, buttonAvailable = true, buttonTitle, isButtonDisabled=false, children }) => {
   const handleSignUp = () => {
-    onSignUp(event.title);
+    onSignUp(event);
   };
 
   return (
