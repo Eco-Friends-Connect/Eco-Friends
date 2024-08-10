@@ -30,3 +30,5 @@ package-lock.json
 
 # Ignore all .module.scss.map files
 **/*.module.css.map
+# Local Netlify folder
+.netlify
