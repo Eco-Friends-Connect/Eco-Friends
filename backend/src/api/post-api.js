@@ -376,7 +376,7 @@ router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
         });
     }
     const reqImage = req.file;
-    console.log("upload-badge-image", reqImage);
+    // console.log("upload-badge-image", reqImage);
     if(reqImage === undefined || reqImage === null) {
         console.log("No image to upload", reqImage);
         return res.status(400).send({
@@ -456,9 +456,23 @@ router.post('/create-signup', async (req, res) => {
 
     try {
         await signup.save();
-        res.send('Signup created');
+        res.status(201).send({
+            status: 'success',
+            message: 'Signup created',
+            data: {
+                accountId: auth.currentUser.uid,
+                eventId,
+                signupDate: signup.signupDate,
+                status: signup.status,
+            },
+        }
+        ); 
     } catch (error) {
-        res.send(error);
+        res.status(400).send({
+            status: 'fail',
+            message: 'Signup not created',
+            error: error,
+        });
     }
 }
 );
