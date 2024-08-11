@@ -80,7 +80,7 @@ const VolunteerSearch = () => {
         </PopOut>
       )}
       {error && (
-        <PopOut isOpened={error === null ? false : true} popOutType="error" onClose={() => {setError(null)}}>
+        <PopOut isOpened={error === null ? false : true} popOutType="error" onClose={() => {setError(null);}}>
           <p>{error}</p>
         </PopOut>
       )}
