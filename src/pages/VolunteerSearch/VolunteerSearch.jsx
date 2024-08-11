@@ -4,6 +4,7 @@ import SearchBar from '../../component/search-bar/search_bar';
 import styles from './VolunteerSearch.module.scss';
 import config from '../../config';
 import PopOut from '../../component/pop-out/pop-out';
+import { set } from 'mongoose';
 
 
 const VolunteerSearch = () => {
@@ -12,23 +13,7 @@ const VolunteerSearch = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const events = [
-    {
-      title: 'Beach Cleanup',
-      location: 'Santa Monica Beach',
-      date: '2024-08-10',
-      description: 'Join us for a beach cleanup!',
-      imageUrl: 'https://example.com/image1.jpg'
-    },
-    {
-      title: 'Park Restoration',
-      location: 'Central Park',
-      date: '2024-08-15',
-      description: 'Help restore the park!',
-      imageUrl: 'https://example.com/image2.jpg'
-    },
-   
-  ];
+  
   async function fetchEvents() {
     setLoading(true);
     try {
@@ -48,43 +33,91 @@ const VolunteerSearch = () => {
       setAllEvents(data);
     } catch (error) {
       console.error('Error fetching events', error);
-      setError('Error fetching events, please try again later\n' + error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
     
   }
 
+  async function signUpForEvent(event) {
+    setLoading(true);
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ eventId: event._id, status: 'pending' }),
+    };
+  
+    const fetchUrl = `${config.API_URL}/api/post/create-signup`;
+  
+    try {
+      const response = await fetch(fetchUrl, requestOptions);
+  
+      // Check if response is okay and handle it accordingly
+      if (!response.ok) {
+        // Handle specific error status codes
+        if (response.status === 400) {
+          setError('You are not logged in');
+        } else {
+          setError('An error occurred. Please try again.');
+        }
+        // Optionally, handle other status codes or parse response
+        return;
+      }
+  
+      // Parse and handle JSON response
+      const data = await response.json();
+      console.log('response data', data);
+      setSignedUpEvent(event.title);
+  
+    } catch (error) {
+      // Handle fetch errors
+      console.error('Error signing up for event', error);
+      setError(error.message);
+  
+    } finally {
+      // Always executed regardless of success or failure
+      setLoading(false);
+    }
+  }
+
   useEffect(() =>{
     fetchEvents();
   },[]);
 
-  const handleSignUp = (event) => {
-    setSignedUpEvent(event.title);
-  };
+  async function onClickSignUp (event)  {
+    // setSignedUpEvent(event);
+    console.log('Signing up for', event);
+    signUpForEvent(event);
+  }
 
   return (
-    <div>
-      <h1 className={styles.anton}>Volunteer Opportunities</h1>
-      <SearchBar />
-      <EventList events={allEvents} onSignUp={handleSignUp} />
-      {signedUpEvent && (
-        <div style={{ marginTop: '20px', padding: '10px', border: '1px solid green', borderRadius: '5px', backgroundColor: '#e0f7fa' }}>
-          <h2>Thank you for signing up!</h2>
-          <p>You have signed up for: {signedUpEvent}</p>
-        </div>
-      )}
+    <>
+      <div className={styles.container}>
+        <h1 className={styles.anton}>Volunteer Opportunities</h1>
+        <SearchBar />
+        <EventList buttonsTitle={"☝️ Click Sign up"} events={allEvents} onSignUp={onClickSignUp} />
+        {signedUpEvent && (
+          <div style={{ marginTop: '20px', padding: '10px', border: '1px solid green', borderRadius: '5px', backgroundColor: '#e0f7fa' }}>
+            <h2>Thank you for signing up!</h2>
+            <p>You have signed up for: {signedUpEvent}</p>
+          </div>
+        )}
+      </div>
       {loading && (
         <PopOut isOpened={loading} popOutType="info" onClose={() => {}}>
           <p>Loading events...</p>
         </PopOut>
       )}
-      {error && (
-        <PopOut isOpened={error === null ? false : true} popOutType="error" onClose={() => {setError(null);}}>
+      {(error !== null) && (
+        <PopOut isOpened={error !== null ? true : false} popOutType="error" onClose={() => {setError(null);}}>
           <p>{error}</p>
         </PopOut>
       )}
-    </div>
+    </>
   );
 };
 
