@@ -12,6 +12,7 @@ const VolunteerSearch = () => {
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [outputMessage, setOutputMessage] = useState(null);
 
   
   async function fetchEvents() {
@@ -71,6 +72,7 @@ const VolunteerSearch = () => {
       // Parse and handle JSON response
       const data = await response.json();
       console.log('response data', data);
+      setOutputMessage(data.message);
       setSignedUpEvent(event.title);
   
     } catch (error) {
@@ -115,6 +117,11 @@ const VolunteerSearch = () => {
       {(error !== null) && (
         <PopOut isOpened={error !== null ? true : false} popOutType="error" onClose={() => {setError(null);}}>
           <p>{error}</p>
+        </PopOut>
+      )}
+      {(outputMessage !== null) && (
+        <PopOut isOpened={outputMessage !== null ? true : false} popOutType="success" onClose={() => {setOutputMessage(null);}}>
+          <p>{outputMessage}</p>
         </PopOut>
       )}
     </>
