@@ -114,7 +114,7 @@ function CheckParticipant() {
             </div>
             {
                 participantsOpened && 
-                (<PopOut isOpened={participantsOpened} onClose={()=>{setParticipantsOpened(false);}}>
+                (<PopOut popOutType={"form"} isOpened={participantsOpened} onClose={()=>{setParticipantsOpened(false);}}>
                     <div>
                         <h1>Participants</h1>
                         {participants.length === 0 && <p>No participants found</p>}

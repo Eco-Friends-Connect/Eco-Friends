@@ -376,7 +376,7 @@ router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
         });
     }
     const reqImage = req.file;
-    console.log("upload-badge-image", reqImage);
+    // console.log("upload-badge-image", reqImage);
     if(reqImage === undefined || reqImage === null) {
         console.log("No image to upload", reqImage);
         return res.status(400).send({
