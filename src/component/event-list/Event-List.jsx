@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import EventCard from './Event-Card.jsx';
 
-const EventList = ({ events, onSignUp, buttonsTitle }) => {
+const EventList = ({ events, onSignUp }) => {
   return (
     <Grid container spacing={2}>
       {events.map((event, index) => (
         <Grid item xs={12} sm={6} md={4} key={index}>
-          <EventCard buttonTitle={buttonsTitle} event={event} onSignUp={onSignUp} />
+          <EventCard event={event} onSignUp={onSignUp} />
         </Grid>
       ))}
     </Grid>
@@ -25,7 +25,6 @@ EventList.propTypes = {
       imageUrl: PropTypes.string,
     }).isRequired
   ).isRequired,
-  buttonsTitle: PropTypes.string,
   onSignUp: PropTypes.func.isRequired,
 };
 

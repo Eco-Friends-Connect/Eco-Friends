@@ -3,7 +3,7 @@ import Navbar from './component/navbar/Navbar';
 import React from 'react';
 import Home from './pages/home/Home';
 import About from './pages/AboutTheSite';
-import VolunteerSearch from './pages/VolunteerSearch/VolunteerSearch.jsx';
+import VolunteerSearch from './pages/VolunteerSearch';
 import LeaderBoard from './pages/LeaderBoard';
 import UserPage from './pages/UserPage';
 import EcoChat from './pages/Eco-Chat';

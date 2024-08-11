@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     res.send('Get API is working');
 });
 
-// Get all badges of the organization
+// Get all badges 
 router.get('/badges', async (req, res) => {
     const auth = getAuth();
     const storage = getStorage();
@@ -72,7 +72,7 @@ router.get('/badges', async (req, res) => {
         });
     }
 });
-// Get all events of the organization
+
 router.get('/events', async (req, res) => {
     const auth = getAuth();
     if (auth.currentUser === null) {
@@ -108,7 +108,7 @@ router.get('/events', async (req, res) => {
         });
     }
 });
-// Get all participants of the event
+
 router.get('/participants', async (req, res) => {
     const auth = getAuth();
     const {eventId} = req.query;
@@ -174,23 +174,6 @@ router.get('/participants', async (req, res) => {
 
     } catch (error) {
         console.error('Error fetching membership', error);
-        return res.status(500).json({
-            status: 'error',
-            message: 'Internal server error',
-        });
-    }
-});
-
-// Get all events in the database
-router.get('/all-events', async (req, res) => {
-    try {
-        const events = await Event.find();
-        return res.status(200).json({
-            status: 'success',
-            data: events,
-        });
-    } catch (error) {
-        console.error('Error fetching events', error);
         return res.status(500).json({
             status: 'error',
             message: 'Internal server error',
