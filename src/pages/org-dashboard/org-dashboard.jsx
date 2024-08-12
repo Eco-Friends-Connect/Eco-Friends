@@ -8,7 +8,7 @@ import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
 import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
-import { useAuth } from '../../component/auth-context';
+import { useAuth } from '../../component/auth-content-creation';
 
 
 const signupFields = [

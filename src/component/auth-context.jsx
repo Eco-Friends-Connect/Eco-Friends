@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {useAuth} from './auth-content-creation.jsx';
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [firstname, setfirstname] = useState(null);
 
@@ -45,3 +43,5 @@ export const AuthProvider = ({ children }) => {
 AuthProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
+
+export default AuthProvider;

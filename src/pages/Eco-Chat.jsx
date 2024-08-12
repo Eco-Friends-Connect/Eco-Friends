@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../component/auth-context';
+import { useAuth } from '../component/auth-content-creation';
 import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
 
 export default function EcoChat() {

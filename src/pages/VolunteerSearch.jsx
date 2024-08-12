@@ -3,7 +3,7 @@ import EventList from '../component/event-list/Event-List';
 import SearchBar from '../component/search-bar/search_bar';
 import styles from './VolunteerSearch.module.scss';
 import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
-import { useAuth } from '../component/auth-context';
+import { useAuth } from '../component/auth-content-creation';
 
 
 const VolunteerSearch = () => {

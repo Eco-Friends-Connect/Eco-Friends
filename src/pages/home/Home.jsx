@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.scss';
 import treeImage from '../../assets/tree.jpg';
 import React from 'react';
-import { useAuth } from '../../component/auth-context';
+import { useAuth } from '../../component/auth-content-creation';
 import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
 
 
