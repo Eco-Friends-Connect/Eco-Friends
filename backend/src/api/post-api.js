@@ -73,29 +73,33 @@ router.post('/login', async (req, res) => {
         console.log("login email:", user.email);
         
         const membership = await Membership.findOne({ accountId: user.uid });
+        if (!membership) {
+            console.log("User is not an org");
+            
+        }
         
-        if (membership === null) {
-            console.log("member not found");
+        const users = await User.findOne({ accountId: user.uid });
+        if (!users) {
             return res.status(404).send({
                 status: 'error',
-                message: 'Membership not found',
+                message: 'User not found',
             });
         }
 
-        console.log("lowercasefirstname:", membership.firstName);
+        console.log("First Name:", users.firstName);
 
         // Get the Firebase ID token
         const token = await user.getIdToken();
-        
+
         res.status(200).send({
             status: 'success',
             message: 'User logged in',
             data: {
                 accountId: user.uid,
-                email: membership.email,
+                email: users.email,
                 isOrg: membership.isOrg,
                 token: token,
-                firstname: membership.firstName,
+                firstname: users.firstName,
             },
         });
     } catch (error) {
@@ -106,6 +110,7 @@ router.post('/login', async (req, res) => {
         });
     }
 });
+
 
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];

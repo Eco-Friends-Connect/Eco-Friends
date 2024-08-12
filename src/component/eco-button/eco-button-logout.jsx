@@ -5,7 +5,7 @@ import { useAuth } from '../../component/auth-context';
 
 
 const EcoLogoutButton= () => {
-    const { isLoggedIn, username, logout } = useAuth();
+    const { isLoggedIn, firstname, logout } = useAuth();
   const handleLogout = async () => {
     const API_URL = config.API_URL;
     try {

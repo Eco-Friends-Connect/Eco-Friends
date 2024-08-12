@@ -3,12 +3,12 @@ import { useAuth } from '../component/auth-context';
 import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
 
 export default function EcoChat() {
-    const { isLoggedIn, username, logout } = useAuth();
+    const { isLoggedIn, firstname, logout } = useAuth();
     
     return (
         <div>
             {isLoggedIn ? (
-                <WelcomeLogout username={username} logout={logout} />
+                <WelcomeLogout firstname={firstname} logout={logout} />
             ) : (
                 <p></p>
             )}

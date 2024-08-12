@@ -16,7 +16,7 @@ function Home() {
     navigate('/signup');
   };
 
-  const { isLoggedIn, username, logout } = useAuth();
+  const { isLoggedIn, firstname, logout } = useAuth();
   
 
       
@@ -38,7 +38,7 @@ function Home() {
       <button className={styles.howItWorksButton}>How it works</button>
       </section>
       {isLoggedIn ? (
-                <WelcomeLogout username={username} logout={logout} />
+                <WelcomeLogout firstname={firstname} logout={logout} />
             ) : (
                 <p></p>
             )}

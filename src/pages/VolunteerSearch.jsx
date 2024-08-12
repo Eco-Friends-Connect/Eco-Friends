@@ -30,7 +30,7 @@ const VolunteerSearch = () => {
   const handleSignUp = (title) => {
     setSignedUpEvent(title);
   };
-  const { isLoggedIn, username, logout } = useAuth();
+  const { isLoggedIn, firstname, logout } = useAuth();
 
   return (
     <div>
@@ -44,7 +44,7 @@ const VolunteerSearch = () => {
         </div>
       )}
        {isLoggedIn ? (
-                <WelcomeLogout username={username} logout={logout} />
+                <WelcomeLogout firstname={firstname} logout={logout} />
             ) : (
                 <p></p>
             )}

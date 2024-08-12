@@ -2,10 +2,10 @@
 import React from 'react';
 import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
 import { useAuth } from '../component/auth-context';
-
 import UserComponent from '../component/user/user';
+
 export default function UserPage() {
-  const { isLoggedIn, username, logout } = useAuth();
+  const { isLoggedIn, firstname, logout } = useAuth();
   return (
     <>
       <h1> 
@@ -13,7 +13,7 @@ export default function UserPage() {
       </h1>
      
       {isLoggedIn ? (
-                <WelcomeLogout username={username} logout={logout} />
+                <WelcomeLogout firstname={firstname} logout={logout} />
             ) : (
                 <p></p>
             )}

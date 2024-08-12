@@ -159,7 +159,7 @@ function OrgDashboard() {
   };
 
   
-  const { isLoggedIn, username, logout } = useAuth();
+  const { isLoggedIn, firstname, logout } = useAuth();
 
   return (
     <div>
@@ -241,7 +241,7 @@ function OrgDashboard() {
             )
         }
          {isLoggedIn ? (
-                <WelcomeLogout username={username} logout={logout} />
+                <WelcomeLogout fistname={firstname} logout={logout} />
             ) : (
                 <p></p>
             )}
