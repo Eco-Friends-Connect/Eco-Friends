@@ -29,6 +29,14 @@ function EcoForm(props) {
         return e.target.value;
     }
     const handleChange = (e) => {
+        console.log(e.target.name, targetTypes(e));
+        if(e.target.type === "file"){
+            setForm({
+                ...formData,
+                [e.target.name]: e.target.files[0]
+            });
+            return;
+        }
         setForm({
             ...formData,
             [e.target.name]: targetTypes(e)
@@ -50,7 +58,7 @@ function EcoForm(props) {
                                 <div key={index} className="form-group">
                                     <label  className={style.formTitle}>{field.label}</label>
                                     {
-                                        field.type !== "select" && (<input
+                                        field.type !== "select" && field.type !== "file" && (<input
                                         onChange={handleChange}
                                         className="form-control"
                                         type={field.type}
@@ -77,6 +85,16 @@ function EcoForm(props) {
                                                     })
                                                 }
                                             </select>
+                                        )
+                                    }
+                                    {
+                                        field.type === "file" && (
+                                            <input
+                                                onChange={handleChange}
+                                                className="form-control"
+                                                type={field.type}
+                                                name={field.name}
+                                            />
                                         )
                                     }
                                 </div>

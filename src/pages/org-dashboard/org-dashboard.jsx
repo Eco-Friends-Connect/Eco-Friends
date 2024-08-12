@@ -30,7 +30,7 @@ const signupFields = [
   {
     label: "Date of Birth",
     type: "date",
-    name: "dob"
+    name: "birthDate"
   },
   {
     label: "Sign Date",
@@ -38,24 +38,19 @@ const signupFields = [
     name: "signDate"
   },
   {
-    label: "Is a user",
-    type: "checkbox",
-    name: "isUser"
-  },{
-    label: "Events",
+    label: "Available Events",
     type: "select",
-    name: "events",
-    options: [""],//getEvents()["data"].map((event) => {return event.title;})
+    name: "eventId",
+    options: [""],
   }
 ];
-const signupFormData = {
+let signupFormData = {
   firstName: "",
   lastName: "",
   email: "",
-  dob: "",
+  birthDate: "",
   signDate: "",
-  isUser: false,
-  event: ""
+  eventId: signupFields[5].options[0],
 };
 
 const badgeFields = [
@@ -76,7 +71,7 @@ const badgeFields = [
   },
 ];
 
-const badgeFormData = {
+let badgeFormData = {
     title: "",
     description: "",
     criteria: ""
@@ -88,6 +83,7 @@ function OrgDashboard() {
   const [badgeFormOpened, setBadgeFormOpened] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [outputMessage, setOutputMessage] = useState(null);
+  const [events, setEvents] = useState([]);
 
   const navigate = useNavigate();
   async function createEvent(formData) {
@@ -101,7 +97,7 @@ function OrgDashboard() {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    if(response.status === 200) {
+    if(response.status === 201) {
         setOutputMessage(data.message ? data.message : "Event created successfully");
     } else {
         setErrorMessage(data.message ? data.message : "Error creating event");
@@ -111,8 +107,24 @@ function OrgDashboard() {
   
   async function createSignup(formData) {
     console.log("Handling create signup");
+    // swap the event title in formData with the event id
+    const event = events.find((event) => event.title === formData.eventId);
+    formData.eventId = event._id;
     console.log(formData);
-
+    const response = await fetch(`${config.API_URL}/api/post/create-volunteer-request`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if(response.status === 201) {
+        setOutputMessage(data.message ? data.message : "Signup created successfully");
+    } else {
+        setErrorMessage(data.message ? data.message : "Error creating signup");
+    }
+    console.log("Result",data);
   }
   async function createBadge(formData) {
     console.log("Handling create badge");
@@ -122,16 +134,39 @@ function OrgDashboard() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData), 
     });
     const data = await response.json();
-    if(response.status === 200) {
+    if(response.status === 201) {
         setOutputMessage(data.message ? data.message : "Badge created successfully");
     } else {
         setErrorMessage(data.message ? data.message : "Error creating badge");
     }
     console.log("Result",data);
   }
+  async function getEvents() {
+    try {
+      const response = await fetch(`${config.API_URL}/api/get/events`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      console.log("getEvents", data);
+      if(response.status === 200) {
+        setEvents(data["data"]);
+        return data;
+      } else {
+        setErrorMessage(data.message ? data.message : "Error getting events");
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Failed to load events. Please try again later.");
+    }
+  }
+
+
   function toggleBadgeFormOpened() {
     setBadgeFormOpened(!badgeFormOpened);
   }
@@ -142,8 +177,11 @@ function OrgDashboard() {
     setSignupFormOpened(!signupFormOpened);
   }
   useEffect(() => {
-    console.log("Event form opened: ", eventFormOpened);
-  }, [eventFormOpened]);
+    getEvents().then((data) => {
+      console.log("Events", data);
+      signupFields[5].options = data["data"].map((event) => {return event.title;});
+    });
+  }, []);
   // onClick funcs
   const onClickBadges = () => {
     console.log("Badges clicked");
@@ -157,6 +195,10 @@ function OrgDashboard() {
     console.log("Create Badge clicked");
     setBadgeFormOpened(true);
   };
+  const onClickCheckParticipant = () => {
+    console.log("Check Participant clicked");
+    navigate('/check-participant');
+  };
 
   
   const { isLoggedIn, firstname, logout } = useAuth();
@@ -165,7 +207,7 @@ function OrgDashboard() {
     <div>
         <div className={styles.navContainer}>
             <h2>Welcome </h2>
-            <h1>Organization Dashboard</h1>
+            <h1 className={styles.anton}>Organization Dashboard</h1>
         </div>
         <div className={styles.container}>
             <div className={styles.colContainer}>
@@ -173,7 +215,7 @@ function OrgDashboard() {
                 <div className={styles.eventContainer}>
                     <EcoButton onClick={toggleEventFormOpened} ecoButtonProps={{btnTitle: "Create Event", btnShape: "triangle", btnColor:"light", animate: 1}}/>
                     <div className={styles.colContainer}>
-                        <EcoButton ecoButtonProps={{btnTitle: "Check Signups", btnShape: "circle", btnColor:"yellow", animate: 2}}/>
+                        <EcoButton onClick={onClickCheckParticipant} ecoButtonProps={{btnTitle: "Check Signups", btnShape: "circle", btnColor:"yellow", animate: 2}}/>
                         <EcoButton onClick={toggleSignupFormOpened} ecoButtonProps={{btnTitle: "Create Signup", btnShape: "normal", btnColor:"light", animate: 1}}/>
                     </div>
 
@@ -214,9 +256,9 @@ function OrgDashboard() {
         }
         {
           outputMessage !== null && errorMessage === null && (
-            <PopOut isOpened={true} popOutType={"success"} onClose={() => {setOutputMessage(null);}}>
+            <PopOut isOpened={true} popOutType={'success'} onClose={() => {setOutputMessage(null);}}>
               <div>{outputMessage}</div>
-              </PopOut>
+            </PopOut>
             )
         }
         {

@@ -386,10 +386,29 @@ router.post('/create-badge', async (req, res) => {
 }
 );
 
+async function uploadImgToFirebase(image) {
+    const storage = getStorage();
+    const metadata = {
+        contentType: 'image/png',
+    };
+    const storageRef = ref(storage, `org/badgeImgs/` + image.originalname);
+    const uploadTask = uploadBytesResumable(storageRef, image.buffer, metadata);
+    
+    try {
+        await uploadTask;
+        const downloadURL = await getDownloadURL(storageRef);
+        return {
+            imgUrl: downloadURL,
+            imgStorageRef: storageRef.fullPath,
+        };
+    } catch (error) {
+        console.log('Error uploading image:', error);
+        throw error;
+    }
+}
 // upload a badge image ✅
 router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
     const auth = getAuth();
-    const storage = getStorage();
     if (auth.currentUser === null) {
         return res.status(400).send({
             status: 'fail',
@@ -397,60 +416,50 @@ router.post('/upload-badge-image', upload.single('image'), async (req, res) => {
         });
     }
     const reqImage = req.file;
-    if(reqImage !== undefined) {
-        const metadata = {
-            contentType: 'image/png',
-        };
-        const storageRef = ref(storage, 'org/badgeImgs/' + reqImage.originalname);
-        const uploadTask = uploadBytesResumable(storageRef, reqImage.buffer, metadata);
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                
-                switch (snapshot.state) {
-                    case 'paused':
-                        console.log('Upload is paused');
-                        break;
-                    case 'running':
-                        console.log('Upload is running');
-                        break;
-                }
+    // console.log("upload-badge-image", reqImage);
+    if(reqImage === undefined || reqImage === null) {
+        console.log("No image to upload", reqImage);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'No image to upload',
+        });
+    }
+    try {
+        const downloadURL = await uploadImgToFirebase(reqImage);
+        const badgeId = req.body.badgeId;
+        if(badgeId === undefined || badgeId === null) {
+            console.log("Badge not provided");
+            return res.status(400).send({
+                status: 'fail',
+                message: 'Badge not provided',
+            });
+        }
+        const badge = await Badge.findOne({ _id: badgeId });
+        if(badge === null) {
+            console.log("Badge not found");
+            return res.status(400).send({
+                status: 'fail',
+                message: 'Badge not found',
+            });
+        }
+        badge.imgStorageRef = downloadURL.imgStorageRef;
+        await badge.save();
+        return res.status(200).send({
+            status: 'success',
+            message: 'Image uploaded to badge',
+            data: {
+                imgUrl: downloadURL.imgUrl,
+                imgStorageRef: downloadURL.imgStorageRef,
+                badgeId,
             },
-            (error) => {
-                let msg = '';
-                switch (error.code) {
-                    case 'storage/unauthorized':
-                        msg = 'User does not have permission to access the object';
-                        break;
-                    case 'storage/canceled':
-                        msg = 'User canceled the upload';
-                        break;
-                    case 'storage/unknown':
-                        msg = 'Unknown error occurred, inspect error.serverResponse';
-                        break;
-                }
-                console.log(msg);
-                return res.status(400).send({
-                    status: 'fail',
-                    message: msg,
-                    error: error,
-                });
-                
-            },
-            async () => {
-                const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
-                return res.status(200).send({
-                    status: 'success',
-                    message: 'Badge image uploaded',
-                    data: {
-                        image: reqImage.originalname,
-                        imageRef: storageRef.fullPath,
-                        url: downloadUrl,
-                    },
-                });
-            }
-        );
+        });
+    } catch (error) {
+        console.log('Error uploading image:', error);
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Image not uploaded',
+            error: error,
+        });
     }
 });
 
@@ -462,20 +471,48 @@ router.post('/create-signup', async (req, res) => {
             message: 'User not logged in',
         });
     }
-    const { accountId, eventId, status } = req.body;
+    const { eventId, status } = req.body;
+    const user = await User.findOne({ accountId: auth.currentUser.uid });
+    if(user === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User not found in database',
+        });
+    }
+    const event = await Event.findOne({ _id: eventId });
+    if(event === null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'Event not found in database',
+        });
+    }
     console.log("create-signup", req.body);
     const signup = new Signup({
-        accountId,
-        eventId,
+        accountId: auth.currentUser.uid,
+        eventId: event,
         signupDate: new Date(),
         status, // pending, approved, denied
     });
 
     try {
         await signup.save();
-        res.send('Signup created');
+        res.status(201).send({
+            status: 'success',
+            message: 'Signup created',
+            data: {
+                accountId: auth.currentUser.uid,
+                eventId,
+                signupDate: signup.signupDate,
+                status: signup.status,
+            },
+        }
+        ); 
     } catch (error) {
-        res.send(error);
+        res.status(400).send({
+            status: 'fail',
+            message: 'Signup not created',
+            error: error,
+        });
     }
 }
 );
@@ -497,7 +534,7 @@ router.post('/create-volunteer-request', async (req, res) => {
             message: 'User not a member of an organization',
         });
     }
-    const { firstName, lastName, email, birthDate, eventId, status, isUser } = req.body;
+    const { firstName, lastName, email, birthDate, eventId } = req.body;
     const orgId = membership.orgId;
     const volunteer = new VolunteerRequest({
         firstName,
@@ -506,8 +543,8 @@ router.post('/create-volunteer-request', async (req, res) => {
         birthDate,
         eventId,
         orgId,
-        isUser,
-        status, // pending, approved, denied
+        isUser: true,
+        status:"pending", // pending, approved, denied
     });
 
     try {
@@ -523,8 +560,8 @@ router.post('/create-volunteer-request', async (req, res) => {
                 birthDate,
                 eventId,
                 orgId,
-                status,
-                isUser,
+                status: volunteer.status,
+                isUser: volunteer.isUser,
             },
         });
     } catch (error) {
