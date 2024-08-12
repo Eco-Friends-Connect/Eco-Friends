@@ -61,6 +61,10 @@
 }
 
 @media (max-width: 1200px), (max-height: 630px) {
+  .container {
+    grid-template-areas: "section section section section section section section section section section section section" "calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar";
+    height: 100%;
+  }
   .background {
     background-image: url("../../assets/userWithoutCal2.png");
     width: 200vh;
@@ -70,5 +74,19 @@
     background-size: 100% 100%;
     position: relative;
     z-index: 1;
+  }
+}
+@media (max-width: 768px), (max-height: 630px) {
+  .background {
+    background-image: none;
+    background-color: rgb(198, 225, 238);
+    z-index: 1;
+  }
+  .calendar, .ConnectTree, .ChatTree, .Badges {
+    display: none;
+  }
+  .ConnectTree:hover, .ChatTree:hover, .Badges:hover {
+    opacity: 1;
+    display: none;
   }
 }/*# sourceMappingURL=user.module.css.map */

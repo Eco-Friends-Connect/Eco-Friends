@@ -2,6 +2,7 @@
 $whitehover:rgba(215, 213, 208, 0.5);
 $light-bluehover: rgba(206, 238, 253, 0.5);
 $light-greenhover: rgba(138, 154, 74, 0.5);
+$light-blue: rgba(198, 225, 238, 1);
 
 .container{
   grid-template-areas: 'section section section section section section section section section section section section'
@@ -66,6 +67,11 @@ $light-greenhover: rgba(138, 154, 74, 0.5);
     margin: 6px; 
   }
   @media (max-width: 1200px), (max-height: 630px) {
+    .container{
+      grid-template-areas: 'section section section section section section section section section section section section'
+                            'calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar';
+                            height: 100%;
+    }
     .background {
       background-image: url('../../assets/userWithoutCal2.png');
       width: 200vh;
@@ -75,5 +81,22 @@ $light-greenhover: rgba(138, 154, 74, 0.5);
       background-size: 100% 100%;
       position: relative;
       z-index: 1;
+    }
+  }
+
+  @media (max-width: 768px), (max-height: 630px) {
+    .background {
+      background-image: none;
+      background-color: $light-blue;
+      z-index: 1;
+    }
+    
+    .calendar, .ConnectTree, .ChatTree, .Badges {
+      display: none;
+    }
+  
+    .ConnectTree:hover, .ChatTree:hover, .Badges:hover {
+      opacity: 1;
+      display: none;
     }
   }
