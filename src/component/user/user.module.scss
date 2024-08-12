@@ -4,20 +4,20 @@ $light-bluehover: rgba(206, 238, 253, 0.5);
 $light-greenhover: rgba(138, 154, 74, 0.5);
 
 .container{
-  grid-template-areas: 'section section section section section section section section section section section section'
+  /*grid-template-areas: 'section section section section section section section section section section section section'
                         'calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar calendar';
-                        height: 100%;
+                        height: 100%;*/
 }
 .background {
-  grid-area: section;
-  position: relative;
   background-image: url('../../assets/userWithoutCal.png');
-  height: 160vh;
+  height: 190vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
+  position: absolute;
   z-index: 1;
+  width: 100%;
+  min-height: 100vh;
 }
 
   
