@@ -21,7 +21,8 @@ function ClickableButtons() {
   return (
     <div className={styles.container}>
       <section className={styles.background}>
-        <div className={styles.ConnectTree} onClick={handleConnectTree}></div>
+        <div className={styles.ConnectTree} onClick={handleConnectTree}>
+        </div>
         <div className={styles.ChatTree} onClick={handleChatTree}></div>
         <div className={styles.Badges} onClick={handleBadgePage}></div>
         <div className={styles.calendar}>
