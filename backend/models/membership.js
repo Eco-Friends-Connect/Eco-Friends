@@ -14,10 +14,6 @@ const membershipSchema = new mongoose.Schema({
         index: true,
         isRequired: true
     },
-    firstName: {
-        type: String,
-        required: true
-    },
     role: String,
     createdAt: {
         type: Date,

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import AuthContext from './auth-context';
 
-// const AuthContext = createContext();
-
 
 function AuthProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
