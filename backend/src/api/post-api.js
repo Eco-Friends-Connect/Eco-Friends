@@ -67,44 +67,83 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const auth = req.auth;
 
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log("login email:", user.email);
-        const membership = Membership.findOne({ accountId: user.uid });
-        if(membership === null) {
-            return res.status(200).send({
-                status: 'success',
-                message: 'User logged in',
-                data: {
-                    accountId: user.uid,
-                    email: user.email,
-                    isOrg: false,
-                },
+        
+        const membership = await Membership.findOne({ accountId: user.uid });
+        if (!membership) {
+            console.log("User is not an org");
+        }
+        
+        const users = await User.findOne({ accountId: user.uid });
+        if (!users) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'User not found',
             });
-        } 
-        return res.status(200).send({
+        }
+
+        console.log("First Name:", users.firstName);
+
+        // Get the Firebase ID token
+        const token = await user.getIdToken();
+
+        res.status(200).send({
             status: 'success',
             message: 'User logged in',
             data: {
                 accountId: user.uid,
-                email: user.email,
-                isOrg: true,
+                email: users.email,
+                isOrg: membership ? true : false,
+                token: token,
+                firstName: users.firstName,
             },
         });
-        
-    }).catch((error) => {
-        console.log(error);
-        return res.status(400).send({
-            status: 'fail',
-            message: 'User not logged in',
-            error: error,
-            errorMessage: error.message,
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send({
+            status: 'error',
+            message: error.message,
         });
-        
-    });
+    }
+});
+
+
+const verifyToken = async (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    const auth = getAuth();
     
-}
-);
+    if (!token) {
+        return res.status(401).send({
+            status: 'error',
+            message: 'No token provided',
+        });
+    }
+
+    try {
+        const decodedToken = await auth().verifyIdToken(token);
+        req.user = decodedToken;
+        next();
+    } catch (error) {
+        console.error('Error verifying token:', error);
+        res.status(401).send({
+            status: 'error',
+            message: 'Invalid token',
+        });
+    }
+};
+
+// Use the middleware for protected routes
+router.use('/protected-route', verifyToken, (req, res) => {
+    // Handle the protected route request
+    res.status(200).send({
+        status: 'success',
+        message: 'Protected route accessed',
+        data: req.user,
+    });
+});
 // logout a user ✅
 router.post('/logout', async (req, res) => {
     const auth = getAuth();

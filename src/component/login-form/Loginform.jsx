@@ -1,9 +1,10 @@
 import styles from "./Login.module.scss";
 import PropTypes from "prop-types"; 
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Switch from '@mui/material/Switch';
 import config from '../../config';
 import { useNavigate } from "react-router-dom";
+import AuthContext from '../../component/auth-context';
 
 function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
     const [errors, setErrors] = useState({});
     const [message, setMessage] = useState('');
     const navigate = useNavigate(); 
+    const { login } = useContext(AuthContext);
 
     const validate = () => {
         const newErrors = {};
@@ -55,14 +57,14 @@ function LoginForm({onClickSignUp, onSubmit}) {
                 const text = await response.json();
     
                 if (response.ok) {
+                    console.log("text.data", text.data);
                     setMessage('User logged in successfully!');
+                    login(text.data.token, text.data.firstName, formData.rememberMe);
                     if (text.data.isOrg === true) {
                         navigate('/org-dashboard');
-                    }
-                    else {
+                    } else {
                         navigate('/userpage');
                     }
-                    
                 } else {
                     setMessage(text.message || 'User not logged in');
                     setErrors(text.errors || {});
@@ -76,7 +78,6 @@ function LoginForm({onClickSignUp, onSubmit}) {
         }
     }; 
 
-
     return(
         <>
             <form className={styles.form} onSubmit={handleSubmit}>
@@ -86,7 +87,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
                     <input 
                         className={styles.input} 
                         name="email" 
-                        placeholder="email"
+                        placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
                     />

@@ -1,12 +1,14 @@
 
 import styles from './org-dashboard.module.scss';
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import PopOut from '../../component/pop-out/pop-out';
 import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
+import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
+import AuthContext from '../../component/auth-context';
 
 
 const signupFields = [
@@ -50,6 +52,7 @@ let signupFormData = {
   signDate: "",
   eventId: signupFields[5].options[0],
 };
+
 const badgeFields = [
   {
     label: "Title",
@@ -197,6 +200,9 @@ function OrgDashboard() {
     navigate('/check-participant');
   };
 
+  
+  const { isLoggedIn, firstName, logout } = useContext(AuthContext);
+
   return (
     <div>
         <div className={styles.navContainer}>
@@ -255,6 +261,11 @@ function OrgDashboard() {
             </PopOut>
             )
         }
+         {isLoggedIn ? (
+            <WelcomeLogout firstName={firstName} logout={logout} />
+            ) : (
+                <p></p>
+            )}
     </div>
   );
 }

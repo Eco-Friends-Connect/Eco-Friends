@@ -4,7 +4,6 @@ import SearchBar from '../../component/search-bar/search_bar';
 import styles from './VolunteerSearch.module.scss';
 import config from '../../config';
 import PopOut from '../../component/pop-out/pop-out';
-import { set } from 'mongoose';
 
 
 const VolunteerSearch = () => {
