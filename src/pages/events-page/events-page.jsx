@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styles from './events-page.module.scss';
 import EventCard from "../../component/event-list/Event-Card";
+import PopOut from "../../component/pop-out/pop-out";
 import config from "../../config";
 
 function EventsPage() {
@@ -48,8 +49,16 @@ function EventsPage() {
 
     return (<>
                 <h1>Events</h1>
-                {loading && <p>Loading...</p>}
-                {error && <p>{error}</p>}
+                {loading && (
+                    <PopOut isOpened={loading} popOutType={"info"}>
+                        <p>Loading Events...</p>
+                    </PopOut>
+                )}
+                {error && (
+                    <PopOut isOpened={error} popOutType={"error"}>
+                        <p>{error}</p>
+                    </PopOut>
+                )}
                 {!loading && !error && events.length === 0 && <p>No events found.</p>}
                 {!loading && !error && events.length > 0  && 
                     <div className={styles.resultsDiv}>
