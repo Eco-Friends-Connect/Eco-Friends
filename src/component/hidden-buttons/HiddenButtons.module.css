@@ -1,0 +1,35 @@
+.buttoncontainer {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3; /* Ensure buttons are on top */
+}
+
+.responsivebutton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
+  display: none; /* Hidden by default */
+}
+
+.responsivebutton:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px), (max-height: 630px) {
+  .buttoncontainer {
+    display: flex; /* Display as flexbox when query is activated */
+  }
+  .responsivebutton {
+    display: inline-block; /* Show the buttons when query is activated */
+  }
+}/*# sourceMappingURL=HiddenButtons.module.css.map */
