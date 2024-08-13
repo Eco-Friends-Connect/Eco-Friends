@@ -19,7 +19,7 @@ import BadgesPage from './pages/badges-page/badges-page.jsx';
 import EventsPage from './pages/events-page/events-page.jsx';
 import CheckParticipant from './pages/check-participant/check-participant.jsx';
 import ProtectedRoute from './component/protected-route.jsx';
-import { AuthProvider } from './component/auth-context.jsx';
+import AuthProvider  from './component/auth-provider.jsx';
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
           <Route path="/signup" element={<SignupFormPage />} /> 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
           <Route path="/org-dashboard" element={<OrgDashboard />} />

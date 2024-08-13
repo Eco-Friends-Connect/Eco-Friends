@@ -1,10 +1,10 @@
 import styles from "./Login.module.scss";
 import PropTypes from "prop-types"; 
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Switch from '@mui/material/Switch';
 import config from '../../config';
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../../component/auth-context';
+import AuthContext from '../../component/auth-context';
 
 function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
     const [errors, setErrors] = useState({});
     const [message, setMessage] = useState('');
     const navigate = useNavigate(); 
-    const { login } = useAuth();
+    const { login } = useContext(AuthContext);
 
     const validate = () => {
         const newErrors = {};
@@ -57,12 +57,10 @@ function LoginForm({onClickSignUp, onSubmit}) {
                 const text = await response.json();
     
                 if (response.ok) {
-                    console.log(text.data);
-                    console.log(text.data.firstname);
-                    console.log(text.data.email);
+                    console.log("text.data", text.data);
                     setMessage('User logged in successfully!');
-                    login(text.data.token, text.data.firstname, formData.rememberMe);
-                    if (text.data.isOrg === false) {
+                    login(text.data.token, text.data.firstName, formData.rememberMe);
+                    if (text.data.isOrg === true) {
                         navigate('/org-dashboard');
                     } else {
                         navigate('/userpage');

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.scss';
 import treeImage from '../../assets/tree.jpg';
-import React from 'react';
-import { useAuth } from '../../component/auth-content-creation';
+import React, {useContext} from 'react';
+import AuthContext from '../../component/auth-context';
 import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
 
 
@@ -16,9 +16,7 @@ function Home() {
     navigate('/signup');
   };
 
-  const { isLoggedIn, firstname, logout } = useAuth();
-  
-
+  const { isLoggedIn, firstName, logout } = useContext(AuthContext);
       
   return (
     <div className={styles.container}>
@@ -38,7 +36,7 @@ function Home() {
       <button className={styles.howItWorksButton}>How it works</button>
       </section>
       {isLoggedIn ? (
-                <WelcomeLogout firstname={firstname} logout={logout} />
+                <WelcomeLogout firstName={firstName} logout={logout} />
             ) : (
                 <p></p>
             )}

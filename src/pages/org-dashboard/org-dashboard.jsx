@@ -1,6 +1,6 @@
 
 import styles from './org-dashboard.module.scss';
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import PopOut from '../../component/pop-out/pop-out';
 import EcoButton from '../../component/eco-button/eco-button';
@@ -8,7 +8,7 @@ import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
 import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
-import { useAuth } from '../../component/auth-content-creation';
+import AuthContext from '../../component/auth-context';
 
 
 const signupFields = [
@@ -201,7 +201,7 @@ function OrgDashboard() {
   };
 
   
-  const { isLoggedIn, firstname, logout } = useAuth();
+  const { isLoggedIn, firstName, logout } = useContext(AuthContext);
 
   return (
     <div>
@@ -283,7 +283,7 @@ function OrgDashboard() {
             )
         }
          {isLoggedIn ? (
-                <WelcomeLogout fistname={firstname} logout={logout} />
+            <WelcomeLogout firstName={firstName} logout={logout} />
             ) : (
                 <p></p>
             )}

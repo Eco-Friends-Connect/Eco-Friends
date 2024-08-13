@@ -1,11 +1,10 @@
-// import DateCalendarServerRequest from "../component/SmallCalendar";
-import React from 'react';
+import React,{useContext} from 'react';
 import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
-import { useAuth } from '../component/auth-content-creation';
 import UserComponent from '../component/user/user';
+import AuthContext from '../component/auth-context';
 
 export default function UserPage() {
-  const { isLoggedIn, firstname, logout } = useAuth();
+  const { isLoggedIn, firstName, logout } = useContext(AuthContext);
   return (
     <>
       <h1> 
@@ -13,7 +12,7 @@ export default function UserPage() {
       </h1>
      
       {isLoggedIn ? (
-                <WelcomeLogout firstname={firstname} logout={logout} />
+                <WelcomeLogout firstName={firstName} logout={logout} />
             ) : (
                 <p></p>
             )}

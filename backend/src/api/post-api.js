@@ -75,7 +75,6 @@ router.post('/login', async (req, res) => {
         const membership = await Membership.findOne({ accountId: user.uid });
         if (!membership) {
             console.log("User is not an org");
-            
         }
         
         const users = await User.findOne({ accountId: user.uid });
@@ -97,9 +96,9 @@ router.post('/login', async (req, res) => {
             data: {
                 accountId: user.uid,
                 email: users.email,
-                isOrg: membership.isOrg,
+                isOrg: membership ? true : false,
                 token: token,
-                firstname: users.firstName,
+                firstName: users.firstName,
             },
         });
     } catch (error) {

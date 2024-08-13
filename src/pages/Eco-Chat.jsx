@@ -1,14 +1,14 @@
-import React from 'react';
-import { useAuth } from '../component/auth-content-creation';
+import React, {useContext} from 'react';
 import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
+import AuthContext from '../component/auth-context';
 
 export default function EcoChat() {
-    const { isLoggedIn, firstname, logout } = useAuth();
+    const { isLoggedIn, firstName, logout } = useContext(AuthContext);
     
     return (
         <div>
             {isLoggedIn ? (
-                <WelcomeLogout firstname={firstname} logout={logout} />
+                <WelcomeLogout firstName={firstName} logout={logout} />
             ) : (
                 <p></p>
             )}
