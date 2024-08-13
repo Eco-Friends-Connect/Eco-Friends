@@ -6,7 +6,7 @@ import About from './pages/AboutTheSite';
 import VolunteerSearch from './pages/VolunteerSearch/VolunteerSearch.jsx';
 import LeaderBoard from './pages/LeaderBoard';
 import UserPage from './pages/UserPage';
-import EcoChat from './pages/Eco-Chat';
+import EcoChat from './pages/eco-chat/Eco-Chat.jsx';
 import AboutTheCreators from './pages/AboutTheCreators';
 import SignupFormPage from './pages/SignupForm'; 
 import LoginPage from './pages/login-page/login-page.jsx';

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import WelcomeLogout from '../component/welcome-logout/WelcomeLogout';
-import AuthContext from '../component/auth-context';
+import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
+import AuthContext from '../../component/auth-context';
 
 export default function EcoChat() {
     const { isLoggedIn, firstName, logout } = useContext(AuthContext);
