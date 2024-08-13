@@ -31,8 +31,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/volunteersearch" element={<VolunteerSearch />} />
-          <Route path="/leaderboard" element={<LeaderBoard />} />
-          <Route path="/userpage" element={<UserPage />} />
+          <Route path="/userpage" element={<ProtectedRoute><UserPage /></ProtectedRoute>} />
           <Route path="/ecochat" element={<EcoChat />} />
           <Route path="/aboutthecreators" element={<AboutTheCreators />} />
           <Route path="/signup" element={<SignupFormPage />} /> 
@@ -41,7 +40,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
-          <Route path="/org-dashboard" element={<OrgDashboard />} />
+          <Route path="/org-dashboard" element={<ProtectedRoute><OrgDashboard /></ProtectedRoute>} />
         </Routes>
         <Footer />
       </div>
