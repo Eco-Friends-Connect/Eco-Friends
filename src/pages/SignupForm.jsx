@@ -4,9 +4,9 @@ import Signup from '../component/signup-form/Signup';
 import DateCalendarServerRequest from '../component/SmallCalendar';
 import styles from '../component/signup-form/Signup.module.scss';
 import config from '../config';
-import Popup from '../component/Popup';
+import PopOut from '../component/pop-out/pop-out';
 
-const signupUser = async (formData, setError, setLoading, navigate) => {
+const signupUser = async (formData, setErrorCallback, setLoading, navigate) => {
   const API_URL = config.API_URL;
   setLoading(true);
   try {
@@ -32,7 +32,7 @@ const signupUser = async (formData, setError, setLoading, navigate) => {
     setLoading(false);
     
     const errorMessage = error.message || 'Signup failed. Please try again.';
-    setError(errorMessage);
+    setErrorCallback(errorMessage);
     console.error('Error:', errorMessage);
   }
 };
@@ -51,14 +51,13 @@ function SignupFormPage() {
     setShowPopup(false);
   };
 
-
   const handleSubmit = async (formData) => {
-    await signupUser(formData, setError, setLoading, navigate);
-    if (error) {
-      setShowPopup(true);
-    }
+    await signupUser(formData, (errorMessage) => {
+      setError(errorMessage);
+      setShowPopup(!!errorMessage);
+    }, setLoading, navigate);
   };
-
+  
   return (
     <div className={styles.page}>
       <div className={styles.container}>
@@ -67,7 +66,15 @@ function SignupFormPage() {
           loading={loading} 
           onSignIn={SignInUser}
         />
-        {showPopup && <Popup message={error} onClose={handleClosePopup} />}
+        {showPopup && (
+          <PopOut 
+            isOpened={showPopup} 
+            popOutType="error" 
+            onClose={handleClosePopup}
+          >
+            <p>{error}</p>
+          </PopOut>
+        )}
         <div className={styles.calendar}>
           <DateCalendarServerRequest />
         </div>
