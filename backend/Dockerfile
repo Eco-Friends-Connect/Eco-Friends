@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-COPY .env ./
+COPY /backend/.env ./
 
 EXPOSE 8080
 
