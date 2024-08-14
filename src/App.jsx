@@ -40,7 +40,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/sitesponsors" element={<SiteSponsors />} />
-          <Route path="/org-dashboard" element={<ProtectedRoute><OrgDashboard /></ProtectedRoute>} />
+          <Route path="/org-dashboard" element={<OrgDashboard />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/check-participant" element={<CheckParticipant />} />
