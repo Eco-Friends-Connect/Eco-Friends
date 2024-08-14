@@ -1,5 +1,5 @@
 const config = {
-    API_URL: 'http://localhost:1000',
+    API_URL: 'https://eco-friends-5tm5cvcguq-uc.a.run.app',
 };
 
 
