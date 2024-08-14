@@ -4,7 +4,7 @@ import React from 'react';
 const AboutCreator = () => {
   return (
     <>
-    <div className={styles.container}>
+    <div className={styles.container}> 
       <header>
         <h1 className={styles.anton}>About The Creators</h1>
       </header>
