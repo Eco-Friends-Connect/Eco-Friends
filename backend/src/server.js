@@ -56,8 +56,10 @@ app.use('/api/get', getApi);
 
 // environment variables
 dotenv.config();
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+export default app;
