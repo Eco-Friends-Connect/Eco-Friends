@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import styles from './Signup.module.scss';
 import PropTypes from 'prop-types';
@@ -16,25 +15,42 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
   });
 
   const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState(''); 
 
   const validate = () => {
     const newErrors = {};
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
+  
     if (!formData.email || !emailPattern.test(formData.email)) {
       newErrors.email = 'Invalid email address';
+    }
+    if (!formData.password || formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters long';
     }
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
+    if (!formData.username) {
+      newErrors.username = 'Username is required';
+    }
+    if (!formData.birthDate) {
+      newErrors.birthDate = 'Birth date is required';
+    }
+    
     return newErrors;
   };
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setServerError(''); // Reset server error before new submission
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      onSubmit(formData);
+      try {
+        await onSubmit(formData);
+      } catch (error) {
+        setServerError(error.message || 'An unexpected error occurred.');
+      }
     } else {
       setErrors(validationErrors);
     }
@@ -62,6 +78,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 placeholder="First Name"
                 value={formData.firstName}
                 required
+                disabled={loading} // Disabled while loading to prevent duplicate submissions
               />
             </label>
             <label className={styles.label}>
@@ -72,6 +89,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 placeholder="Email Address"
                 value={formData.email}
                 required
+                disabled={loading}
               />
               {errors.email && <div className={styles.error}>{errors.email}</div>}
             </label>
@@ -84,6 +102,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 placeholder="Password"
                 value={formData.password}
                 required
+                disabled={loading}
               />
             </label>
           </div>
@@ -97,6 +116,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 placeholder="Last Name"
                 value={formData.lastName}
                 required
+                disabled={loading}
               />
             </label>
             <label className={styles.label}>
@@ -107,6 +127,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 placeholder="Username"
                 value={formData.username}
                 required
+                disabled={loading}
               />
             </label>
             <label className={styles.label}>
@@ -118,6 +139,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
                 required
+                disabled={loading}
               />
               {errors.confirmPassword && <div className={styles.error}>{errors.confirmPassword}</div>}
             </label>
@@ -126,19 +148,21 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
         
         <div className={styles.buttoncontainer}>
           <input
-            //className={styles.input}
+            className={styles.input}
             onChange={handleChange}
             type="date"
             name="birthDate"
             value={formData.birthDate}
             required
+            disabled={loading}
           />
           <button type="submit" className={styles.button} disabled={loading}>
             {loading ? 'Signing up...' : 'Submit'}
           </button>
         </div>
       </form>
-      <button className={styles.signInBtn} onClick={onSignIn}>
+        {serverError && <div className={styles.serverError}>{serverError}</div>}
+      <button className={styles.signInBtn} onClick={onSignIn} disabled={loading}>
         Already have an account? Log in
       </button>
     </div>
