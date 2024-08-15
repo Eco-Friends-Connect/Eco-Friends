@@ -43,11 +43,7 @@ function Home() {
       <button className={styles.calendarButton} onClick={handleCalandarClick}>Calendar</button>
       <button className={styles.howItWorksButton} onClick={handleHowItWorksClick}>How it works</button>
       </section>
-      {isLoggedIn ? (
-                <WelcomeLogout firstName={firstName} logout={logout} />
-            ) : (
-                <p></p>
-            )}
+   
     </div>
   );
 }

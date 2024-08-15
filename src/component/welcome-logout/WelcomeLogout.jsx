@@ -4,10 +4,11 @@ import styles from './WelcomeLogout.module.scss';
 
 const WelcomeLogout = ({ firstName, logout }) => {
     return (
-        <div className={styles.logoutContainer}>
-            <p className={styles.welcomeMessage}>Welcome, {firstName}!</p>
-            <button className={styles.logoutButton} onClick={logout}>Logout</button>
-        </div>
+        <>
+            <li className={styles.a}>Welcome, {firstName}!</li>
+            <li> <button className={styles.a} onClick={logout}>Logout</button></li>
+            
+        </>
     );
 };
 

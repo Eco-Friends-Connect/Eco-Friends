@@ -261,11 +261,7 @@ function OrgDashboard() {
             </PopOut>
             )
         }
-         {isLoggedIn ? (
-            <WelcomeLogout firstName={firstName} logout={logout} />
-            ) : (
-                <p></p>
-            )}
+      
     </div>
   );
 }
