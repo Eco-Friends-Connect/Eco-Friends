@@ -16,6 +16,14 @@ function Home() {
     navigate('/signup');
   };
 
+  const handleCalandarClick = () => {
+    navigate('/userpage');
+  };
+
+  const handleHowItWorksClick = () => {
+    navigate('/about');
+  };
+
   const { isLoggedIn, firstName, logout } = useContext(AuthContext);
       
   return (
@@ -32,8 +40,8 @@ function Home() {
       </section>
       <section className={styles.button}>
           <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Sign up for help</p ></button>
-      <button className={styles.calendarButton}>Calendar</button>
-      <button className={styles.howItWorksButton}>How it works</button>
+      <button className={styles.calendarButton} onClick={handleCalandarClick}>Calendar</button>
+      <button className={styles.howItWorksButton} onClick={handleHowItWorksClick}>How it works</button>
       </section>
       {isLoggedIn ? (
                 <WelcomeLogout firstName={firstName} logout={logout} />
