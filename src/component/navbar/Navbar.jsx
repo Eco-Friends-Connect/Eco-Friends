@@ -19,6 +19,7 @@ export default function NavBar() {
         <div className={styles.line}></div>
         <div className={styles.line}></div>
         <div className={styles.line}></div>
+        <div className={styles.line}></div>
       </div>
       <ul className={`${styles.ul} ${isOpen ? styles.active : ''}`}>
         <li className={styles.li}>
