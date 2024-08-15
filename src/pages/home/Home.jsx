@@ -39,7 +39,7 @@ function Home() {
         <h1 className={styles.anton}>and Connect People</h1>
       </section>
       <section className={styles.button}>
-          <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Sign up for help</p ></button>
+          <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Eco-friends</p ></button>
       <button className={styles.calendarButton} onClick={handleCalandarClick}>Calendar</button>
       <button className={styles.howItWorksButton} onClick={handleHowItWorksClick}>How it works</button>
       </section>
