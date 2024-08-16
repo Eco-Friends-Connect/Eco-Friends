@@ -6,7 +6,6 @@ import config from '../../config';
 import PopOut from '../pop-out/pop-out';
 import { useNavigate } from "react-router-dom";
 import AuthContext from '../../component/auth-context';
-import { set } from "mongoose";
 
 function LoginForm({onClickSignUp, onSubmit}) { 
     const [formData, setFormData] = useState({
