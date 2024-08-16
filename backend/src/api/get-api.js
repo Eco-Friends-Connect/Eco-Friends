@@ -183,18 +183,53 @@ router.get('/participants', async (req, res) => {
 
 // Get all events in the database
 router.get('/all-events', async (req, res) => {
-    try {
-        const events = await Event.find();
-        return res.status(200).json({
-            status: 'success',
-            data: events,
-        });
-    } catch (error) {
-        console.error('Error fetching events', error);
-        return res.status(500).json({
-            status: 'error',
-            message: 'Internal server error',
-        });
+    const auth = getAuth();
+    if (auth.currentUser === null) {
+        try {
+            const events = await Event.find();
+            return res.status(200).json({
+                status: 'success',
+                data: events,
+            });
+        } catch (error) {
+            console.error('Error fetching events', error);
+            return res.status(500).json({
+                status: 'error',
+                message: 'Internal server error',
+            });
+        }
+    } else {
+        try {
+            let events = await Event.find();
+            const signedEvents = await Signup.find({ accountId: auth.currentUser.uid });
+            const userSignedEvents = await Promise.all(signedEvents.map(async (signedEvent) => {
+                let event = await Event.findOne({ _id: signedEvent.eventId._id });
+                return event;
+            }
+            ));
+            events = events.map((event) => {
+                let signed = false;
+                userSignedEvents.forEach((signedEvent) => {
+                    if (signedEvent._id.toString() === event._id.toString()) {
+                        signed = true;
+                    }
+                });
+                return {
+                    ...event.toObject(),
+                    signed,
+                };
+            });
+            return res.status(200).json({
+                status: 'success',
+                data: events,
+            });
+        } catch (error) {
+            console.error('Error fetching events', error);
+            return res.status(500).json({
+                status: 'error',
+                message: 'Internal server error',
+            });
+        } 
     }
 });
 
