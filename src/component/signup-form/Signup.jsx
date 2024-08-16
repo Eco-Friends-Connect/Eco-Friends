@@ -8,7 +8,6 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
     firstName: '',
     lastName: '',
     email: '',
-    username: '',
     birthDate: '',
     confirmPassword: '',
     password: '',
@@ -29,9 +28,6 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
     }
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
-    }
-    if (!formData.username) {
-      newErrors.username = 'Username is required';
     }
     if (!formData.birthDate) {
       newErrors.birthDate = 'Birth date is required';
@@ -115,17 +111,6 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 name="lastName"
                 placeholder="Last Name"
                 value={formData.lastName}
-                required
-                disabled={loading}
-              />
-            </label>
-            <label className={styles.label}>
-              <input
-                className={styles.input}
-                onChange={handleChange}
-                name="username"
-                placeholder="Username"
-                value={formData.username}
                 required
                 disabled={loading}
               />
