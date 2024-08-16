@@ -83,7 +83,7 @@ p {
     margin-top: 25px;
   }
 }
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
   .anton {
     font-size: 60px;
   }
