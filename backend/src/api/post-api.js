@@ -470,7 +470,7 @@ router.post('/create-signup', async (req, res) => {
             message: 'User not logged in',
         });
     }
-    const { eventId, status } = req.body;
+    const { eventId, reqStatus } = req.body;
     const user = await User.findOne({ accountId: auth.currentUser.uid });
     if(user === null) {
         return res.status(400).send({
@@ -490,8 +490,16 @@ router.post('/create-signup', async (req, res) => {
         accountId: auth.currentUser.uid,
         eventId: event,
         signupDate: new Date(),
-        status, // pending, approved, denied
+        reqStatus, // pending, approved, denied
     });
+
+    const alreadySignedUp = await Signup.findOne({ accountId: auth.currentUser.uid, eventId: event });
+    if(alreadySignedUp !== null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User already signed up for event',
+        });
+    }
 
     try {
         await signup.save();
