@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React, {useState, useContext} from "react";
 import Switch from '@mui/material/Switch';
 import config from '../../config';
+import PopOut from '../pop-out/pop-out';
 import { useNavigate } from "react-router-dom";
 import AuthContext from '../../component/auth-context';
 
@@ -12,7 +13,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
         password: '',
         rememberMe: false,
     });
-
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [message, setMessage] = useState('');
     const navigate = useNavigate(); 
@@ -38,6 +39,7 @@ function LoginForm({onClickSignUp, onSubmit}) {
     };
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         const API_URL = config.API_URL;
         e.preventDefault();
         const validationErrors = validate();
@@ -72,9 +74,12 @@ function LoginForm({onClickSignUp, onSubmit}) {
             } catch (error) {
                 console.error('Error logging in:', error);
                 setMessage('An error occurred. Please try again later.');
+            } finally {
+                setLoading(false);
             }
         } else {
             setErrors(validationErrors);
+            setLoading(false);
         }
     }; 
 
@@ -121,6 +126,13 @@ function LoginForm({onClickSignUp, onSubmit}) {
                     <button className={styles.forgotBtn} type="button">Forget Password?</button>
                 </div>
             </form>
+            {
+                loading && (
+                    <PopOut isOpened={loading} popOutType="info">
+                        <p>Loading...</p>
+                    </PopOut>
+                )
+            }
         </>
     ); 
 }

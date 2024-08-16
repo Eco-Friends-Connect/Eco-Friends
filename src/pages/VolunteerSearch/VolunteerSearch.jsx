@@ -41,6 +41,10 @@ const VolunteerSearch = () => {
   }
 
   async function signUpForEvent(event) {
+    if(!event) {
+      setError('No event selected');
+      return;
+    }
     setLoading(true);
   
     const requestOptions = {
@@ -54,13 +58,15 @@ const VolunteerSearch = () => {
     const fetchUrl = `${config.API_URL}/api/post/create-signup`;
   
     try {
+      console.log('fetchUrl', fetchUrl);
       const response = await fetch(fetchUrl, requestOptions);
   
       // Check if response is okay and handle it accordingly
       if (!response.ok) {
         // Handle specific error status codes
         if (response.status === 400) {
-          setError('You are not logged in');
+          const responseText = await response.json();
+          setError(responseText.message);
         } else {
           setError('An error occurred. Please try again.');
         }
