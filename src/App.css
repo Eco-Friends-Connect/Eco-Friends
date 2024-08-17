@@ -1,0 +1,21 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.nav-bar {
+  padding-top: 0px;
+  z-index: 1000 !important;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 30px;
+}/*# sourceMappingURL=App.css.map */
