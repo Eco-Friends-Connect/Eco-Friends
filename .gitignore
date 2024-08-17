@@ -33,6 +33,7 @@ package-lock.json
 
 # Ignore all .module.scss.map files
 **/*.module.css.map
+**/*.css.map
 
 # firebase files
 .firebase/*

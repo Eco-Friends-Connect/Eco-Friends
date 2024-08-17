@@ -1,5 +1,4 @@
 import React,{useContext} from 'react';
-
 import UserComponent from '../component/user/user';
 
 
@@ -10,8 +9,6 @@ export default function UserPage() {
       <h1> 
         <UserComponent />
       </h1>
-     
-      
     </>
   );
 }
