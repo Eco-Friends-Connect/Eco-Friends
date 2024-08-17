@@ -34,7 +34,6 @@ function ClickableButtons() {
       <div className={styles.ChatTree} onClick={handleChatTree}></div>
       <div className={styles.Badges} onClick={handleBadgePage}></div>
           </div>
-=
       {/* <div className={styles.calendar}><DateCalendarServerRequest /></div> */}
     </>
   );
