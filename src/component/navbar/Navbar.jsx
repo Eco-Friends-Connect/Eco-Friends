@@ -18,7 +18,7 @@ export default function NavBar() {
         <div className={styles.line}></div>
       </div>
       <ul className={`${styles.ul} ${isOpen ? styles.active : ''}`}>
-        <li className={styles.li}><Link className={styles.a} to="/home">Home</Link></li>
+        <li className={styles.li}><Link className={styles.a} to="/Dashboard">Dashboard</Link></li>
         <li className={styles.li}><Link className={styles.a} to="/about">About</Link></li>
         <li className={styles.li}><Link className={styles.a} to="/volunteersearch">Volunteer Search</Link></li>
         <li className={styles.li}><Link className={styles.a} to="/aboutthecreators">About The Creators</Link></li>

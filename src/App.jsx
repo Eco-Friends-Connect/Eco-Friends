@@ -32,7 +32,7 @@ function App() {
         </div>
         <div className="main-content">
           <Routes>
-            <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/volunteersearch" element={<VolunteerSearch />} />
             <Route path="/userpage" element={<ProtectedRoute><UserPage /></ProtectedRoute>} />
