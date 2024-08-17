@@ -24,6 +24,7 @@ function UserComponent() {
     overflow: 'hidden',
   };
   const groovyWalkLottieLink = "https://lottie.host/d63ccc42-2e3b-4108-911c-efbd694e2fc8/p5N7YFFSGG.json";
+  const badgeLottieLink = "https://lottie.host/5b1285c0-3257-4d34-9f47-114f9d5eb778/rKwzeIbphM.json";
   return (
     <>
 
@@ -32,7 +33,8 @@ function UserComponent() {
           <div className={styles.ConnectTree} onClick={handleConnectTree}></div>
           <DotLottieReact className={styles.groovyWalk} src={groovyWalkLottieLink} loop={true} autoplay={true} />
           <div className={styles.buttonColContainer}>
-            <div className={styles.Badges} onClick={handleBadgePage}></div>
+            <DotLottieReact className={styles.badgeAnimation} onClick={handleBadgePage} src={badgeLottieLink} loop={true} autoplay={true} />
+            {/* <div className={styles.Badges} onClick={handleBadgePage}></div> */}
             <div className={styles.ChatTree} onClick={handleChatTree}></div>
           </div>
         </div>
