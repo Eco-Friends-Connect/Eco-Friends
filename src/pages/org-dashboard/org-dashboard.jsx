@@ -205,7 +205,11 @@ function OrgDashboard() {
   return (
     <div>
         <div className={styles.navContainer}>
-            <h2>Welcome </h2>
+              {isLoggedIn ? (
+              <h2>Welcome, {firstName}</h2>
+            ) : (
+              <h2>Welcome</h2>
+            )}
             <h1 className={styles.anton}>Organization Dashboard</h1>
         </div>
         <div className={styles.container}>
