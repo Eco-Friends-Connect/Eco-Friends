@@ -12,6 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install && npm run build
+
+      - name: Set environment variables
+        run: echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> $GITHUB_ENV
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

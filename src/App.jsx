@@ -20,31 +20,36 @@ import EventsPage from './pages/events-page/events-page.jsx';
 import CheckParticipant from './pages/check-participant/check-participant.jsx';
 import ProtectedRoute from './component/protected-route.jsx';
 import AuthProvider  from './component/auth-provider.jsx';
+import './App.scss';
 
 function App() {
   return (
     <AuthProvider>
     <Router>
       <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/volunteersearch" element={<VolunteerSearch />} />
-          <Route path="/userpage" element={<ProtectedRoute><UserPage /></ProtectedRoute>} />
-          <Route path="/ecochat" element={<EcoChat />} />
-          <Route path="/aboutthecreators" element={<AboutTheCreators />} />
-          <Route path="/signup" element={<SignupFormPage />} /> 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/sitesponsors" element={<SiteSponsors />} />
-          <Route path="/org-dashboard" element={<OrgDashboard />} />
-          <Route path="/events" element={<EventsPage />} />
-          <Route path="/badges" element={<BadgesPage />} />
-          <Route path="/check-participant" element={<CheckParticipant />} />
-        </Routes>
+        <div className="nav-bar">
+          <Navbar />
+        </div>
+        <div className="main-content">
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/volunteersearch" element={<VolunteerSearch />} />
+            <Route path="/userpage" element={<ProtectedRoute><UserPage /></ProtectedRoute>} />
+            <Route path="/ecochat" element={<EcoChat />} />
+            <Route path="/aboutthecreators" element={<AboutTheCreators />} />
+            <Route path="/signup" element={<SignupFormPage />} /> 
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/userororgselect" element={<UserOrOrgSelect />} /> 
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/sitesponsors" element={<SiteSponsors />} />
+            <Route path="/org-dashboard" element={<OrgDashboard />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/badges" element={<BadgesPage />} />
+            <Route path="/check-participant" element={<CheckParticipant />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
