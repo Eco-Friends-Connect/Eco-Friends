@@ -2,11 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import styles from './user.module.scss';
 // import DateCalendarServerRequest from '../SmallCalendar';
 import React from 'react';
-import Lottie from 'lottie-react';
-import groovyWalkAnimation from '../../assets/lotties/groovyWalk.json';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import {DotLottieReact}  from '@lottiefiles/dotlottie-react'; 
 
-function ClickableButtons() {
+
+function UserComponent() {
   const navigate = useNavigate();
 
   const handleConnectTree = () => {
@@ -23,13 +22,12 @@ function ClickableButtons() {
   const backgroundStyle = {
     overflow: 'hidden',
   };
-
+  const groovyWalkLottieLink = "https://lottie.host/d63ccc42-2e3b-4108-911c-efbd694e2fc8/p5N7YFFSGG.json";
   return (
     <>
     
-          <div className={styles.background}>
-
-      <Lottie className={styles.groovyWalk} animationData={groovyWalkAnimation} loop={true} />
+      <div className={styles.background}>
+      <DotLottieReact className={styles.groovyWalk} src={groovyWalkLottieLink} loop={true} autoplay={true} />
       <div className={styles.ConnectTree} onClick={handleConnectTree}></div>
       <div className={styles.ChatTree} onClick={handleChatTree}></div>
       <div className={styles.Badges} onClick={handleBadgePage}></div>
@@ -39,6 +37,6 @@ function ClickableButtons() {
   );
 }
 
-export default ClickableButtons;
+export default UserComponent;
 
 
