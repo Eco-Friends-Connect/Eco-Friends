@@ -8,7 +8,6 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
     firstName: '',
     lastName: '',
     email: '',
-    username: '',
     birthDate: '',
     confirmPassword: '',
     password: '',
@@ -29,9 +28,6 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
     }
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
-    }
-    if (!formData.username) {
-      newErrors.username = 'Username is required';
     }
     if (!formData.birthDate) {
       newErrors.birthDate = 'Birth date is required';
@@ -69,7 +65,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
       <h1 className={styles.signup}>Sign Up</h1> 
       <form onSubmit={handleSubmit}>
         <div className={styles.container}>
-          <div className={styles.column}>
+          <div className={styles.row}>
             <label className={styles.label}>
               <input
                 className={styles.input}
@@ -85,6 +81,18 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
               <input
                 className={styles.input}
                 onChange={handleChange}
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                required
+                disabled={loading}
+              />
+            </label>
+          </div>
+          <label className={styles.label}>
+              <input
+                className={styles.input}
+                onChange={handleChange}
                 name="email"
                 placeholder="Email Address"
                 value={formData.email}
@@ -93,6 +101,7 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
               />
               {errors.email && <div className={styles.error}>{errors.email}</div>}
             </label>
+          <div className={styles.row}>
             <label className={styles.label}>
               <input
                 className={styles.input}
@@ -101,31 +110,6 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
                 type="password"
                 placeholder="Password"
                 value={formData.password}
-                required
-                disabled={loading}
-              />
-            </label>
-          </div>
-
-          <div className={styles.column}>
-            <label className={styles.label}>
-              <input
-                className={styles.input}
-                onChange={handleChange}
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                required
-                disabled={loading}
-              />
-            </label>
-            <label className={styles.label}>
-              <input
-                className={styles.input}
-                onChange={handleChange}
-                name="username"
-                placeholder="Username"
-                value={formData.username}
                 required
                 disabled={loading}
               />
@@ -144,18 +128,22 @@ export default function SignupForm({ onSubmit, loading, onSignIn }) {
               {errors.confirmPassword && <div className={styles.error}>{errors.confirmPassword}</div>}
             </label>
           </div>
+          <label className={styles.label}>
+            <input
+              className={styles.input}
+              onChange={handleChange}
+              type="date"
+              name="birthDate"
+              value={formData.birthDate}
+              required
+              disabled={loading}
+            />
+          </label>
         </div>
         
-        <div className={styles.buttoncontainer}>
-          <input
-            className={styles.input}
-            onChange={handleChange}
-            type="date"
-            name="birthDate"
-            value={formData.birthDate}
-            required
-            disabled={loading}
-          />
+        <div className={styles.buttonContainer}>
+          
+          
           <button type="submit" className={styles.button} disabled={loading}>
             {loading ? 'Signing up...' : 'Submit'}
           </button>

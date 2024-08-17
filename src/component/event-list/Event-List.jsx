@@ -8,7 +8,7 @@ const EventList = ({ events, onSignUp, buttonsTitle }) => {
     <Grid container spacing={2}>
       {events.map((event, index) => (
         <Grid item xs={12} sm={6} md={4} key={index}>
-          <EventCard buttonTitle={buttonsTitle} event={event} onSignUp={onSignUp} />
+          <EventCard isButtonDisabled={event.signed} buttonTitle={buttonsTitle} event={event} onSignUp={onSignUp} />
         </Grid>
       ))}
     </Grid>

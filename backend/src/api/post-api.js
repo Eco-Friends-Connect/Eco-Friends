@@ -493,6 +493,14 @@ router.post('/create-signup', async (req, res) => {
         status, // pending, approved, denied
     });
 
+    const alreadySignedUp = await Signup.findOne({ accountId: auth.currentUser.uid, eventId: event });
+    if(alreadySignedUp !== null) {
+        return res.status(400).send({
+            status: 'fail',
+            message: 'User already signed up for event',
+        });
+    }
+
     try {
         await signup.save();
         res.status(201).send({

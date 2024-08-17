@@ -75,6 +75,13 @@ function SignupFormPage() {
             <p>{error}</p>
           </PopOut>
         )}
+        {
+          loading && (
+            <PopOut isOpened={loading} popOutType="info">
+              <p>Signing up...</p>
+            </PopOut>
+          )
+        }
         <div className={styles.calendar}>
           <DateCalendarServerRequest />
         </div>
