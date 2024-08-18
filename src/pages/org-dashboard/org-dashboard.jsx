@@ -7,7 +7,6 @@ import EcoButton from '../../component/eco-button/eco-button';
 import EventForm from '../../component/event-form/event-form';
 import EcoForm from '../../component/eco-form/eco-form';
 import config from '../../config';
-import WelcomeLogout from '../../component/welcome-logout/WelcomeLogout';
 import AuthContext from '../../component/auth-context';
 
 
@@ -206,7 +205,11 @@ function OrgDashboard() {
   return (
     <div>
         <div className={styles.navContainer}>
-            <h2>Welcome </h2>
+              {isLoggedIn ? (
+              <h2>Welcome, {firstName}</h2>
+            ) : (
+              <h2>Welcome</h2>
+            )}
             <h1 className={styles.anton}>Organization Dashboard</h1>
         </div>
         <div className={styles.container}>
@@ -261,11 +264,7 @@ function OrgDashboard() {
             </PopOut>
             )
         }
-         {isLoggedIn ? (
-            <WelcomeLogout firstName={firstName} logout={logout} />
-            ) : (
-                <p></p>
-            )}
+      
     </div>
   );
 }
