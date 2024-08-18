@@ -39,15 +39,11 @@ function Home() {
         <h1 className={styles.anton}>and Connect People</h1>
       </section>
       <section className={styles.button}>
-          <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Eco-friends</p ></button>
+          <button className={styles.signupButton} onClick={handleSignupClick}><p className={styles.center}>Join eco-friends</p ></button>
       <button className={styles.calendarButton} onClick={handleCalandarClick}>Calendar</button>
       <button className={styles.howItWorksButton} onClick={handleHowItWorksClick}>How it works</button>
       </section>
-      {isLoggedIn ? (
-                <WelcomeLogout firstName={firstName} logout={logout} />
-            ) : (
-                <p></p>
-            )}
+   
     </div>
   );
 }
