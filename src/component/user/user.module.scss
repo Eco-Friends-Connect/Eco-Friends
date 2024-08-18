@@ -10,48 +10,76 @@ $light-greenhover: rgba(138, 154, 74, 0.5);
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 100vh;
-    position: relative;
+    height: 130vh;
+    position: absolute;
 
+  }
+
+  .buttonContainer {
+    padding-top: 400px;  
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-top: 180px;
+    gap: 400px;
+  }
+
+  .buttonColContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:first baseline;
+    gap: 500px;
   }
   
   .ConnectTree, .ChatTree, .Badges {
-    position: absolute;
     transform: translate(-50%, -50%);
     cursor: pointer;
-    opacity: 0; 
+    opacity: 1; //TODO: change to 0
     transition: opacity 0.2s ease-in-out;
+    border-radius: 25px;
+    
   }
 
   .groovyWalk {
+    flex: none;
     position: absolute;
     top: calc(50% - 50px);
-    left: calc(50% - 200px);
+    left: calc(50% - 500px);
     width: 400px;
     height: 400px;
   }
   
   .ConnectTree {
-    top: 365px;
-    left: 230px;
+    padding-top: 500px;
+    // top: 365px;
+    // left: 230px;
+
     background-color: $light-bluehover;
-    width: 450px;
-    height: 160px;
+    width: 1000px;
+    height: 260px;
   }
   
   .ChatTree {
-    top: 750px;
-    left: 1200px;
+    // top: 750px;
+    // left: 1200px;
     width: 400px;
     height: 250px;
     background-color: $light-greenhover;
   }
-  
+  .badgeAnimation {
+    // top: 130px;
+    // left: 1280px;
+    width: 300px;
+    height: 300px;
+    // padding-right: 250px;
+
+  }
   .Badges {
-    top: 130px;
-    left: 1280px;
-    width: 200px;
-    height: 200px;
+    // top: 130px;
+    // left: 1280px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     background-color: $whitehover;
   }
