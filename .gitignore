@@ -29,7 +29,6 @@ package-lock.json
 /backend/.env
 .env
 .env.production
-/backend/.env.production
 
 # Ignore all .module.scss.map files
 **/*.module.css.map
